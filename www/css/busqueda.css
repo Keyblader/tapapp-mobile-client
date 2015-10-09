@@ -1,0 +1,8 @@
+.busqueda h3 {
+    margin-top: 0;
+    min-height: 2em;
+    max-height: none;
+    padding: 0.5em 1em 0.3em 1em;
+    font-family: 'Bad Script', cursive;
+    font-size: 1.8em;
+}

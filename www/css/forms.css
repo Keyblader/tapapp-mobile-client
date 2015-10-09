@@ -1,0 +1,19 @@
+/* LOGIN */
+.login, .add {
+    padding: 1em 2em;
+    background-color: white;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+.login input, .add input, .add button { width: 100%; }
+.add textarea {
+    width: 100%;
+    height: 6em;
+}
+.login h2, .add h2 {
+    font-family: 'Bad Script', cursive;
+    font-size: 1.8em;
+}
+

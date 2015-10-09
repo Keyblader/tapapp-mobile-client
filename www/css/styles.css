@@ -1,0 +1,137 @@
+body {
+    background: url("../img/ceramic_back.jpg") ;
+    padding-bottom: 0;
+}
+
+@media (min-width: 992px) {
+    body {
+        font-size: 1.8em;
+    }
+}
+
+li {
+    list-style: none;
+}
+article {
+    -webkit-box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.63);
+    box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.63);
+}
+.img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ffffff;
+}
+.select {
+    font-size: 1.4em;
+    width: 8.9em;
+}
+
+/* BARS */
+#header, #footer {
+    width: 100%;
+    background-color: #ffffff;
+    margin: 0;
+}
+#header, #footer {
+    -webkit-box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.63);
+    box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.63);
+}
+
+
+/* CONTENT */
+article {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+#content {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#container {
+    min-height: 40em;
+}
+
+/* TOP */
+#top {
+    float: left;
+}
+#top h1 {
+    margin-top: 0.3em;
+}
+#menu-button {
+    display: block;
+    float: left;
+    height: 3.4em;
+    width: 3.4em;
+    margin: 0.4em 0.8em 0.4em 0;
+    padding: 0.45em 0.05em;
+}
+.icon-bar {
+    display: block;
+    width: 2em;
+    height: 0.2em;
+    border-radius: 1px;
+    margin: 0.45em 0.58em;
+    background-color: grey;
+}
+
+@media (min-width: 992px)
+    {
+    #top h1 {
+        margin-top: 0.4em;
+    }
+    #menu-button {
+        margin: 0.8em 0.8em 0.8em 0;
+    }
+}
+
+
+/* BOTONES FLOTANTES */
+.flotante {
+    display: scroll;
+    position: fixed;
+    bottom: 1.5em;
+    right: 1em;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+.floating-button {
+    background-repeat: no-repeat;
+    background-size: 4em;
+    background-position: center;
+    background-color: #ffffff;
+    height: 4em;
+    width: 5em;
+    -webkit-box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.8);
+    -moz-box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.8);
+    box-shadow: 0px 1px 20px -1px rgba(0,0,0,0.8);
+    border-radius: 200px 200px 200px 200px;
+    -moz-border-radius: 200px 200px 200px 200px;
+    -webkit-border-radius: 200px 200px 200px 200px;
+    border: 0px solid #000000;
+}
+@media (min-width: 992px)
+    {
+        .flotante{
+            right: 25%;
+        }
+    }
+
+
+/*  */
+#rango {
+  width: 12.4em;
+  height: 2em;
+}

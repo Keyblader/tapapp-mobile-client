@@ -1,18 +1,59 @@
 <!DOCTYPE html>
-<html ng-app>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+
+<!doctype html>
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html ng-app>
+<!--<![endif]-->
+    <head>  
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TapApp</title>
+           
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <!--<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>-->
+        <!-- CSS Bootstrap -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <!-- JS Bootstrap -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/npm.js""></script>
+        <!-- Examples??? -->
+        <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
+
+        <!-- Autocomplete http://jsbin.com/cunuxaqe/2/edit -->
+        <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+        
+        
+        <!-- Fin de: Autocomplete http://jsbin.com/cunuxaqe/2/edit -->
+
+        <!-- NOTA: Es importante que estos estén al final para poder parchera los estilos y js de otros ficheros
+        <!-- CSS Local -->
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/components.css" />
+        <!-- JS Local -->
+        <script type="text/javascript" src="js/scripts.js"></script>
+
+        <!-- FONTS -->
+        <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        
+        
+        <link rel="stylesheet" href="css/inicio.css"/>
+        <link rel="stylesheet" href="css/busqueda.css"/>
+        
+            <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-	<!-- angular js -->
+    <!-- angular js -->
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
     
     <!-- ionic/angularjs js -->
@@ -23,16 +64,198 @@
 
     <!-- your app's js -->
     <script src="js/rest.js"></script>
-  </head>
+        
 
-	<body>
-		<div ng-controller="Hello">
-			<div ng-repeat="greet in greeting">
-				<p>The ID is {{greet.id}}</p>
-				<p>The content is {{greet.nombre}}</p>
-			</div>
-			
-		</div>	
-	</body>
+    </head>
 
+
+
+    <body>    
+
+    <!-- HEADER -->
+    <header id="header" class="container">
+     
+        <a id="menu-button" class="toggle-nav btn btn-default" href="#" role="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+        <div id="top" class="col-md-6 col-md-offset-3">
+            <!--<img src="">-->
+            <h1>TapApp</h1>
+        </div>
+
+       
+    </header>
+
+    <!-- MENU PARTE 1-->
+    <div id="site-wrapper">
+        <div id="site-canvas">
+            <div id="site-menu">
+                <!--<a href="#" class="toggle-nav" style="color: pink; font-size: 20px;"><i class="fa fa-times"></i></a>-->
+
+                
+
+                    <ul>
+                        <li><a href="/"><h2>Inicio</h2></a></li>
+                        <li><a href="/tapas/anyadirBar"><h2>Añadir Bar</h2></a></li>
+                        <li><a href="/tapas/seleccionarBar/"><h2>Añadir Tapa</h2></a></li>
+                        <li><a href="/tapas/mostrarFavoritos"><h2>Mostrar Favoritos</h2></a></li>
+
+
+                        <!-- BUSQUEDAS -->
+                        <li>
+                            <form name="searchTapa" action="/tapas/buscarTapa/" method="GET">
+                                <div id="project-label"><h2>Buscar Tapa:</h2></div>
+                                <input type="text" name="q" id="tagsTapas" autocomplete="off">
+                            </form>
+                        </li>
+
+                        <li>
+                            <form name="searchBar" action="/tapas/buscarBar/" method="GET">
+                                <div id="project-label"><h2>Buscar Bar:</h2></div>
+                                <input type="text" name="q" id="tagsBares" autocomplete="off">
+                            </form>
+                        </li>
+                        
+                        <!-- RANGO DISTANCIA -->
+                        <li><h2>Rango ({{ usuario.rangoDistancia }}m)</h2></li>
+
+                        <form id="form_rango" action="/tapas/cambiarRangoDistancia/" method="post">
+                            <select id="rango" name="rango" onchange="this.form.submit()">
+                                <!-- 50 metros -->
+                                {% if usuario.rangoDistancia == 50%}
+                                    <option value="50" name="rango" selected="selected">50 Metros</option>
+                                {% else %}
+                                    <option value="50" name="rango">50 Metros</option>
+                                {% endif %}
+                                <!-- 100 metros -->
+                                {% if usuario.rangoDistancia == 100%}
+                                    <option value="100" name="rango" selected="selected">100 Metros</option>
+                                {% else %}
+                                    <option value="100" name="rango">100 Metros</option>
+                                {% endif %}
+                                <!-- 500 metros -->
+                                {% if usuario.rangoDistancia == 500%}
+                                    <option value="500" name="rango" selected="selected">500 Metros</option>
+                                {% else %}
+                                    <option value="500" name="rango">500 Metros</option>
+                                {% endif %}
+                                <!-- 1 kilómetro -->
+                                {% if usuario.rangoDistancia == 1000 %}
+                                    <option value="1000" name="rango" selected="selected">1 kilómetro</option>
+                                {% else %}
+                                    <option value="1000" name="rango">1 kilómetro</option>
+                                {% endif %}
+                                <!-- local -->
+                                {% if usuario.rangoDistancia == 15000 %}
+                                    <option value="15000" name="rango" selected="selected">Local</option>
+                                {% else %}
+                                    <option value="15000" name="rango">Local</option>
+                                {% endif %}
+                            </select>
+                            <input type="submit" value="Cambiar" style="visibility: hidden">
+                        </form>
+
+                        <!-- CONTROL DE USUARIO -->
+                        
+                            <li><a href="{% url 'usuarios:register' %}"><h2>Registrarse</h2></a></li>
+                        
+                            <li><a href="{% url 'usuarios:logout' %}"><h2>Salir</h2></a></li>
+                        
+
+                    </ul>
+                  
+                
+
+            </div>
+    <!-- /MENU PARTE 1 -->
+
+    <div id="container" class="container">
+
+        <!-- CONTENT -->
+        <div id="content" class="container col-md-6 col-md-offset-3">
+           
+                    <article class="resumen busqueda container col-md-12">
+            <p class="container">
+                <h3>Favoritos:</h3>
+            </p>
+        </article>
+        
+                   
+            
+         
+            
+            
+            
+            
+                <div ng-controller="Hello">
+                <div ng-repeat="greet in greeting">
+                
+                <article class="resumen container col-md-12">
+                
+                                <div class="img col-xs-5 col-md-4" style="background-image: url('http://kaerzas.pythonanywhere.com{{greet.imagen}}');">
+                                <p class="favorito pull-right"></p>
+                            </div>
+                            
+                <div class="texto col-xs-7 col-md-8">
+                 <p class="puntuacion pull-right">3</p>
+                 
+                             <h3>{{ greet.nombre}}</h3>
+                             
+                             
+
+                             
+                             
+
+                            <small><a>{{ greet.bar.nombre}}</a></small>
+                            <div class="descripcion"><p>{{ greet.descripcion}}</p></div>
+
+                
+                </div>
+                            
+                
+                
+                </article>
+                </div>
+            
+                </div>     
+            
+            
+            
+            
+           
+        </div>
+
+    </div>
+
+    <!-- MENU PARTE 2 -->
+        </div>
+    </div>
+    <!-- /MENU PARTE 2 -->
+
+    <!-- FOOTER -->
+    <!--<footer id="footer" class="container">
+        <div id="bot" class="col-md-6 col-md-offset-3">
+        
+            <p>Info</p>
+        
+        </div>
+    </footer>-->
+
+
+
+        <script type="text/javascript">
+        $(function() {
+    $(window).resize(function() {
+        $('#site-menu').height($('#site-canvas').height());
+    });
+    $(window).resize();
+});
+        </script>
+
+
+
+    </body>
 </html>

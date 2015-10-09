@@ -1,0 +1,217 @@
+/* DETALLE TAPA */
+.detalle {
+    padding: 0;
+}
+#fotos-tapa {
+    background-position: top;
+    width: 100%;
+    float: left;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+#detalle {
+    width: 100%;
+    margin-top: 0em;
+    background-color: #ffffff;
+    opacity: 0.9;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+#detalle #descripcion {
+    border-top: solid 1px darkgrey;
+}
+.favorito {
+    margin: 0em -1em 0 0;
+    padding: 1.2em 1em;
+    height: 3.5em;
+    width: 3.5em;
+    background-image: url("../img/star.png");
+    background-size: 3.5em;
+    color: #ffffff;
+}
+.detalle .favorito {
+    height: 6em;
+    width: 6em;
+    background-image: url("../img/star.png");
+    background-size: 6em;
+    position: absolute;
+    z-index: 99;
+    right: 1em;
+}
+.detalle .favorito-no {
+    height: 6em;
+    width: 6em;
+    background-image: url("../img/star-void.png");
+    background-size: 6em;
+    position: absolute;
+    z-index: 99;
+    right: 0;
+}
+#detalle .puntuacion {
+    margin: 0.2em 0 0 -2.8em ;
+    padding: 0.5em 0.5em;
+    background-color: dodgerblue;
+    background-size: 3.5em;
+    color: #ffffff;
+    font-size: 2em;
+    border-radius: 400px 400px 400px 400px;
+    -moz-border-radius: 400px 400px 400px 400px;
+    -webkit-border-radius: 400px 400px 400px 400px;
+    border: 0px solid #000000;
+}
+#detalle p, #detalle h2 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+#texto h2 {
+    max-height: 1.2em;
+    overflow: hidden;
+}
+#texto a small {
+    display: block;
+    margin-bottom: 0;
+    max-height: 1.4em;
+    overflow: hidden;
+}
+#texto .descripcion-tapa {
+    margin-top: 1em;
+    margin-left: -32%;
+}
+
+#opciones, #opciones * {
+    padding: 0;
+}
+#opciones .col-xs-12 {
+    margin-top: 1em;
+}
+
+/* ALTA RESOLUCIÓN */
+@media (min-width: 992px) {
+    #detalle .puntuacion {
+        margin: 0.2em 0 0 -3.2em ;
+    }
+}
+
+#bar {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+}
+#foto-bar {
+    height: 400px;
+    background-size: cover;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+
+/* AÑADIR FOTO Y COMENTARIO*/
+#add-foto {
+    background-image: url("../img/add-foto.png");
+}
+#add-comment {
+    background-image: url("../img/add-comment.png");
+}
+#add-foto-input {
+    width: 3em;
+    opacity: 0;
+}
+/* AÑADIR TAPA */
+#add-tapa {
+    background-image: url("../img/add-tapa.png");
+}
+
+/* SLIDER */
+#slider {
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+#slider img {
+    width: 100%;
+}
+#slider .img {
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+
+/* MAPA */
+#mapa {
+    height: 20em;
+    width: 100%;
+}
+#button-map {
+    float: right;
+    margin: 0 1em 0 0;
+    font-family: 'Bad Script', cursive;
+    font-size: 1.4em;
+}
+
+/* PUNTUAR EN ESTRELLAS */
+#puntuacion {
+    margin-top: 1em;
+}
+.starRating {
+    margin-left: 0.5em;
+    margin: 0 auto;
+}
+.starRating:not(old) {
+    display: inline-block;
+    width: 20em;
+    height: 4em;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+.starRating:not(old) > input {
+    margin-right: -100%;
+    opacity: 0;
+}
+.starRating:not(old) > label {
+    display: block;
+    float: right;
+    position: relative;
+    background: url('../img/star-void.png');
+    background-size: contain;
+}
+.starRating:not(old) > label:before {
+    content: '';
+    display: block;
+    width: 4em;
+    height: 4em;
+    background: url('../img/star.png');
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+.starRating:not(old) > label:hover:before,
+.starRating:not(old) > label:hover ~ label:before,
+.starRating:not(:hover) > :checked ~ label:before {
+    opacity: 1;
+}
+
+/* COMENTARIOS */
+#comentarios h3{
+    font-family: 'Bad Script', cursive;
+    font-size: 1.4em;
+    margin-top: 0.5em;
+}
+.texto-comentario {
+    font-family: 'Slabo 27px', serif;
+}
+.autor-comentario {
+    margin-bottom: 0;
+    color: cornflowerblue;
+}
+#comment {
+    width: 100%;
+}
