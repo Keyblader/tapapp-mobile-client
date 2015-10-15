@@ -1,0 +1,80 @@
+
+    <!-- Autocomplete http://jsbin.com/cunuxaqe/2/edit -->
+    <!--
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/forms.css" %}"/>
+
+    <script type="text/javascript">
+        //Autocompletar Tapas
+        $(function autocompletarBar2() {
+
+            var $project = $('#tagsBares2');
+            var projects = [
+
+                {% for bar in listadoBares %}
+                    {
+                        value: '{{bar.nombre}}',
+                        label: '{{bar.nombre}}',
+                        id: '{{bar.id}}',
+                        icon: '{{bar.imagen.url}}'
+                    },
+                {% endfor %}
+            ];
+
+            $project.autocomplete({
+                minLength: 0,
+                source: projects,
+                focus: function (event, ui) {
+                    $project.val(ui.item.label);
+                    return false;
+                },
+                open: function (event, ui) {
+                    $('.ui-autocomplete').append('<li><a href="/tapas/anyadirBarPorTapa/">Añadir Nuevo Bar</a></li>'); //See all results
+                }
+            });
+
+            $project.data("ui-autocomplete")._renderItem = function (ul, item) {
+
+                var $li = $('<li>'), $img = $('<img height="42" width="42">');
+
+
+                $img.attr({
+                    src: item.icon,
+                    alt: item.label
+                });
+
+
+                $li.attr('data-value', item.label);
+                $li.append('<a href=/tapas/anyadirTapa/' + item.id + '>');
+                $li.find('a').append($img).append(' ' + item.label);
+
+                return $li.appendTo(ul);
+            };
+        })(jQuery);
+    </script>
+-->
+
+<ion-view style="" title="Pagina 1">
+    <ion-content class="has-header" padding="true">
+
+    <article id="content" class="add container col-md-12">
+
+        <div id="seleccionar-bar" class="add">
+
+            <div id="project-label"><h2>Seleccionar Bar</h2></div>
+            <p><input name='nombre_bar' type="text" id="tagsBares2"></p>
+            <a href="#/anyadirBarPorTapa">
+                <p><button name="button">Añadir Bar</button></p>
+            </a>
+            </form></li>
+
+        </div>
+
+    </article>
+
+    </ion-content>
+</ion-view> 
+
+
+
