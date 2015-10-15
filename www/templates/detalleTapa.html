@@ -1,12 +1,44 @@
 <ion-view style="" title="Pagina 1">
     <ion-content class="has-header" padding="true">
- <div ng-model="greeting.id">
- </div>
 
-ee3e33
+                    <article class="resumen busqueda container col-md-12">
+            <div class="title">
+                <h2>Las mejores tapas</h2>
+            <p class="title">
+                A menos de 1 km de distancia
+            </p>
+            </div>
+        </article>
+    
+    	     
+                
+                <article class="resumen container col-md-12">
+                
+                                <div class="img col-xs-5 col-md-4" style="background-image: url('http://kaerzas.pythonanywhere.com{{greeting.imagen}}');">
+                                <p class="favorito pull-right"></p>
 
+                            </div>
+                <div class="texto col-xs-7 col-md-8">
+                 <p class="puntuacion pull-right">{{greeting.puntuacionMedia}}</p>
+                 
+                             <h3>{{ greeting.nombre}}</h3>
+                             
+                             
 
-{{greeting.id}}
+                             
+                             
 
+                            <small><a>{{ greeting.bar.nombre}}</a></small>
+                            <div class="descripcion"><p>{{ greeting.descripcion}}</p></div>
+
+                
+                </div>
+                            
+                
+                
+                </article>
+                
+            
+                </div>   
     </ion-content>
-</ion-view> 
+</ion-view>

@@ -26,10 +26,14 @@ angular.module('app.controllers', [])
 
 //})
 
-.controller('detalleTapa', function($scope, $http) {
-	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/1/').
+.controller('detalleTapaCtrl', function($scope, $http, $stateParams) {
+
+	var v= $stateParams.id;
+	//alert(v);
+	var url="http://kaerzas.pythonanywhere.com/tapas/detalleTapa/";
+	url=url+v+"/";
+	$http.get(url).
     success(function(data) {
         $scope.greeting = data;
     })
-}) 
-
+})
