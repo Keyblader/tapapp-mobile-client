@@ -1,23 +1,41 @@
-<ion-view style="" title="Pagina 1">
+<ion-view style="" title="Anyadir Bar">
     <ion-content class="has-header" padding="true">
-
-
-
-
 
     <article id="content" class="add container col-md-12">
 
         <div id="add-bar" class="add">
 
             <h2>Añadir Bar</h2>
-            <div id="mapa"></div>
-            <form id="form" method="post" enctype='multipart/form-data' action=''>
-                {{ form.as_p }}
-                <p>
-                    <input type="submit" value="Añadir Bar">
-                </p>
-            </form>
-
+            <form name="barForm" novalidate>
+			  <label for="nombre">Nombre</label><br />
+			  <input name="name" type="text" ng-model="bar.nombre" ng-model-options="{ updateOn: 'blur' }" required />
+			  <span class="messages" ng-show="barForm.$submitted || barForm.nombre.$touched">
+			<span ng-show="barForm.name.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  <br />
+			  <label for="descripcion">Descripción</label><br />
+			  <textarea name="descripcion" rows="2" cols="1" ng-model="bar.descripcion" ng-model-options="{ updateOn: 'blur' }" required /></textarea>
+			  <span class="messages" ng-show="barForm.$submitted || barForm.descripcion.$touched">
+			<span ng-show="barForm.descripcion.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  <br />
+			  <label for="longitud">Longitud</label><br />
+			  <input name="longitud" type="number" ng-model="bar.longitud" ng-model-options="{ updateOn: 'blur' }" required />
+			  <span class="messages" ng-show="barForm.$submitted || barForm.longitud.$touched">
+			<span ng-show="barForm.longitud.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  <br />
+			  <label for="Latitud">Latitud</label><br />
+			  <input name="latitud" type="number" ng-model="bar.latitud" ng-model-options="{ updateOn: 'blur' }" required />
+			  <span class="messages" ng-show="barForm.$submitted || barForm.latitud.$touched">
+			<span ng-show="barForm.latitud.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  
+			  <br /><br />
+			  <input type="reset" ng-click="reset(barForm)" value="Limpiar" />
+			  <input type="submit" ng-click="guardar(bar)" value="Guardar" ng-disabled="barForm.$invalid" />
+		    </form>
+    		<!-- <pre>bar = {{bar | json}}</pre> -->
         </div>
 
     </article>

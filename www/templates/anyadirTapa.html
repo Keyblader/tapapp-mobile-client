@@ -1,0 +1,40 @@
+<ion-view style="" title="Anyadir Tapa">
+    <ion-content class="has-header" padding="true">
+
+    <article id="content" class="add container col-md-12">
+
+        <div id="add-tapa" class="add">
+
+            <h2>Añadir Tapa</h2>
+            <form name="tapaForm" novalidate>
+			  <label for="nombre">Nombre</label><br />
+			  <input name="name" type="text" ng-model="tapa.nombre" ng-model-options="{ updateOn: 'blur' }" required />
+			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.nombre.$touched">
+			<span ng-show="tapaForm.name.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  <br />
+			  <label for="descripcion">Descripción</label><br />
+			  <textarea name="descripcion" rows="2" cols="1" ng-model="tapa.descripcion" ng-model-options="{ updateOn: 'blur' }" required /></textarea>
+			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.descripcion.$touched">
+			<span ng-show="tapaForm.descripcion.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  <br />
+			  <label for="bar">Bar</label><br />
+			  <input name="bar" type="number" ng-model="tapa.bar" ng-model-options="{ updateOn: 'blur' }" required />
+			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.bar.$touched">
+			<span ng-show="tapaForm.bar.$error.required">El campo es obligatorio.</span>
+			  </span>
+			  
+			  <br /><br />
+			  <input type="reset" ng-click="reset(tapaForm)" value="Limpiar" />
+			  <input type="submit" ng-click="guardar(tapa)" value="Guardar" ng-disabled="tapaForm.$invalid" />
+		    </form>
+    		<!-- <pre>tapa = {{tapa | json}}</pre> -->
+        </div>
+
+    </article>
+		
+    </ion-content>
+</ion-view>	
+	
+

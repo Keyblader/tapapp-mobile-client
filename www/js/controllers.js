@@ -10,8 +10,51 @@ angular.module('app.controllers', [])
     })
 })
  
-.controller('anyadirBarCtrl', function($scope) {
-
+.controller('anyadirBarCtrl', function($scope, $http) {
+		  
+	  $scope.update = function() {
+	    console.log($scope.bar);
+	  };
+	
+	  $scope.reset = function(barForm) {
+	    $scope.bar = {};
+	  };
+	
+	  $scope.guardar= function(bar) {
+		  
+		  var b = {
+				"nombre": bar.nombre,
+			    "descripcion": bar.descripcion,
+			    "longitud": bar.longitud,
+			    "latitud": bar.latitud,
+			    "fechaSubida": new Date(),//Fecha actual
+			    "usuarioRegistro": 2//Prueba
+		  }
+		  $http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirBar/', b);
+	  };
+})
+.controller('anyadirTapaCtrl', function($scope, $http) {
+		  
+	  $scope.update = function() {
+	    console.log($scope.tapa);
+	  };
+	
+	  $scope.reset = function(TapaForm) {
+	    $scope.tapa = {};
+	  };
+	
+	  $scope.guardar= function(tapa) {
+		  
+		  var t = {
+				"nombre": tapa.nombre,
+				"imagen": null,
+			    "descripcion": tapa.descripcion,
+			    "fechaSubida": new Date(),//Fecha actual
+			    "bar": tapa.bar,
+			    "usuarioRegistro": 2//Prueba
+		  }
+		  $http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirTapa/', t);
+	  };
 })  
 
 .controller('seleccionarBarCtrl', function($scope) {

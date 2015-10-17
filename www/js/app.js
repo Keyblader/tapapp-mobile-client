@@ -43,8 +43,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.services', 'app.directiv
       templateUrl: 'templates/anyadirBar.html',
       controller: 'anyadirBarCtrl'
     })  
-    
-        .state('seleccionarBar', {
+    .state('anyadirTapa', {
+      url: '/anyadirTapa',
+      templateUrl: 'templates/anyadirTapa.html',
+      controller: 'anyadirTapaCtrl'
+    })  
+      .state('seleccionarBar', {
       url: '/seleccionarBar',
       templateUrl: 'templates/seleccionarBar.html',
       controller: 'seleccionarBarCtrl'
