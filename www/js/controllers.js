@@ -64,6 +64,21 @@ angular.module('starter.controllers', [])
 })
  
 .controller('anyadirBarCtrl', function($scope, $http) {
+
+		var onSuccess = function(position) {
+				$scope.latitude=position.coords.latitude;
+				$scope.longitude=position.coords.longitude;
+
+    	};
+
+// onError Callback receives a PositionError object
+//
+		function onError(error) {
+    		alert('code: '    + error.code    + '\n' +
+          		'message: ' + error.message + '\n');
+		};
+
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);		
 		  
 	  $scope.update = function() {
 	    console.log($scope.bar);
@@ -73,13 +88,14 @@ angular.module('starter.controllers', [])
 	    $scope.bar = {};
 	  };
 	
-	  $scope.guardar= function(bar) {
-		  
+	  $scope.guardar= function (bar) {
+
+	  
 		  var b = {
 				"nombre": bar.nombre,
 			    "descripcion": bar.descripcion,
-			    "longitud": bar.longitud,
-			    "latitud": bar.latitud,
+			    "longitud": $scope.longitude,
+			    "latitud": $scope.latitude,
 			    "fechaSubida": new Date(),//Fecha actual
 			    "usuarioRegistro": 2//Prueba
 		  }
