@@ -120,9 +120,9 @@
     width: 3em;
     opacity: 0;
 }
-/* AÃ‘ADIR TAPA */
+/* AÑADIR TAPA */
 #add-tapa {
-    background-image: url("../img/add-tapa.png");
+    /*background-image: url("../img/add-tapa.png");*/
 }
 
 /* SLIDER */
