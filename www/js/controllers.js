@@ -57,10 +57,24 @@ angular.module('starter.controllers', [])
 
 // PROPIOS //
 .controller('inicioCtrl', function($scope, $http) {
-	$http.get('http://kaerzas.pythonanywhere.com/tapas/listaTapas/').
-    success(function(data) {
+
+	$http({method: 'GET', url: 'http://localhost:8001/tapas/listaTapas/', headers: {
+	    'Authorization': 'Token 17fc7b5dae4f17dd2dfc6d9218586422cc8a79a8'}
+	})
+    .success(function(data) {
         $scope.greeting = data;
     })
+    /*
+	var data = {"username": "rafa", "password": "asd"};
+	
+	$http.post('http://localhost:8001/api-token-auth/', {
+        'username':'rafa',
+        'password':'asd',
+    })
+        .success(function(data) {
+        $scope.greeting = data;
+    })
+    */
 })
  
 .controller('anyadirBarCtrl', function($scope, $http) {
@@ -99,7 +113,7 @@ angular.module('starter.controllers', [])
 			    "fechaSubida": new Date(),//Fecha actual
 			    "usuarioRegistro": 2//Prueba
 		  }
-		  $http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirBar/', b);
+		  $http.post('http://localhost:8001/tapas/anyadirBar/', b);
 	  };
 })
 .controller('anyadirTapaCtrl', function($scope, $http) {
@@ -122,7 +136,7 @@ angular.module('starter.controllers', [])
 			    "bar": tapa.bar,
 			    "usuarioRegistro": 2//Prueba
 		  }
-		  $http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirTapa/', t);
+		  $http.post('http://localhost:8001/tapas/anyadirTapa/', t);
 	  };
 })  
 
@@ -142,7 +156,7 @@ angular.module('starter.controllers', [])
 
 	var v= $stateParams.id;
 	//alert(v);
-	var url="http://kaerzas.pythonanywhere.com/tapas/detalleTapa/";
+	var url="http://localhost:8001/tapas/detalleTapa/";
 	url=url+v+"/";
 	$http.get(url).
     success(function(data) {

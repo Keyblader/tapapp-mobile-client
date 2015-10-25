@@ -22,7 +22,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+	
+  $httpProvider.defaults.useXDomain = true;
   $stateProvider
 
     .state('app', {
