@@ -58,8 +58,8 @@ angular.module('starter.controllers', [])
 // PROPIOS //
 .controller('inicioCtrl', function($scope, $http) {
 
-	$http({method: 'GET', url: 'http://localhost:8001/tapas/listaTapas/', headers: {
-	    'Authorization': 'Token 17fc7b5dae4f17dd2dfc6d9218586422cc8a79a8'}
+	$http({method: 'GET', url: 'http://localhost:8000/tapas/listaTapas/', headers: {
+	    'Authorization': 'Token 7136e60e860a9a221ff81df1e75eb582c47b5c24'}
 	})
     .success(function(data) {
         $scope.greeting = data.serializer;
@@ -81,9 +81,31 @@ angular.module('starter.controllers', [])
  
 .controller('anyadirBarCtrl', function($scope, $http) {
 
+
+		//función que se ejecuta al obtener la posición con getCurrentPosition si no hay error
 		var onSuccess = function(position) {
 				$scope.latitude=position.coords.latitude;
 				$scope.longitude=position.coords.longitude;
+
+				//para cargar los parametros del mapa
+				var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				var mapSettings = {
+					center: latlng,
+					zoom: 15,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+
+				//para crear el mapa y dibujarlo en el div
+				var map = new google.maps.Map(document.getElementById('mapa'), mapSettings);
+
+				var marker = new google.maps.Marker({
+					position: latlng,
+					map: map,
+					draggable: false,
+					title: 'Arrastrame'
+				});
+
+
 
     	};
 
@@ -115,7 +137,7 @@ angular.module('starter.controllers', [])
 			    "fechaSubida": new Date(),//Fecha actual
 			    "usuarioRegistro": 2//Prueba
 		  }
-		  $http.post('http://localhost:8001/tapas/anyadirBar/', b);
+		  $http.post('http://localhost:8000/tapas/anyadirBar/', b);
 	  };
 })
 .controller('anyadirTapaCtrl', function($scope, $http) {
@@ -138,7 +160,7 @@ angular.module('starter.controllers', [])
 			    "bar": tapa.bar,
 			    "usuarioRegistro": 2//Prueba
 		  }
-		  $http.post('http://localhost:8001/tapas/anyadirTapa/', t);
+		  $http.post('http://localhost:8000/tapas/anyadirTapa/', t);
 	  };
 })  
 
@@ -158,7 +180,7 @@ angular.module('starter.controllers', [])
 
 	var v= $stateParams.id;
 	//alert(v);
-	var url="http://localhost:8001/tapas/detalleTapa/";
+	var url="http://localhost:8000/tapas/detalleTapa/";
 	url=url+v+"/";
 	$http.get(url).
     success(function(data) {
