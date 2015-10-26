@@ -62,19 +62,21 @@ angular.module('starter.controllers', [])
 	    'Authorization': 'Token 17fc7b5dae4f17dd2dfc6d9218586422cc8a79a8'}
 	})
     .success(function(data) {
-        $scope.greeting = data;
-    })
-    /*
-	var data = {"username": "rafa", "password": "asd"};
+        $scope.greeting = data.serializer;
+        $scope.usuario = data.user;
+    })    
 	
-	$http.post('http://localhost:8001/api-token-auth/', {
-        'username':'rafa',
-        'password':'asd',
-    })
-        .success(function(data) {
+	/* Obtencion del token --> No va aqui pero no borrar porque nos hara falta
+	$http.post('http://localhost:8001/api-token-auth/', 'username=' + 'rafa' + '&password=' + 'asd', {
+		  headers: {
+		    'Content-Type': 'application/x-www-form-urlencoded'
+		  }
+	})
+    .success(function(data) {
         $scope.greeting = data;
     })
     */
+    
 })
  
 .controller('anyadirBarCtrl', function($scope, $http) {

@@ -1,47 +1,39 @@
-<ion-view style="" title="Inicio">
-    <ion-content class="has-header" padding="true">
+<ion-view style="" title="Inicio"> <ion-content
+	class="has-header" padding="true">
 
-                    <article class="resumen busqueda container col-md-12">
-            <div class="title">
-                <h2>Las mejores tapas</h2>
-            <p class="title">
-                A menos de 1 km de distancia
-            </p>
-            </div>
-        </article>
-    
-    
-    
-                <div ng-repeat="greet in greeting">
-                
-                <article class="resumen container col-md-12">
-                <a href="#/app//detalleTapa/{{greet.id}}">
-                                <div class="img col-xs-5 col-md-4" style="background-image: url('http://kaerzas.pythonanywhere.com{{greet.imagen}}');">
-                                <p class="favorito pull-right"></p>
+<article class="resumen busqueda container col-md-12">
+	<div class="title">
+		<h2>Las mejores tapas</h2>
+		<p class="title">A menos de 1 km de distancia</p>
+	</div>
+</article>
 
-                            </div>
-                </a>          
-                <div class="texto col-xs-7 col-md-8">
-                 <p class="puntuacion pull-right">{{greet.puntuacionMedia}}</p>
-                 
-                             <h3>{{ greet.nombre}}</h3>
-                             
-                             
+<h2>Token {{greeting.token}} --> Borrame cuando no haga falta</h2> 
+<h2>Bienvenido {{usuario}} --> Y a mi</h2>
 
-                             
-                             
+<div ng-repeat="greet in greeting">
 
-                            <small><a>{{ greet.bar.nombre}}</a></small>
-                            <div class="descripcion"><p>{{ greet.descripcion}}</p></div>
+	<article class="resumen container col-md-12">
+		<a href="#/app//detalleTapa/{{greet.id}}">
+			<div class="img col-xs-5 col-md-4"
+				style="background-image: url('http://localhost:8001{{greet.imagen}}');">
+				<p class="favorito pull-right"></p>
 
-                
-                </div>
-                            
-                
-                
-                </article>
-                
-            
-                </div>   
-    </ion-content>
-</ion-view>
+			</div>
+		</a>
+		<div class="texto col-xs-7 col-md-8">
+			<p class="puntuacion pull-right">{{greet.puntuacionMedia}}</p>
+
+			<h3>{{ greet.nombre}}</h3>
+
+			<small><a>{{ greet.bar.nombre}}</a></small>
+			<div class="descripcion">
+				<p>{{ greet.descripcion}}</p>
+			</div>
+
+		</div>
+
+	</article>
+
+</div>
+</ion-content> </ion-view>
