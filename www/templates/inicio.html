@@ -8,15 +8,14 @@
 	</div>
 </article>
 
-<h2>Token {{greeting.token}} --> Borrame cuando no haga falta</h2> 
-<h2>Bienvenido {{usuario}} --> Y a mi</h2>
+<h2>Token {{token}}</h2> 
 
 <div ng-repeat="greet in greeting">
 
 	<article class="resumen container col-md-12">
-		<a href="#/app//detalleTapa/{{greet.id}}">
+		<a href="#/app/detalleTapa/{{greet.id}}">
 			<div class="img col-xs-5 col-md-4"
-				style="background-image: url('http://localhost:8001{{greet.imagen}}');">
+				style="background-image: url('http://localhost:8000{{greet.imagen}}');">
 				<p class="favorito pull-right"></p>
 
 			</div>
@@ -30,9 +29,7 @@
 			<div class="descripcion">
 				<p>{{ greet.descripcion}}</p>
 			</div>
-
 		</div>
-
 	</article>
 
 </div>

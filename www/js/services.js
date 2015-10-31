@@ -1,10 +1,14 @@
-angular.module('app.services', [])
+angular.module('starter.services', [])
 
-.factory('BlankFactory', [function(){
+.service('sharedToken', function () {
+	var property = 'anonymous';
 
-}])
-
-.service('BlankService', [function(){
-
-}]);
-
+	return {
+		getProperty: function () {
+			return property;
+		},
+		setProperty: function(value) {
+			property = value;
+		}
+	};
+});

@@ -1,0 +1,32 @@
+<ion-view style="" title="Anyadir Usuario"> <ion-content
+	class="has-header" padding="true">
+
+<article id="content" class="add container col-md-12">
+
+	<div id="add-user" class="add">
+
+		<h2>Login</h2>
+		<form name="userForm" novalidate>
+			<label for="nombre">Nombre de usuario</label> <input name="name" type="text" ng-model="user.username"
+				ng-model-options="{ updateOn: 'blur' }" required /> <span
+				class="messages"
+				ng-show="userForm.$submitted || userForm.nombre.$touched"> <span
+				ng-show="userForm.name.$error.required">El campo es
+					obligatorio.</span>
+			</span> <br/> 
+			<label for="password">Contraseña</label><br />
+			<input name="pass" type="password" ng-model="user.password"
+				ng-model-options="{ updateOn: 'blur' }" required />
+			<span class="messages"
+				ng-show="userForm.$submitted || userForm.password.$touched">
+				<span ng-show="userForm.descripcion.$error.required">El campo
+					es obligatorio.</span>
+			</span> <br /> <input type="reset" ng-click="reset(userForm)"
+				value="Limpiar" /> <input type="submit" ng-click="guardar(user)"
+				value="Guardar" ng-disabled="userForm.$invalid" />
+		</form>
+	</div>
+
+</article>
+
+</ion-content> </ion-view>
