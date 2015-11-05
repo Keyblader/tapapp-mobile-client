@@ -5,16 +5,59 @@ angular.module('starter.controllers', [])
 })
 
 .controller('inicioCtrl', function($scope, $http, sharedToken) {
+
+	var onSuccess = function(position) {
+		$scope.latitude=position.coords.latitude;
+		
+		$scope.longitude=position.coords.longitude;
+
+		var p ={
+			"latitud":$scope.latitude,
+			"longitud":$scope.longitude,
+		}
+		
+
+		//$http.post('http://localhost:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		//	  headers: {
+		//	    'Content-Type': 'application/x-www-form-urlencoded'
+		//	  }
+		//})
+	    //.success(function(data) {
+	    //	sharedToken.setProperty(data.token);
+	        //console.log(sharedToken.getProperty())
+	    //	window.location = "#/app/inicio";
+	    //})
+		console.log(sharedToken.getProperty());
+
+		$http({method: 'GET', url: 'http://localhost:8000/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude},headers: {
+		'Authorization': 'Token ' + sharedToken.getProperty()}
+		})
+		.success(function(data) {
+			$scope.greeting = data.serializer;
+			$scope.usuario = data.user;
+		})
+
+
+
+
+
+
+
+	};
+
+//	onError Callback receives a PositionError object
+
+	function onError(error) {
+		alert('code: '    + error.code    + '\n' +
+				'message: ' + error.message + '\n');
+	};
+
+	navigator.geolocation.getCurrentPosition(onSuccess, onError);	
+	
 	
 	console.log(sharedToken.getProperty());
 	
-	$http({method: 'GET', url: 'http://localhost:8000/tapas/listaTapas/', headers: {
-		'Authorization': 'Token ' + sharedToken.getProperty()}
-	})
-	.success(function(data) {
-		$scope.greeting = data.serializer;
-		$scope.usuario = data.user;
-	})   
+ 
 
 
 })
