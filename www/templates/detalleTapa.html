@@ -1,44 +1,50 @@
-<ion-view style="" title="Detalla Tapa">
-    <ion-content class="has-header" padding="true">
+<ion-view style="" title="Detalla Tapa"> 
+<ion-content class="has-header" padding="true">
 
-                    <article class="resumen busqueda container col-md-12">
-            <div class="title">
-                <h2>Las mejores tapas</h2>
-            <p class="title">
-                A menos de 1 km de distancia
-            </p>
+<article class="detalle container col-md-12">
+
+	        <!-- SLIDER -->
+	        <!-- Create your slider and add images -->
+	        <div id="slider">
+	        	<div class="img" style="background-image: url('http://localhost:8000{{greeting.imagen}}');" alt=""></div>
+	        </div>
+	        <!-- /SLIDER -->
+
+
+			<div id="detalle" class="container col-xs-12">
+	            <div id="texto" class="col-xs-offset-3">
+	                <p class="puntuacion pull-left">{{ greeting.puntuacionMedia }}A</p>
+	                <h2>{{ greeting.nombre }}A</h2>
+	                <p><a href="/tapas/detalleBar/{{tapa.bar.pk}}"><small>{{ greeting.bar.nombre }}A</small></a></p>
+	                <p><small>{{ greeting.usuarioRegistro.username }}A</small></p>
+	                <p id="descripcion" class="descripcion-tapa">{{ greeting.descripcion }}A</p>
+	            </div>
+	        </div>
+	        
+	        
+	    <!-- Opciones -->
+	    <div id="opciones" class="container col-xs-12">
+		    <!-- Puntuar -->
+		    <!-- Mapa -->
+	    </div>
+	    
+	    <!-- Comentarios -->
+	    <div id="comentarios" class="container col-xs-12">
+    		<h3>Comentarios:</h3>
+        	<div ng-repeat="comentario in comentarios">
+	            <div class="comentario">
+	                <p class="autor-comentario">{{ greeting.usuario.username }}<small> ({{ greeting.fechaSubida }}):</small></p>
+	                <p class="texto-comentario">{{ greeting.descripcion }}</p>
+	            </div>
             </div>
-        </article>
+            <!-- Añadir -->
+		</div>
+
+
+</article>
     
-    	     
-                
-                <article class="resumen container col-md-12">
-                
-                                <div class="img col-xs-5 col-md-4" style="background-image: url('http://localhost:8000{{greeting.imagen}}');">
-                                <p class="favorito pull-right"></p>
-
-                            </div>
-                <div class="texto col-xs-7 col-md-8">
-                 <p class="puntuacion pull-right">{{greeting.puntuacionMedia}}</p>
-                 
-                             <h3>{{ greeting.nombre}}</h3>
-                             
-                             
-
-                             
-                             
-
-                            <small><a>{{ greeting.bar.nombre}}</a></small>
-                            <div class="descripcion"><p>{{ greeting.descripcion}}</p></div>
-
-                
-                </div>
-                            
-                
-                
-                </article>
-                
-            
-                </div>   
-    </ion-content>
+</ion-content> 
 </ion-view>
+
+
+
