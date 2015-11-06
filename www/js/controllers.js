@@ -166,7 +166,11 @@ angular.module('starter.controllers', [])
 		  }
 	})
 	.success(function(data) {
-		$scope.greeting = data;
+		$scope.tapa = data.tapa;
+		$scope.bar = data.bar;
+		$scope.comentarios = data.comentarios;
+		$scope.fotos = data.fotos;
+		$scope.usuarioRegistro = data.usuarioRegistro;
 	})
 })
 

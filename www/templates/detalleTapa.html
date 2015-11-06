@@ -12,16 +12,21 @@
 	        <div class="favorito-no pull-right"></div>
         </a>
 
-
+<!-- 	<h1>Nombre: {{tapa.nombre}}</h1>
+	 Si te fijas la imagen la recibe
+	<div class="img col-xs-5 col-md-4"
+		style="background-image: url('http://localhost:8000{{tapa.imagen}}');">
+		<p class="favorito pull-right"></p>
+	</div>  -->
 
         <!-- SLIDER -->
         <div id="slider">
         <!-- TODO: debe recibir un listado de imagenes -->
         <!-- imagen inicial -->
-        	<div class="img" style="background-image: url('http://localhost:8000{{greeting.imagen}}');" alt=""></div>
-       		<!-- ó -->
+        	<div class="img" style="background-image: url('http://localhost:8000{{tapa.imagen}}');" alt=""></div>
+       		<!--  -->
        		<!-- <img src="{{ tapa.imagen.url }}" alt=""> -->
-            <!-- listado con el resto de imágenes -->
+            <!-- listado con el resto de imï¿½genes -->
             <!-- <img data-src="{{ foto.imagen.url }}" alt=""> -->
         </div>
         <!-- /SLIDER -->
@@ -30,11 +35,11 @@
 
 		<div id="detalle" class="container col-xs-12">
             <div id="texto" class="col-xs-offset-3">
-                <p class="puntuacion pull-left">{{ greeting.puntuacionMedia }}</p>
-                <h2>{{ greeting.nombre }}</h2>
-                <p><a href="/tapas/detalleBar/{{tapa.bar.pk}}"><small>{{ greeting.bar.nombre }}?</small></a></p>
-                <p><small>{{ greeting.usuarioRegistro.username }}?</small></p>
-                <p id="descripcion" class="descripcion-tapa">{{ greeting.descripcion }}</p>
+                <p class="puntuacion pull-left">{{ tapa.puntuacionMedia }}</p>
+                <h2>{{ tapa.nombre }}</h2>
+                <p><a href="/tapas/detalleBar/{{tapa.bar.pk}}"><small>{{bar.nombre}}</small></a></p>
+                <p><small>{{ usuarioRegistro.username }}</small></p>
+                <p id="descripcion" class="descripcion-tapa">{{tapa.descripcion}}</p>
             </div>
         </div>
 	        
@@ -61,7 +66,7 @@
             </div>
 		    	
 		    <!-- MAPA -->
-		    <!-- TODO: explota, manda a login ¿? -->
+		    <!-- TODO: explota, manda a login ï¿½? -->
             <!-- Desplegar mapa -->
 	        <p class="col-xs-12">
 	            <a id="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
@@ -83,12 +88,13 @@
 	    <div id="comentarios" class="container col-xs-12">
     		<h3>Comentarios:</h3>
         	<div ng-repeat="comentario in comentarios">
+        	<p>Hay un comentario</p>
 	            <div class="comentario">
-	                <p class="autor-comentario">{{ greeting.usuario.username }}<small> ({{ greeting.fechaSubida }}):</small></p>
-	                <p class="texto-comentario">{{ greeting.descripcion }}</p>
+	                <p class="autor-comentario">{{ comentario.usuario.username }}<small> ({{ comentario.fechaSubida }}):</small></p>
+	                <p class="texto-comentario">{{ comentario.descripcion }}</p>
 	            </div>
             </div>
-            <!-- AÑADIR -->
+            <!-- Aï¿½ADIR -->
             <!-- TODO: corregir el formulario para que funcione -->
 			<form name="comentarioForm" novalidate>
 				<label for="descripcion">Nuevo: </label><br /> 
@@ -98,7 +104,7 @@
 				</span>
 				<input type="submit" ng-click="guardar(comentario)" value="Guardar" ng-disabled="comentarioForm.$invalid" />
 			</form>
-			<!-- /AÑADIR -->
+			<!-- /Aï¿½ADIR -->
 		</div>
 
 
