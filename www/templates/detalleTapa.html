@@ -3,32 +3,83 @@
 
 <article class="detalle container col-md-12">
 
-	        <!-- SLIDER -->
-	        <!-- Create your slider and add images -->
-	        <div id="slider">
-	        	<div class="img" style="background-image: url('http://localhost:8000{{greeting.imagen}}');" alt=""></div>
-	        </div>
-	        <!-- /SLIDER -->
+		
+		<!-- FAVORITO -->
+		<!-- TODO: Debe recibir si la tapa es favorita del usuario actual o no -->
+		<!-- TODO: Debe crearse la vista anyadirFavorito -->
+        <a href="/tapas/anyadirFavorito/{{ tapa.id }}/">
+	        <div class="favorito pull-right"></div>
+	        <div class="favorito-no pull-right"></div>
+        </a>
 
 
-			<div id="detalle" class="container col-xs-12">
-	            <div id="texto" class="col-xs-offset-3">
-	                <p class="puntuacion pull-left">{{ greeting.puntuacionMedia }}A</p>
-	                <h2>{{ greeting.nombre }}A</h2>
-	                <p><a href="/tapas/detalleBar/{{tapa.bar.pk}}"><small>{{ greeting.bar.nombre }}A</small></a></p>
-	                <p><small>{{ greeting.usuarioRegistro.username }}A</small></p>
-	                <p id="descripcion" class="descripcion-tapa">{{ greeting.descripcion }}A</p>
-	            </div>
-	        </div>
+
+        <!-- SLIDER -->
+        <div id="slider">
+        <!-- TODO: debe recibir un listado de imagenes -->
+        <!-- imagen inicial -->
+        	<div class="img" style="background-image: url('http://localhost:8000{{greeting.imagen}}');" alt=""></div>
+       		<!-- ó -->
+       		<!-- <img src="{{ tapa.imagen.url }}" alt=""> -->
+            <!-- listado con el resto de imágenes -->
+            <!-- <img data-src="{{ foto.imagen.url }}" alt=""> -->
+        </div>
+        <!-- /SLIDER -->
+
+
+
+		<div id="detalle" class="container col-xs-12">
+            <div id="texto" class="col-xs-offset-3">
+                <p class="puntuacion pull-left">{{ greeting.puntuacionMedia }}</p>
+                <h2>{{ greeting.nombre }}</h2>
+                <p><a href="/tapas/detalleBar/{{tapa.bar.pk}}"><small>{{ greeting.bar.nombre }}?</small></a></p>
+                <p><small>{{ greeting.usuarioRegistro.username }}?</small></p>
+                <p id="descripcion" class="descripcion-tapa">{{ greeting.descripcion }}</p>
+            </div>
+        </div>
 	        
 	        
-	    <!-- Opciones -->
+	        
+	    <!-- OPCIONES -->
 	    <div id="opciones" class="container col-xs-12">
-		    <!-- Puntuar -->
-		    <!-- Mapa -->
-	    </div>
 	    
-	    <!-- Comentarios -->
+		    <!-- PUNTUAR -->
+		    <div id="puntuacion" class="col-xs-12 text-center">
+		    <!-- TODO: crear formulario correcto -->
+                <form class="starRating" action="" method="post">
+                    <input id="rating5" type="submit" name="rating" value="5">
+                    <label for="rating5">5</label>
+                    <input id="rating4" type="submit" name="rating" value="4">
+                    <label for="rating4">4</label>
+                    <input id="rating3" type="submit" name="rating" value="3">
+                    <label for="rating3">3</label>
+                    <input id="rating2" type="submit" name="rating" value="2">
+                    <label for="rating2">2</label>
+                    <input id="rating1" type="submit" name="rating" value="1">
+                    <label for="rating1">1</label>
+                </form>
+            </div>
+		    	
+		    <!-- MAPA -->
+		    <!-- TODO: explota, manda a login ¿? -->
+            <!-- Desplegar mapa -->
+	        <p class="col-xs-12">
+	            <a id="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+	               aria-controls="collapseExample" onclick="document.getElementById('collapseExample').style.visibility = 'visible'">
+	                Localizar en el mapa
+	            </a>
+	        </p>
+	
+	        <!-- Desplegar mapa -->
+	        <div class="col-xs-12" id="collapseExample" style="height: 0; visibility: hidden; margin-top: 0">
+	            <div id="mapa"></div>
+	        </div>
+		        
+	    </div>
+	    <!-- /OPCIONES -->
+	    
+	    
+	    <!-- COMENTARIOS -->
 	    <div id="comentarios" class="container col-xs-12">
     		<h3>Comentarios:</h3>
         	<div ng-repeat="comentario in comentarios">
@@ -37,8 +88,19 @@
 	                <p class="texto-comentario">{{ greeting.descripcion }}</p>
 	            </div>
             </div>
-            <!-- Añadir -->
+            <!-- AÑADIR -->
+            <!-- TODO: corregir el formulario para que funcione -->
+			<form name="comentarioForm" novalidate>
+				<label for="descripcion">Nuevo: </label><br /> 
+				<input name="comentario" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required />
+				<span class="messages" ng-show="comentarioForm.$submitted || comentarioForm.descripcion.$touched">
+					<span ng-show="comentarioForm.name.$error.required">El campo es obligatorio.</span>
+				</span>
+				<input type="submit" ng-click="guardar(comentario)" value="Guardar" ng-disabled="comentarioForm.$invalid" />
+			</form>
+			<!-- /AÑADIR -->
 		</div>
+
 
 
 </article>
@@ -47,4 +109,14 @@
 </ion-view>
 
 
+    <!-- Slider de fotos -->
+    <!-- TODO: creo que no lo reconoce -->
+    <script type="text/javascript">
+        var slider = new IdealImageSlider.Slider({
+            selector: '#slider',
+            height: 400,
+            interval: 4000
+        });
+        slider.start();
+    </script>
 
