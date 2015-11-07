@@ -84,8 +84,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 				controller: 'detalleTapaCtrl'
 			}
 		}
-	})  
-
+	})
+	
+	.state('app.detalleBar', {
+		url: '/detalleBar/:id',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/detalleBar.html',
+				controller: 'detalleBarCtrl'
+			}
+		}
+	}) 
+	
 	.state('app.registrarUsuario', {
 		url: '/registrarUsuario',
 		views: {
@@ -104,8 +114,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 				controller: 'loginCtrl'
 			}
 		}
-	}) 
-	
+	})  
+		
 	;
 	
 	// si se introduce una url diferente

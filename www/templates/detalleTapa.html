@@ -37,7 +37,7 @@
             <div id="texto" class="col-xs-offset-3">
                 <p class="puntuacion pull-left">{{ tapa.puntuacionMedia }}</p>
                 <h2>{{ tapa.nombre }}</h2>
-                <p><a href="/tapas/detalleBar/{{tapa.bar.pk}}"><small>{{bar.nombre}}</small></a></p>
+                <p><a href="/#/app/detalleBar/{{bar.id}}"><small>{{bar.nombre}}</small></a></p>
                 <p><small>{{ usuarioRegistro.username }}</small></p>
                 <p id="descripcion" class="descripcion-tapa">{{tapa.descripcion}}</p>
             </div>
@@ -86,26 +86,26 @@
 	    
 	    <!-- COMENTARIOS -->
 	    <div id="comentarios" class="container col-xs-12">
+	    <div id="add-comentario" class="add">
+	    
     		<h3>Comentarios:</h3>
         	<div ng-repeat="comentario in comentarios">
-        	<p>Hay un comentario</p>
 	            <div class="comentario">
-	                <p class="autor-comentario">{{ comentario.usuario.username }}<small> ({{ comentario.fechaSubida }}):</small></p>
+	                <p class="autor-comentario">{{ comentario.usuario }}<small> ({{ comentario.fechaSubida }}):</small></p>
 	                <p class="texto-comentario">{{ comentario.descripcion }}</p>
 	            </div>
             </div>
-            <!-- A�ADIR -->
             <!-- TODO: corregir el formulario para que funcione -->
-			<form name="comentarioForm" novalidate>
+			<form name="comentarioForm" ng-controller="detalleTapaCtrl" novalidate>
 				<label for="descripcion">Nuevo: </label><br /> 
-				<input name="comentario" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required />
+				<input name="descripcion" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required />
 				<span class="messages" ng-show="comentarioForm.$submitted || comentarioForm.descripcion.$touched">
-					<span ng-show="comentarioForm.name.$error.required">El campo es obligatorio.</span>
+					<span ng-show="comentarioForm.descripcion.$error.required">El campo es obligatorio.</span>
 				</span>
-				<input type="submit" ng-click="guardar(comentario)" value="Guardar" ng-disabled="comentarioForm.$invalid" />
+				<input type="submit" ng-click="guardarComentario(comentario)" value="Guardar" ng-disabled="comentarioForm.$invalid" />
 			</form>
-			<!-- /A�ADIR -->
 		</div>
+        </div>
 
 
 

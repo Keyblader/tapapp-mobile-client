@@ -36,13 +36,6 @@ angular.module('starter.controllers', [])
 			$scope.greeting = data.serializer;
 			$scope.usuario = data.user;
 		})
-
-
-
-
-
-
-
 	};
 
 //	onError Callback receives a PositionError object
@@ -53,17 +46,21 @@ angular.module('starter.controllers', [])
 	};
 
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);	
-	
-	
 	console.log(sharedToken.getProperty());
-	
- 
-
 
 })
 
-.controller('anyadirBarCtrl', function($scope, $http) {
+.controller('anyadirBarCtrl', function($scope, $http, sharedToken) {
 
+	$http.get('http://localhost:8000/usuarios/dameUsuario/', {
+		  headers: {
+			  'Authorization': 'Token ' + sharedToken.getProperty()
+		  }
+	})
+	.success(function(data) {
+		$scope.usuario = data.user;
+	})
+	
 	//función que se ejecuta al obtener la posición con getCurrentPosition si no hay error
 	var onSuccess = function(position) {
 		$scope.latitude=position.coords.latitude;
@@ -114,7 +111,7 @@ angular.module('starter.controllers', [])
 				"longitud": $scope.longitude,
 				"latitud": $scope.latitude,
 				"fechaSubida": new Date(),//Fecha actual
-				"usuarioRegistro": 2//Prueba
+				"usuarioRegistro": $scope.usuario
 		}
 		$http.post('http://localhost:8000/tapas/anyadirBar/', b)
 		.success(function(data) {
@@ -155,7 +152,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken) {
+
+
+.controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state) {
 
 	
 	var v = $stateParams.id;
@@ -167,10 +166,62 @@ angular.module('starter.controllers', [])
 	})
 	.success(function(data) {
 		$scope.tapa = data.tapa;
+		$scope.usuario = data.user;
 		$scope.bar = data.bar;
 		$scope.comentarios = data.comentarios;
 		$scope.fotos = data.fotos;
 		$scope.usuarioRegistro = data.usuarioRegistro;
+	})
+	
+	
+	
+	// METODOS DE COMENTARIO
+	
+	$scope.updateComentario = function() {
+		console.log($scope.comentario);
+	};
+
+	$scope.resetComentario = function(comentarioForm) {
+		$scope.comentario = {};
+	};
+
+	$scope.guardarComentario= function(comentario) {
+
+		var c = {				
+			    "descripcion": comentario.descripcion,     
+			    "fechaSubida": new Date(),
+			    "tapa": v,
+			    "usuario": $scope.usuario
+		}
+		
+		console.log(c)
+		
+		$http.post('http://localhost:8000/tapas/anyadirComentario/', c, {
+			  headers: {
+				  'Authorization': 'Token ' + sharedToken.getProperty()
+			  }
+		})	
+		.success(function(data) {
+			window.location = "#/app/inicio";
+		})
+	};
+	
+		
+})
+
+.controller('detalleBarCtrl', function($scope, $http, $stateParams, sharedToken) {
+
+	
+	var v = $stateParams.id;
+	
+	$http.get('http://localhost:8000/tapas/detalleBar/' + v + '/', {
+		  headers: {
+			  'Authorization': 'Token ' + sharedToken.getProperty()
+		  }
+	})
+	.success(function(data) {
+		$scope.tapas = data.tapas;
+		$scope.bar = data.bar;
 	})
 })
 
