@@ -50,8 +50,23 @@
 	    
 		    <!-- PUNTUAR -->
 		    <div id="puntuacion" class="col-xs-12 text-center">
-		    <!-- TODO: crear formulario correcto -->
-                <form class="starRating" action="" method="post">
+		    <!-- TODO: revisar ya que siempre pone el valor del ultimo (el 1) -->
+		    
+	   			<form class="starRating" name="valoracionForm" >
+					<input id="rating5" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=5" ng-click="guardarValoracion(valoracion)">
+					<label for="rating5">5</label>
+					<input id="rating4" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=4" ng-click="guardarValoracion(valoracion)">
+					<label for="rating4">4</label>
+					<input id="rating3" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=3" ng-click="guardarValoracion(valoracion)">
+					<label for="rating3">3</label>
+					<input id="rating2" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=2" ng-click="guardarValoracion(valoracion)">
+					<label for="rating2">2</label>
+					<input id="rating1" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=1" ng-click="guardarValoracion(valoracion)">
+					<label for="rating1">1</label>
+				</form>
+		    
+		    
+                <!-- <form class="starRating" action="" method="post">
                     <input id="rating5" type="submit" name="rating" value="5">
                     <label for="rating5">5</label>
                     <input id="rating4" type="submit" name="rating" value="4">
@@ -62,7 +77,7 @@
                     <label for="rating2">2</label>
                     <input id="rating1" type="submit" name="rating" value="1">
                     <label for="rating1">1</label>
-                </form>
+                </form> -->
             </div>
 		    	
 		    <!-- MAPA -->

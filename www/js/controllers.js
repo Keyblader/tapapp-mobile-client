@@ -206,6 +206,36 @@ angular.module('starter.controllers', [])
 		})
 	};
 	
+	// METODO VALORACION
+
+	$scope.updateValoracion = function() {
+		console.log($scope.valoracion);
+	};
+
+	$scope.resetValoracion = function(valoracionForm) {
+		$scope.valoracion = {};
+	};
+	
+	$scope.guardarValoracion= function(valoracion) {
+
+		var val = {				
+			    "puntuacion": valoracion.puntuacion,     
+			    "tapa": v,
+			    "usuario": $scope.usuario
+		}
+		
+		console.log(val)
+		
+		$http.post('http://localhost:8000/tapas/anyadirValoracion/', val, {
+			  headers: {
+				  'Authorization': 'Token ' + sharedToken.getProperty()
+			  }
+		})	
+		.success(function(data) {
+			window.location = "#/app/inicio";
+		})
+	};
+	
 		
 })
 
