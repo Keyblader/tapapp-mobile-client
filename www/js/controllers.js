@@ -18,19 +18,7 @@ angular.module('starter.controllers', ['starter.services'])
 					"longitud":$scope.longitude,
 			}
 
-
-			//$http.post('http://localhost:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
-			//	  headers: {
-			//	    'Content-Type': 'application/x-www-form-urlencoded'
-			//	  }
-			//})
-			//.success(function(data) {
-			//	sharedToken.setProperty(data.token);
-			//console.log(sharedToken.getProperty())
-			//	window.location = "#/app/inicio";
-			//})
-			console.log(sharedToken.getProperty());
-
+			
 			$http({method: 'GET', url: 'http://localhost:8000/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude},headers: {
 				'Authorization': 'Token ' + sharedToken.getProperty()}
 			})
@@ -38,6 +26,10 @@ angular.module('starter.controllers', ['starter.services'])
 				$scope.greeting = data.serializer;
 				$scope.usuario = data.user;
 			})
+			.finally(function() {
+			       // Stop the ion-refresher from spinning
+			       $scope.$broadcast('scroll.refreshComplete');
+			});
 		}
 	};
 
