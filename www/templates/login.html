@@ -21,9 +21,9 @@
 				ng-show="userForm.$submitted || userForm.password.$touched">
 				<span ng-show="userForm.descripcion.$error.required">El campo
 					es obligatorio.</span>
-			</span> <br /> <input type="reset" ng-click="reset(userForm)"
-				value="Limpiar" /> <input type="submit" ng-click="guardar(user)"
-				value="Guardar" ng-disabled="userForm.$invalid" />
+			</span> <br /> <input type="submit" ng-click="guardar(user)"
+				value="Guardar" />
+			<p><a href="#/registrarUsuario">Reg&iacutestrate</a></p>
 		</form>
 	</div>
 

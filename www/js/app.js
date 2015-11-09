@@ -96,28 +96,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 		}
 	}) 
 	
-	.state('app.registrarUsuario', {
+	.state('registrarUsuario', {
 		url: '/registrarUsuario',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/registrarUsuario.html',
-				controller: 'registrarUsuarioCtrl'
-			}
-		}
+		templateUrl: 'templates/registrarUsuario.html',
+		controller: 'registrarUsuarioCtrl'
 	}) 
 	
-	.state('app.login', {
+	.state('login', {
 		url: '/login',
-		views: {
-			'menuContent': {
-				templateUrl: 'templates/login.html',
-				controller: 'loginCtrl'
-			}
-		}
-	})  
+		templateUrl: 'templates/login.html',
+		controller: 'loginCtrl'
+	})
 		
 	;
 	
 	// si se introduce una url diferente
-	$urlRouterProvider.otherwise('/app/login');
+	$urlRouterProvider.otherwise('/login');
 });
