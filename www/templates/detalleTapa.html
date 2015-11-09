@@ -19,17 +19,21 @@
 		<p class="favorito pull-right"></p>
 	</div>  -->
 
-        <!-- SLIDER -->
-        <div id="slider">
-        <!-- TODO: debe recibir un listado de imagenes -->
-        <!-- imagen inicial -->
-        	<div class="img" style="background-image: url('http://localhost:8000{{tapa.imagen}}');" alt=""></div>
-       		<!--  -->
-       		<!-- <img src="{{ tapa.imagen.url }}" alt=""> -->
-            <!-- listado con el resto de im�genes -->
-            <!-- <img data-src="{{ foto.imagen.url }}" alt=""> -->
-        </div>
-        <!-- /SLIDER -->
+
+        
+		<!-- SLIDER -->
+		<div ng-if='fotos.length <= 0'>
+			<img ng-src="http://localhost:8000{{tapa.imagen}}">
+		</div>
+		
+		<div ng-if='fotos.length > 0'>
+		<ion-slide-box on-slide-changed="slideHasChanged($index)">
+			<ion-slide ng-repeat="foto in fotos">
+				<img ng-src="http://localhost:8000{{foto.imagen}}">
+			</ion-slide>
+		</ion-slide-box>
+		</div>
+		<!-- /SLIDER -->
 
 
 
@@ -134,7 +138,7 @@
     <!-- TODO: creo que no lo reconoce -->
     <script type="text/javascript">
         var slider = new IdealImageSlider.Slider({
-            selector: '#slider',
+            selector: '.slider',
             height: 400,
             interval: 4000
         });

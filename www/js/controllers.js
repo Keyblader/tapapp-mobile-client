@@ -173,7 +173,16 @@ angular.module('starter.controllers', [])
 		$scope.usuarioRegistro = data.usuarioRegistro;
 	})
 	
-	
+	// SLIDER
+	$scope.currentIndex = 0;
+
+    $scope.setCurrentSlideIndex = function (index) {
+        $scope.currentIndex = index;
+    };
+
+    $scope.isCurrentSlideIndex = function (index) {
+        return $scope.currentIndex === index;
+    };
 	
 	// METODOS DE COMENTARIO
 	
