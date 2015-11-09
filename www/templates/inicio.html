@@ -1,6 +1,11 @@
 <ion-view style="" title="Inicio"> <ion-content
 	class="has-header" padding="true">
 
+<ion-refresher
+    pulling-text="Actualizando..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+
 <article class="resumen busqueda container col-md-12">
 	<div class="title">
 		<h2>Las mejores tapas</h2>
