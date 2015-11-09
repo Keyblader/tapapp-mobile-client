@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 	
@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
 		}
 		
 
-		//$http.post('http://localhost:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		//$http.post('http://172.30.63.78:8001/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 		//	  headers: {
 		//	    'Content-Type': 'application/x-www-form-urlencoded'
 		//	  }
@@ -29,7 +29,7 @@ angular.module('starter.controllers', [])
 	    //})
 		console.log(sharedToken.getProperty());
 
-		$http({method: 'GET', url: 'http://localhost:8000/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude},headers: {
+		$http({method: 'GET', url: 'http://172.30.63.78:8001/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude},headers: {
 		'Authorization': 'Token ' + sharedToken.getProperty()}
 		})
 		.success(function(data) {
@@ -50,9 +50,82 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('anyadirBarCtrl', function($scope, $http, sharedToken) {
+.controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
+	//Acción para tomar foto desde cámara
+	$scope.takePhoto = function () {
+		var options = {
+			quality: 75,
+			destinationType: Camera.DestinationType.DATA_URL,
+			sourceType: Camera.PictureSourceType.CAMERA,
+			allowEdit: false,
+			encodingType: Camera.EncodingType.JPEG,
+			targetWidth: 300,
+			targetHeight: 300,
+			popoverOptions: CameraPopoverOptions,
+			saveToPhotoAlbum: false,
+			correctOrientation: true //Corregir que salga la foto con rotación
+        };
 
-	$http.get('http://localhost:8000/usuarios/dameUsuario/', {
+		$cordovaCamera.getPicture(options).then(function (imageData) {
+			$scope.imgURI = "data:image/jpeg;base64," + imageData;
+		}, function (err) {
+			// An error occured. Show a message to the user
+		});
+    }
+	//Acción para tomar foto desde galeria
+    $scope.choosePhoto = function () {
+       var options = {
+          quality: 75,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit: false,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+       };
+       $cordovaCamera.getPicture(options).then(function (imageData) {
+    	   $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    	   //alert($scope.imgURI);
+       }, function (err) {
+    	   // An error occured. Show a message to the user
+       });
+    }
+    // Barra de Acciones
+    $scope.addMedia = function() {
+    	// Mostrar contenido de acciones
+    	var hideSheet = $ionicActionSheet.show({
+	    	buttons: [
+	          { text: 'Cámara' },
+	          { text: 'Galería' }
+	         ],
+	         titleText: 'Añadir desde...',
+	         cancelText: 'Cancelar',
+	         cancel: function() {
+	        	 // add cancel code..
+	        	 console.log('CANCELADO');
+	         },
+	         buttonClicked: function(index) {
+	        	 switch (index) {
+	        	 	case 0:
+	        	 		$scope.takePhoto();
+	        	 		return true;
+	        	 	case 1:
+	        	 		$scope.choosePhoto();
+	        	 		return true;
+	        	 }
+	         }
+    	})
+    };
+})
+
+.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken) {
+
+	$controller('PhotoController', {$scope: $scope});//Usar un controlador desde otro controlador
+	$scope.bar = {}
+
+	$http.get('http://172.30.63.78:8001/usuarios/dameUsuario/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -73,7 +146,6 @@ angular.module('starter.controllers', [])
 				zoom: 15,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
-
 		//para crear el mapa y dibujarlo en el div
 		var map = new google.maps.Map(document.getElementById('mapa'), mapSettings);
 
@@ -110,15 +182,22 @@ angular.module('starter.controllers', [])
 				"descripcion": bar.descripcion,
 				"longitud": $scope.longitude,
 				"latitud": $scope.latitude,
+				"imagen" : $scope.imgURI,
 				"fechaSubida": new Date(),//Fecha actual
 				"usuarioRegistro": $scope.usuario
 		}
-		$http.post('http://localhost:8000/tapas/anyadirBar/', b)
+
+		$http.post('http://172.30.63.78:8001/tapas/anyadirBar/', b, {
+			headers: {
+				'Authorization': 'Token ' + sharedToken.getProperty()
+			}
+		})
 		.success(function(data) {
 			window.location = "#/app/inicio";
 		})
 	};
 })
+
 
 .controller('anyadirTapaCtrl', function($scope, $http) {
 
@@ -140,7 +219,7 @@ angular.module('starter.controllers', [])
 				"bar": tapa.bar,
 				"usuarioRegistro": 2//Prueba
 		}
-		$http.post('http://localhost:8000/tapas/anyadirTapa/', t);
+		$http.post('http://172.30.63.78:8001/tapas/anyadirTapa/', t);
 	};
 })  
 
@@ -159,7 +238,7 @@ angular.module('starter.controllers', [])
 	
 	var v = $stateParams.id;
 	
-	$http.get('http://localhost:8000/tapas/detalleTapa/' + v + '/', {
+	$http.get('http://172.30.63.78:8001/tapas/detalleTapa/' + v + '/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -196,7 +275,7 @@ angular.module('starter.controllers', [])
 		
 		console.log(c)
 		
-		$http.post('http://localhost:8000/tapas/anyadirComentario/', c, {
+		$http.post('http://172.30.63.78:8001/tapas/anyadirComentario/', c, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -226,7 +305,7 @@ angular.module('starter.controllers', [])
 		
 		console.log(val)
 		
-		$http.post('http://localhost:8000/tapas/anyadirValoracion/', val, {
+		$http.post('http://172.30.63.78:8001/tapas/anyadirValoracion/', val, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -244,7 +323,7 @@ angular.module('starter.controllers', [])
 	
 	var v = $stateParams.id;
 	
-	$http.get('http://localhost:8000/tapas/detalleBar/' + v + '/', {
+	$http.get('http://172.30.63.78:8001/tapas/detalleBar/' + v + '/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -271,7 +350,7 @@ angular.module('starter.controllers', [])
 				"username": user.username,
 				"password": user.password,
 		}
-		$http.post('http://localhost:8000/usuarios/anyadirUsuario/', u)		
+		$http.post('http://172.30.63.78:8001/usuarios/anyadirUsuario/', u)		
 		.success(function(data) {
 			window.location = "#/app/inicio";
 		})
@@ -289,7 +368,7 @@ angular.module('starter.controllers', [])
 	};
 
 	$scope.guardar= function(user) {
-		$http.post('http://localhost:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		$http.post('http://172.30.63.78:8001/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 			  headers: {
 			    'Content-Type': 'application/x-www-form-urlencoded'
 			  }

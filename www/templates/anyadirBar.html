@@ -20,18 +20,10 @@
 			  <span class="messages" ng-show="barForm.$submitted || barForm.descripcion.$touched">
 			<span ng-show="barForm.descripcion.$error.required">El campo es obligatorio.</span>
 			  </span>
-			  <!--<br />
-			  <label for="longitud">Longitud</label><br />
-			  <input name="longitud" type="number" ng-model="bar.longitud" ng-model-options="{ updateOn: 'blur' }" required />
-			  <span class="messages" ng-show="barForm.$submitted || barForm.longitud.$touched">
-			<span ng-show="barForm.longitud.$error.required">El campo es obligatorio.</span>
-			  </span>
-			  <br />
-			  <label for="Latitud">Latitud</label><br />
-			  <input name="latitud" type="number" ng-model="bar.latitud" ng-model-options="{ updateOn: 'blur' }" required />
-			  <span class="messages" ng-show="barForm.$submitted || barForm.latitud.$touched">
-			<span ng-show="barForm.latitud.$error.required">El campo es obligatorio.</span>
-			  </span>-->
+			 <br />
+			  <label for="imagen">Imagen</label>
+    		  <button class="button button-full button-assertive" ng-click="addMedia()">Añadir Foto</button>  		  
+			  <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center">		  
 			  
 			  <br /><br />
 			  <input type="reset" ng-click="reset(barForm)" value="Limpiar" />
