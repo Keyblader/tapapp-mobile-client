@@ -15,9 +15,13 @@ angular.module('starter.controllers', ['starter.services'])
 			"latitud":$scope.latitude,
 			"longitud":$scope.longitude,
 		}
+
+
+
+
 		
 
-		//$http.post('http://172.30.63.78:8001/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		//$http.post('http://127.0.0.1:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 		//	  headers: {
 		//	    'Content-Type': 'application/x-www-form-urlencoded'
 		//	  }
@@ -29,7 +33,7 @@ angular.module('starter.controllers', ['starter.services'])
 	    //})
 		console.log(sharedToken.getProperty());
 
-		$http({method: 'GET', url: 'http://172.30.63.78:8001/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude},headers: {
+		$http({method: 'GET', url: 'http://127.0.0.1:8000/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
 		'Authorization': 'Token ' + sharedToken.getProperty()}
 		})
 		.success(function(data) {
@@ -45,8 +49,22 @@ angular.module('starter.controllers', ['starter.services'])
 				'message: ' + error.message + '\n');
 	};
 
+    $scope.user= {
+        min:0,
+        max:5000,
+        value:1000
+    }
+    console.log($scope.user.value);
+
+    $scope.showme = function(){
+        alert($scope.user.value);
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);   
+
+    }
+
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);	
 	console.log(sharedToken.getProperty());
+
 
 })
 
@@ -125,7 +143,7 @@ angular.module('starter.controllers', ['starter.services'])
 	$controller('PhotoController', {$scope: $scope});//Usar un controlador desde otro controlador
 	$scope.bar = {}
 
-	$http.get('http://172.30.63.78:8001/usuarios/dameUsuario/', {
+	$http.get('http://127.0.0.1:8000/usuarios/dameUsuario/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -187,7 +205,7 @@ angular.module('starter.controllers', ['starter.services'])
 				"usuarioRegistro": $scope.usuario
 		}
 
-		$http.post('http://172.30.63.78:8001/tapas/anyadirBar/', b, {
+		$http.post('http://127.0.0.1:8000/tapas/anyadirBar/', b, {
 			headers: {
 				'Authorization': 'Token ' + sharedToken.getProperty()
 			}
@@ -219,7 +237,7 @@ angular.module('starter.controllers', ['starter.services'])
 				"bar": tapa.bar,
 				"usuarioRegistro": 2//Prueba
 		}
-		$http.post('http://172.30.63.78:8001/tapas/anyadirTapa/', t);
+		$http.post('http://127.0.0.1:8000/tapas/anyadirTapa/', t);
 	};
 })  
 
@@ -238,7 +256,7 @@ angular.module('starter.controllers', ['starter.services'])
 	
 	var v = $stateParams.id;
 	
-	$http.get('http://172.30.63.78:8001/tapas/detalleTapa/' + v + '/', {
+	$http.get('http://127.0.0.1:8000/tapas/detalleTapa/' + v + '/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -275,7 +293,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		console.log(c)
 		
-		$http.post('http://172.30.63.78:8001/tapas/anyadirComentario/', c, {
+		$http.post('http://127.0.0.1:8000/tapas/anyadirComentario/', c, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -305,7 +323,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		console.log(val)
 		
-		$http.post('http://172.30.63.78:8001/tapas/anyadirValoracion/', val, {
+		$http.post('http://127.0.0.1:8000/tapas/anyadirValoracion/', val, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -323,7 +341,7 @@ angular.module('starter.controllers', ['starter.services'])
 	
 	var v = $stateParams.id;
 	
-	$http.get('http://172.30.63.78:8001/tapas/detalleBar/' + v + '/', {
+	$http.get('http://127.0.0.1:8000/tapas/detalleBar/' + v + '/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -350,7 +368,7 @@ angular.module('starter.controllers', ['starter.services'])
 				"username": user.username,
 				"password": user.password,
 		}
-		$http.post('http://172.30.63.78:8001/usuarios/anyadirUsuario/', u)		
+		$http.post('http://127.0.0.1:8000/usuarios/anyadirUsuario/', u)		
 		.success(function(data) {
 			window.location = "#/app/inicio";
 		})
@@ -368,7 +386,7 @@ angular.module('starter.controllers', ['starter.services'])
 	};
 
 	$scope.guardar= function(user) {
-		$http.post('http://172.30.63.78:8001/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		$http.post('http://127.0.0.1:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 			  headers: {
 			    'Content-Type': 'application/x-www-form-urlencoded'
 			  }
