@@ -1,6 +1,12 @@
 <ion-view style="" title="Inicio"> <ion-content
 	class="has-header" padding="true">
 
+<ion-refresher
+    pulling-text="Actualizando..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+
+
 <article class="resumen busqueda container col-md-12">
 	<div class="title">
 		<h2>Las mejores tapas</h2>
@@ -15,16 +21,13 @@
                     <div class="range" >
                         <i class="icon ion-ios7-sunny-outline"></i>
                         <input type="range" min="400" max="{{user.max}}" value="{{user.min}}" step="200" ng-model="user.value">
-                        {{user.value}}
-                        /{{user.max}}
+                        Rango: {{user.value}} m.
+                        
                         <i class="icon ion-ios7-sunny"></i>
                     </div>
 
 
-                    	<!-- BOTON PARA ACTUALIZAR LA LISTA CON EL NUEVO RANGO-->
-                         <button class="button button-block button-positive" ng-click="showme();">
-        				Actualizar lista
-      				</button>
+
 
 
 

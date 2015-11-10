@@ -40,7 +40,18 @@ angular.module('starter.controllers', ['starter.services'])
 			$scope.greeting = data.serializer;
 			$scope.usuario = data.user;
 		})
+		.finally(function(){
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+
 	};
+
+
+	$scope.doRefresh = function(){
+		navigator.geolocation.getCurrentPosition(onSuccess, onError)
+
+
+	}
 
 //	onError Callback receives a PositionError object
 
@@ -52,15 +63,9 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.user= {
         min:0,
         max:5000,
-        value:1000
+        value:5000
     }
     console.log($scope.user.value);
-
-    $scope.showme = function(){
-        alert($scope.user.value);
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);   
-
-    }
 
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);	
 	console.log(sharedToken.getProperty());
