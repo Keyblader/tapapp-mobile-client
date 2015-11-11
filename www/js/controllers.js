@@ -62,7 +62,7 @@ angular.module('starter.controllers', ['starter.services'])
 
     $scope.user= {
         min:0,
-        max:5000,
+        max:50000,
         value:5000
     }
     console.log($scope.user.value);
@@ -271,7 +271,7 @@ angular.module('starter.controllers', ['starter.services'])
 		$scope.usuario = data.user;
 		$scope.bar = data.bar;
 		$scope.comentarios = data.comentarios;
-		$scope.fotos = data.fotos;
+		$scope.fotos = data.fotos.concat(data.tapa);
 		$scope.usuarioRegistro = data.usuarioRegistro;
 	})
 	
@@ -305,6 +305,7 @@ angular.module('starter.controllers', ['starter.services'])
 		})	
 		.success(function(data) {
 			window.location = "#/app/inicio";
+			//window.reload();
 		})
 	};
 	
@@ -321,7 +322,7 @@ angular.module('starter.controllers', ['starter.services'])
 	$scope.guardarValoracion= function(valoracion) {
 
 		var val = {				
-			    "puntuacion": valoracion.puntuacion,     
+			    "puntuacion": valoracion,     
 			    "tapa": v,
 			    "usuario": $scope.usuario
 		}

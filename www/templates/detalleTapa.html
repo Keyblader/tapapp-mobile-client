@@ -12,24 +12,20 @@
 	        <div class="favorito-no pull-right"></div>
         </a>
 
-<!-- 	<h1>Nombre: {{tapa.nombre}}</h1>
-	 Si te fijas la imagen la recibe
-	<div class="img col-xs-5 col-md-4"
-		style="background-image: url('http://localhost:8000{{tapa.imagen}}');">
-		<p class="favorito pull-right"></p>
-	</div>  -->
 
-        <!-- SLIDER -->
-        <div id="slider">
-        <!-- TODO: debe recibir un listado de imagenes -->
-        <!-- imagen inicial -->
-        	<div class="img" style="background-image: url('http://localhost:8000{{tapa.imagen}}');" alt=""></div>
-       		<!--  -->
-       		<!-- <img src="{{ tapa.imagen.url }}" alt=""> -->
-            <!-- listado con el resto de im�genes -->
-            <!-- <img data-src="{{ foto.imagen.url }}" alt=""> -->
-        </div>
-        <!-- /SLIDER -->
+		<!-- SLIDER -->
+		<div ng-if='fotos.length <= 0'>
+			<img ng-src="http://localhost:8000{{tapa.imagen}}">
+		</div>
+		
+		<div ng-if='fotos.length > 0'>
+		<ion-slide-box on-slide-changed="slideHasChanged($index)">
+			<ion-slide ng-repeat="foto in fotos">
+				<img ng-src="http://localhost:8000{{foto.imagen}}">
+			</ion-slide>
+		</ion-slide-box>
+		</div>
+		<!-- /SLIDER -->
 
 
 
@@ -53,15 +49,15 @@
 		    <!-- TODO: revisar ya que siempre pone el valor del ultimo (el 1) -->
 		    
 	   			<form class="starRating" name="valoracionForm" >
-					<input id="rating5" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=5" ng-click="guardarValoracion(valoracion)">
+					<input id="rating5" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("5")'>
 					<label for="rating5">5</label>
-					<input id="rating4" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=4" ng-click="guardarValoracion(valoracion)">
+					<input id="rating4" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("4")'>
 					<label for="rating4">4</label>
-					<input id="rating3" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=3" ng-click="guardarValoracion(valoracion)">
+					<input id="rating3" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("3")'>
 					<label for="rating3">3</label>
-					<input id="rating2" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=2" ng-click="guardarValoracion(valoracion)">
+					<input id="rating2" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("2")'>
 					<label for="rating2">2</label>
-					<input id="rating1" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-init="valoracion.puntuacion=1" ng-click="guardarValoracion(valoracion)">
+					<input id="rating1" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("1")'>
 					<label for="rating1">1</label>
 				</form>
 		    
