@@ -273,7 +273,36 @@ angular.module('starter.controllers', ['starter.services'])
 		$scope.comentarios = data.comentarios;
 		$scope.fotos = data.fotos.concat(data.tapa);
 		$scope.usuarioRegistro = data.usuarioRegistro;
+
+
+		console.log($scope.bar.longitud);
+
+
+		//para cargar los parametros del mapa
+		var latlng = new google.maps.LatLng($scope.bar.latitud, $scope.bar.longitud);
+		var mapSettings = {
+				center: latlng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		//para crear el mapa y dibujarlo en el div
+		var map = new google.maps.Map(document.getElementById('mapa'), mapSettings);
+
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			draggable: false,
+			title: 'Arrastrame'
+		});
+
+
+
 	})
+
+
+	
+
+
 	
 	
 	
