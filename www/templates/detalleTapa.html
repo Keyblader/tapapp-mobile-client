@@ -5,13 +5,18 @@
 
 		
 		<!-- FAVORITO -->
-		<!-- TODO: Debe recibir si la tapa es favorita del usuario actual o no -->
-		<!-- TODO: Debe crearse la vista anyadirFavorito -->
-        <a href="/tapas/anyadirFavorito/{{ tapa.id }}/">
-	        <div class="favorito pull-right"></div>
-	        <div class="favorito-no pull-right"></div>
-        </a>
-
+		<div ng-if="favorito == 'true'">
+			<a href ng-click='cambiarEstado()'>
+	        	<div class="favorito pull-right"></div>
+        	</a> 
+		</div>
+        
+        <div ng-if="favorito == 'false'">
+			<a href ng-click='cambiarEstado()'>
+	        	<div class="favorito-no pull-right"></div>
+        	</a> 
+		</div>
+        
 
 		<!-- SLIDER -->
 		<div ng-if='fotos.length <= 0'>

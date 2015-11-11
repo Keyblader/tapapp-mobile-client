@@ -273,7 +273,7 @@ angular.module('starter.controllers', ['starter.services'])
 		$scope.comentarios = data.comentarios;
 		$scope.fotos = data.fotos.concat(data.tapa);
 		$scope.usuarioRegistro = data.usuarioRegistro;
-
+		$scope.favorito = data.favorito;
 
 		console.log($scope.bar.longitud);
 
@@ -368,6 +368,27 @@ angular.module('starter.controllers', ['starter.services'])
 		})
 	};
 	
+	// METODO DE FAVORITO
+	$scope.cambiarEstado= function() {
+
+		/*var c = {				
+			    "descripcion": comentario.descripcion,     
+			    "fechaSubida": new Date(),
+			    "tapa": v,
+			    "usuario": $scope.usuario
+		}*/
+		console.log(v)		
+		
+		$http.post('http://127.0.0.1:8000/tapas/anyadirFavorito/' + v + '/', v, {
+			  headers: {
+				  'Authorization': 'Token ' + sharedToken.getProperty()
+			  }
+		})	
+		.success(function(data) {
+			window.location = "#/app/inicio";
+			//window.reload();
+		})
+	};
 		
 })
 
