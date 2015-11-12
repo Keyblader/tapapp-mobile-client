@@ -20,13 +20,13 @@
 
 		<!-- SLIDER -->
 		<div ng-if='fotos.length <= 0'>
-			<img ng-src="http://localhost:8000{{tapa.imagen}}">
+			<img ng-src="http://kaerzas.pythonanywhere.com{{tapa.imagen}}">
 		</div>
 		
 		<div ng-if='fotos.length > 0'>
 		<ion-slide-box on-slide-changed="slideHasChanged($index)">
 			<ion-slide ng-repeat="foto in fotos">
-				<img ng-src="http://localhost:8000{{foto.imagen}}">
+				<img ng-src="http://kaerzas.pythonanywhere.com{{foto.imagen}}">
 			</ion-slide>
 		</ion-slide-box>
 		</div>

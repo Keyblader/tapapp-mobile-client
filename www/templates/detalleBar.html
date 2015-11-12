@@ -1,18 +1,18 @@
-<ion-view style="" title="Detalla Bar"> 
+<ion-view style="" title="Detalle Bar"> 
 <ion-content class="has-header" padding="true">
 
 <h1>Nombre del bar: {{bar.nombre}}</h1>
 
 <h2>Descripcion del bar: {{bar.descripcion}}</h2>
 
-<img src='http://localhost:8000{{bar.imagen}}' alt="Imagen">
+<img src='http://kaerzas.pythonanywhere.com{{bar.imagen}}' alt="Imagen">
  
 <div ng-repeat="greet in tapas">
 
 	<article class="resumen container col-md-12">
 		<a href="#/app/detalleTapa/{{greet.id}}">
 			<div class="img col-xs-5 col-md-4"
-				style="background-image: url('http://localhost:8000{{greet.imagen}}');">
+				style="background-image: url('http://kaerzas.pythonanywhere.com{{greet.imagen}}');">
 				<p class="favorito pull-right"></p>
 
 			</div>

@@ -21,7 +21,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 		
 
-		//$http.post('http://127.0.0.1:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		//$http.post('http://kaerzas.pythonanywhere.com/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 		//	  headers: {
 		//	    'Content-Type': 'application/x-www-form-urlencoded'
 		//	  }
@@ -33,7 +33,7 @@ angular.module('starter.controllers', ['starter.services'])
 	    //})
 		console.log(sharedToken.getProperty());
 
-		$http({method: 'GET', url: 'http://127.0.0.1:8000/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
+		$http({method: 'GET', url: 'http://kaerzas.pythonanywhere.com/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
 		'Authorization': 'Token ' + sharedToken.getProperty()}
 		})
 		.success(function(data) {
@@ -143,12 +143,121 @@ angular.module('starter.controllers', ['starter.services'])
     };
 })
 
-.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken) {
+.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup) {
+	
+	// INFORMACION DE USUARIO
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+		headers: {
+			'Authorization': 'Token ' + sharedToken.getProperty()
+		}
+	})
+	.success(function(data) {
+		$scope.usuario = data.user;
+	})
 
+	// POSICION
+	var onSuccess = function(position) {
+		$scope.latitude=position.coords.latitude;
+		$scope.longitude=position.coords.longitude;
+		//para cargar los parametros del mapa
+		var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var mapSettings = {
+				center: latlng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		//para crear el mapa y dibujarlo en el div
+		var map = new google.maps.Map(document.getElementById('mapa'), mapSettings);
+
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			draggable: false,
+			title: 'Arrastrame'
+		});
+	};
+	function onError(error) {
+		alert('code: '    + error.code    + '\n' +
+				'message: ' + error.message + '\n');
+	};
+	navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+
+	// CAMARA
+	$scope.takePic = function(medio) {
+		var options =   {
+				quality: 50,
+				destinationType: Camera.DestinationType.FILE_URI,
+				sourceType: medio,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+				encodingType: 0     // 0=JPG 1=PNG
+		}
+		navigator.camera.getPicture(onSuccess,onFail,options);
+	}
+	var onSuccess = function(FILE_URI) {
+		console.log(FILE_URI);
+		$scope.picData = FILE_URI;
+		$scope.$apply();
+	};
+	var onFail = function(e) {
+		console.log("On fail " + e);
+	}
+	
+	$scope.send = function(bar) {
+		try {
+			var myImg = $scope.picData;
+			var options = new FileUploadOptions();
+			options.fileKey="imagen";
+			options.chunkedMode = false;
+			options.httpMethod = "POST";
+			options.headers = {'Authorization': 'Token ' + sharedToken.getProperty()};
+			var params = {};
+			params.nombre = bar.nombre;
+			params.descripcion = bar.descripcion;
+			params.longitud = $scope.longitude;
+			params.latitud = $scope.latitude;
+			params.fechaSubida = new Date();
+			params.usuarioRegistro = $scope.usuario;
+			options.params = params;
+			var ft = new FileTransfer();
+			ft.upload(myImg, encodeURI("http://kaerzas.pythonanywhere.com/tapas/anyadirBar/"), onUploadSuccess, onUploadFail, options);
+		}
+		catch(err) {
+			// An alert dialog
+			$scope.showAlert = function() {
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error al añadir',
+					template: 'Revise los campos y active la geolocalización si no está activada.'
+				});
+				alertPopup.then(function(res) {
+					console.log('Login incorrecto');
+				});
+			};
+			$scope.showAlert();
+		}	
+	}
+	
+	var onUploadSuccess = function(FILE_URI) {
+		window.location = "#/app/inicio";
+	};
+	var onUploadFail = function(e) {
+		// An alert dialog
+		$scope.showAlert = function() {
+			var alertPopup = $ionicPopup.alert({
+				title: 'Error al añadir',
+				template: 'Revise los campos y active la geolocalización sino está activada.'
+			});
+			alertPopup.then(function(res) {
+				console.log('Login incorrecto');
+			});
+		};
+		$scope.showAlert();
+	}
+	
+/*
 	$controller('PhotoController', {$scope: $scope});//Usar un controlador desde otro controlador
 	$scope.bar = {}
 
-	$http.get('http://127.0.0.1:8000/usuarios/dameUsuario/', {
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -210,7 +319,7 @@ angular.module('starter.controllers', ['starter.services'])
 				"usuarioRegistro": $scope.usuario
 		}
 
-		$http.post('http://127.0.0.1:8000/tapas/anyadirBar/', b, {
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirBar/', b, {
 			headers: {
 				'Authorization': 'Token ' + sharedToken.getProperty()
 			}
@@ -219,6 +328,7 @@ angular.module('starter.controllers', ['starter.services'])
 			window.location = "#/app/inicio";
 		})
 	};
+	*/
 })
 
 
@@ -242,7 +352,7 @@ angular.module('starter.controllers', ['starter.services'])
 				"bar": tapa.bar,
 				"usuarioRegistro": 2//Prueba
 		}
-		$http.post('http://127.0.0.1:8000/tapas/anyadirTapa/', t);
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirTapa/', t);
 	};
 })  
 
@@ -261,7 +371,7 @@ angular.module('starter.controllers', ['starter.services'])
 	
 	var v = $stateParams.id;
 	
-	$http.get('http://127.0.0.1:8000/tapas/detalleTapa/' + v + '/', {
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -327,7 +437,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		console.log(c)
 		
-		$http.post('http://127.0.0.1:8000/tapas/anyadirComentario/', c, {
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirComentario/', c, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -358,7 +468,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		console.log(val)
 		
-		$http.post('http://127.0.0.1:8000/tapas/anyadirValoracion/', val, {
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -379,7 +489,7 @@ angular.module('starter.controllers', ['starter.services'])
 		}*/
 		console.log(v)		
 		
-		$http.post('http://127.0.0.1:8000/tapas/anyadirFavorito/' + v + '/', v, {
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirFavorito/' + v + '/', v, {
 			  headers: {
 				  'Authorization': 'Token ' + sharedToken.getProperty()
 			  }
@@ -397,7 +507,7 @@ angular.module('starter.controllers', ['starter.services'])
 	
 	var v = $stateParams.id;
 	
-	$http.get('http://127.0.0.1:8000/tapas/detalleBar/' + v + '/', {
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleBar/' + v + '/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
 		  }
@@ -408,7 +518,7 @@ angular.module('starter.controllers', ['starter.services'])
 	})
 })
 
-.controller('registrarUsuarioCtrl', function($scope, $http) {
+.controller('registrarUsuarioCtrl', function($scope, $http,$ionicPopup) {
 
 	$scope.update = function() {
 		console.log($scope.user);
@@ -424,14 +534,27 @@ angular.module('starter.controllers', ['starter.services'])
 				"username": user.username,
 				"password": user.password,
 		}
-		$http.post('http://127.0.0.1:8000/usuarios/anyadirUsuario/', u)		
+		$http.post('http://kaerzas.pythonanywhere.com/usuarios/anyadirUsuario/', u)		
 		.success(function(data) {
-			window.location = "#/app/inicio";
+			window.location = "#/app/login";
 		})
+	    .error(function(data){
+	    	// An alert dialog
+	    	$scope.showAlert = function() {
+	    		var alertPopup = $ionicPopup.alert({
+	    			title: 'Error al registrar',
+	    			template: 'Ya existe un usuario con ese nombre. Vuelva a intentarlo.'
+	    		});
+	    		alertPopup.then(function(res) {
+	    			console.log('Login incorrecto');
+	    		});
+	    	};
+	    	$scope.showAlert();
+		})		
 	};
 })
 
-.controller('loginCtrl', function($scope, $http, sharedToken) {
+.controller('loginCtrl', function($scope, $http, sharedToken,$ionicPopup) {
 
 	$scope.update = function() {
 		console.log($scope.user);
@@ -442,7 +565,7 @@ angular.module('starter.controllers', ['starter.services'])
 	};
 
 	$scope.guardar= function(user) {
-		$http.post('http://127.0.0.1:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		$http.post('http://kaerzas.pythonanywhere.com/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 			  headers: {
 			    'Content-Type': 'application/x-www-form-urlencoded'
 			  }
@@ -452,5 +575,18 @@ angular.module('starter.controllers', ['starter.services'])
 	        //console.log(sharedToken.getProperty())
 	    	window.location = "#/app/inicio";
 	    })
+	    .error(function(data){
+	    	// An alert dialog
+	    	$scope.showAlert = function() {
+	    		var alertPopup = $ionicPopup.alert({
+	    			title: 'Error al iniciar sesión',
+	    			template: 'El usuario o la contraseña son incorrectos. Vuelva a intentarlo o regístrese.'
+	    		});
+	    		alertPopup.then(function(res) {
+	    			console.log('Login incorrecto');
+	    		});
+	    	};
+	    	$scope.showAlert();
+		})
 	};
 })

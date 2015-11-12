@@ -22,12 +22,12 @@
 			  </span>
 			 <br />
 			  <label for="imagen">Imagen</label>
-    		  <button class="button button-full button-assertive" ng-click="addMedia()">Añadir Foto</button>  		  
-			  <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center">		  
+    		  <button class="button button-full button-assertive" ng-click='takePic("1")'>Hacer Foto</button>  		  
+			  <button class="button button-full button-assertive" ng-click='takePic("0")'>Elegir Foto</button>  		  
+			  <p ng-show="picData !== undefined">Foto cargada correctamente.</p>	  
 			  
 			  <br /><br />
-			  <input type="reset" ng-click="reset(barForm)" value="Limpiar" />
-			  <input type="submit" ng-click="guardar(bar)" value="Guardar" ng-disabled="barForm.$invalid" />
+			  <input type="submit" ng-click='send(bar)' value="Guardar"/>
 		    </form>
     		<!-- <pre>bar = {{bar | json}}</pre> -->
         </div>
