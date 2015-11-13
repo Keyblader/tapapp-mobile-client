@@ -244,7 +244,7 @@ angular.module('starter.controllers', ['starter.services'])
 		$scope.showAlert = function() {
 			var alertPopup = $ionicPopup.alert({
 				title: 'Error al añadir',
-				template: 'Revise los campos y active la geolocalización sino está activada.'
+				template: 'Revise los campos y active la geolocalización si no está activada.'
 			});
 			alertPopup.then(function(res) {
 				console.log('Login incorrecto');
