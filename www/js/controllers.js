@@ -567,13 +567,14 @@ angular.module('starter.controllers', ['starter.services'])
 		}
 
 		$timeout(function () {
-			getItems();
+			//getItems();
 			$scope.$broadcast('scroll.refreshComplete');
 		}, 1000);
 	};
 	
 	//LEER QR
 	$scope.scan = function() {
+		console.log("escaneando...")
 		cordova.plugins.barcodeScanner.scan(
 				function (result) {
 					/*alert(result.text + "\n" +

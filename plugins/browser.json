@@ -19,6 +19,10 @@
                         {
                             "xml": "<preference name=\"AndroidPersistentFileLocation\" value=\"Internal\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"browser-package\" value=\"BarcodeScanner\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -48,6 +52,9 @@
             "PACKAGE_NAME": "com.ionicframework.tapappmobileclient837070"
         },
         "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.ionicframework.tapappmobileclient837070"
+        },
+        "phonegap-plugin-barcodescanner": {
             "PACKAGE_NAME": "com.ionicframework.tapappmobileclient837070"
         }
     },
