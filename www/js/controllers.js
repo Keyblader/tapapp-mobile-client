@@ -528,8 +528,9 @@ angular.module('starter.controllers', ['starter.services'])
 	};
 		
 })
-.controller('listaBaresCtrl', function($scope, $http, sharedToken) {
+.controller('listaBaresCtrl', function($scope, $http, sharedToken, $timeout, $ionicFilterBar, $window) {
 	
+	//LISTAR BARES
 	$http.get('http://kaerzas.pythonanywhere.com/tapas/listaBares/', {
 		  headers: {
 			  'Authorization': 'Token ' + sharedToken.getProperty()
@@ -537,18 +538,61 @@ angular.module('starter.controllers', ['starter.services'])
 	})
 	.success(function(data) {
 		console.log("funciona");
-		$scope.bares = data;
+		$scope.items = data;
 	})
 	.error(function(data){
 		console.log("no funciona");
 	})
-	.finally(function(){
-		$scope.$broadcast('scroll.refreshComplete');
-	})
+	
+	//LISTAR BARES POR FILTRO
+	var filterBarInstance;
+
+	$scope.showFilterBar = function () {
+		filterBarInstance = $ionicFilterBar.show({
+			items: $scope.items,
+			update: function (filteredItems, filterText) {
+				$scope.items = filteredItems;
+				if (filterText) {
+					console.log(filterText);
+				}
+			},
+			filterProperties: 'nombre'
+		});
+	};
+
+	$scope.refreshItems = function () {
+		if (filterBarInstance) {
+			filterBarInstance();
+			filterBarInstance = null;
+		}
+
+		$timeout(function () {
+			getItems();
+			$scope.$broadcast('scroll.refreshComplete');
+		}, 1000);
+	};
+	
+	//LEER QR
+	$scope.scan = function() {
+		cordova.plugins.barcodeScanner.scan(
+				function (result) {
+					/*alert(result.text + "\n" +
+						"Format: " + result.format + "\n" +
+						"Cancelled: " + result.cancelled);*/
+					window.location = result.text;
+					//Formato QR: #/app/detalleBar/3
+				}, 
+				function (error) {
+					alert("Scanning failed: " + error);
+				}
+		);
+	}
+	
+	
 })
 
 
-.controller('detalleBarCtrl', function($scope, $http, sharedToken) {
+.controller('detalleBarCtrl', function($scope, $http, sharedToken, $stateParams) {
 
 	
 	var v = $stateParams.id;
