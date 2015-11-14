@@ -96,6 +96,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 		}
 	}) 
 	
+	.state('app.listaBares', {
+		url: '/listaBares',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/listaBares.html',
+				controller: 'listaBaresCtrl'
+			}
+		}
+	}) 
+	
 	.state('registrarUsuario', {
 		url: '/registrarUsuario',
 		templateUrl: 'templates/registrarUsuario.html',
@@ -106,7 +116,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 		url: '/login',
 		templateUrl: 'templates/login.html',
 		controller: 'loginCtrl'
-	})
+	}) 
 		
 	;
 	

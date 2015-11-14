@@ -1,0 +1,47 @@
+<ion-view style="" title="ListaBares">
+<ion-content class="has-header" padding="true">
+
+<ion-refresher
+    pulling-text="Actualizando..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+    
+<article class="detalle container col-md-12">
+	<div class="title">
+		<h2>Lista de Bares</h2>
+	</div>
+</article>    
+
+<!-- DISEÑO ANTIGUO
+<div ng-repeat="bar in bares">
+
+	<article class="resumen container col-md-12">
+		<a href="#/app/detalleBar/{{bar.id}}">
+			<div class="img col-xs-5 col-md-4"
+				style="background-image: url('http://kaerzas.pythonanywhere.com{{bar.imagen}}');">
+			</div>
+		</a>
+		<div class="texto col-xs-7 col-md-8">
+
+			<h3>{{ bar.nombre}}</h3>
+			<div class="descripcion">
+				<p>{{ bar.descripcion}}</p>
+			</div>
+		</div>
+	</article>
+</div>    
+-->
+<div class="list">
+
+        <a ng-repeat="bar in bares" 
+           href="#/app/detalleBar/{{bar.id}}"
+           class="item item-thumbnail-left">
+
+          <img ng-src='http://kaerzas.pythonanywhere.com{{bar.imagen}}'>
+          <h2>{{ bar.nombre }}</h2>
+          <p>{{ bar.descripcion }}</p>
+        </a>
+
+      </div>
+</ion-content> 
+</ion-view>

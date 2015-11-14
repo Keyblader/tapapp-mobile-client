@@ -143,7 +143,7 @@ angular.module('starter.controllers', ['starter.services'])
     };
 })
 
-.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup) {
+.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup, $ionicActionSheet) {
 	
 	// INFORMACION DE USUARIO
 	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
@@ -235,6 +235,33 @@ angular.module('starter.controllers', ['starter.services'])
 			$scope.showAlert();
 		}	
 	}
+	
+	//LISTA DE OPCIONES
+	$scope.addMedia = function() {
+		// Mostrar contenido de acciones
+		var hideSheet = $ionicActionSheet.show({
+			buttons: [
+	          { text: 'Cámara' },
+	          { text: 'Galería' }
+	          ],
+	          titleText: 'Añadir desde...',
+	          cancelText: 'Cancelar',
+	          cancel: function() {
+	        	  // add cancel code..
+	        	  console.log('CANCELADO');
+	          },
+	          buttonClicked: function(index) {
+	        	  switch (index) {
+	        	  case 0:
+	        		  $scope.takePic("1");//Tomar desde Cámara
+	        		  return true;
+	        	  case 1:
+	        		  $scope.takePic("0");//Tomar desde Galería
+	        		  return true;
+	        	  }
+	          }
+		})
+	};
 	
 	var onUploadSuccess = function(FILE_URI) {
 		window.location = "#/app/inicio";
@@ -501,8 +528,27 @@ angular.module('starter.controllers', ['starter.services'])
 	};
 		
 })
+.controller('listaBaresCtrl', function($scope, $http, sharedToken) {
+	
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/listaBares/', {
+		  headers: {
+			  'Authorization': 'Token ' + sharedToken.getProperty()
+		  }
+	})
+	.success(function(data) {
+		console.log("funciona");
+		$scope.bares = data;
+	})
+	.error(function(data){
+		console.log("no funciona");
+	})
+	.finally(function(){
+		$scope.$broadcast('scroll.refreshComplete');
+	})
+})
 
-.controller('detalleBarCtrl', function($scope, $http, $stateParams, sharedToken) {
+
+.controller('detalleBarCtrl', function($scope, $http, sharedToken) {
 
 	
 	var v = $stateParams.id;
