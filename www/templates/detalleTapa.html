@@ -83,7 +83,10 @@
 		    	
 		    <!-- MAPA -->
 		    <!-- TODO: explota, manda a login �? -->
-		    <div id="mapa"></div>
+		    <ng-map class="mapa" center="{{centro}}">
+    			<marker position="{{centro}}"></marker>
+    		</ng-map>
+    		
             <!-- Desplegar mapa -->
 	        <p class="col-xs-12">
 	            <a id="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"

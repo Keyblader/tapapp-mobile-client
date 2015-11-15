@@ -145,21 +145,13 @@ angular.module('starter.controllers', ['starter.services'])
 		$scope.latitude=position.coords.latitude;
 		$scope.longitude=position.coords.longitude;
 		//para cargar los parametros del mapa
-		var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		var mapSettings = {
-				center: latlng,
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-		//para crear el mapa y dibujarlo en el div
-		var map = new google.maps.Map(document.getElementById('mapa'), mapSettings);
 
-		var marker = new google.maps.Marker({
-			position: latlng,
-			map: map,
-			draggable: false,
-			title: 'Arrastrame'
-		});
+
+
+		$scope.centro=[position.coords.latitude, position.coords.longitude];
+
+
+
 	};
 	function onError(error) {
 		alert('code: '    + error.code    + '\n' +
@@ -326,21 +318,9 @@ angular.module('starter.controllers', ['starter.services'])
 
 
 		//para cargar los parametros del mapa
-		var latlng = new google.maps.LatLng($scope.bar.latitud, $scope.bar.longitud);
-		var mapSettings = {
-				center: latlng,
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-		//para crear el mapa y dibujarlo en el div
-		var map = new google.maps.Map(document.getElementById('mapa'), mapSettings);
+		$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
 
-		var marker = new google.maps.Marker({
-			position: latlng,
-			map: map,
-			draggable: false,
-			title: 'Arrastrame'
-		});
+
 
 
 

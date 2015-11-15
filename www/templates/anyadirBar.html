@@ -3,7 +3,9 @@
 
     <article id="content" class="add container col-md-12">
 
-    	<div id="mapa"></div>
+    	<ng-map class="mapa" center="{{centro}}">
+    		<marker position="{{centro}}"></marker>
+    	</ng-map>
 
         <div id="add-bar" class="add">
 
