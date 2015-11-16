@@ -41,6 +41,12 @@
                 <p><a href="/#/app/detalleBar/{{bar.id}}"><small>{{bar.nombre}}</small></a></p>
                 <p><small>{{ usuarioRegistro.username }}</small></p>
                 <p id="descripcion" class="descripcion-tapa">{{tapa.descripcion}}</p>
+                 
+                 
+                 
+                
+                 
+                 
             </div>
         </div>
 	        
@@ -89,6 +95,7 @@
     		
             <!-- Desplegar mapa -->
 	        <p class="col-xs-12">
+	        <a href="#" ng-click="abrirGoogleMaps()"> Abrir en google maps</a>
 	            <a id="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
 	               aria-controls="collapseExample" onclick="document.getElementById('collapseExample').style.visibility = 'visible'">
 	                Localizar en el mapa

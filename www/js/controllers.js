@@ -295,7 +295,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 
 
-.controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state) {
+.controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state, $cordovaInAppBrowser) {
 
 	
 	var v = $stateParams.id;
@@ -320,11 +320,67 @@ angular.module('starter.controllers', ['starter.services'])
 		//para cargar los parametros del mapa
 		$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
 
+		
+
+
+
 
 
 
 
 	})
+
+	$scope.abrirGoogleMaps = function(){
+
+		var onSuccess = function(position) {
+		$scope.latitude=position.coords.latitude;
+		$scope.longitude=position.coords.longitude;
+		//para cargar los parametros del mapa
+
+
+
+		$scope.posicionActual=[position.coords.latitude, position.coords.longitude];
+		console.log($scope.posicionActual[0]);
+		console.log($scope.posicionActual[1]);
+		console.log($scope.centro[0]);
+		console.log($scope.centro[1]);
+
+		//window.open('URLmaps', '_system');
+		console.log($scope.posicionActual);
+
+
+
+
+		};
+
+		function onError(error) {
+			alert('code: '    + error.code    + '\n' +
+				'message: ' + error.message + '\n');
+		};
+
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		setTimeout(function(){ 
+			console.log($scope.posicionActual);
+			console.log($scope.centro);
+			var URLmaps='https://www.google.es/maps/dir/'+String($scope.posicionActual[0])+','+String($scope.posicionActual[1])+'/'+$scope.centro[0]+','+$scope.centro[1];
+			console.log(URLmaps);
+			window.open(URLmaps, '_system');
+
+		}, 200);
+		
+
+
+
+
+
+		//var URLmaps='https://www.google.es/maps/dir/'+$scope.posicionActual[0]+','+$scope.posicionActual[1]+'/'+$scope.centro[0]+','+$scope.centro[1];
+		//console.log(URLmaps);
+
+		//window.open(URLmaps, '_system');
+
+
+
+	}
 
 
 	
