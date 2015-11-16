@@ -9,30 +9,29 @@
 
         <div id="add-bar" class="add">
 
-            <h2>Añadir Bar</h2>
+            <div class="title" style="margin-top: 1em;">
+			<h2>A&ntilde;ade &eacute;ste Bar</h2>
+			</div>
             <form name="barForm" novalidate>
-			  <label for="nombre">Nombre</label><br />
-			  <input name="name" type="text" ng-model="bar.nombre" ng-model-options="{ updateOn: 'blur' }" required />
+			  <label class="item item-input">
+			  <input name="name" type="text" ng-model="bar.nombre" ng-model-options="{ updateOn: 'blur' }" required placeholder="Nombre"/>
+			  </label>
 			  <span class="messages" ng-show="barForm.$submitted || barForm.nombre.$touched">
 			<span ng-show="barForm.name.$error.required">El campo es obligatorio.</span>
 			  </span>
-			  <br />
-			  <label for="descripcion">Descripción</label><br />
-			  <textarea name="descripcion" rows="2" cols="1" ng-model="bar.descripcion" ng-model-options="{ updateOn: 'blur' }" required /></textarea>
+			  <label class="item item-input">
+			  <textarea name="descripcion" rows="2" cols="1" ng-model="bar.descripcion" ng-model-options="{ updateOn: 'blur' }" required placeholder="Descripci&oacute;n"/></textarea>
+			  </label>
 			  <span class="messages" ng-show="barForm.$submitted || barForm.descripcion.$touched">
 			<span ng-show="barForm.descripcion.$error.required">El campo es obligatorio.</span>
 			  </span>
-			 <br />
-			  <label for="imagen">Imagen</label>
-    		  <button class="button button-full button-assertive" ng-click='addMedia()'>Foto</button>  
+    		  <button class="button button-full button-assertive" ng-click='addMedia()'>A&ntilde;adir imagen</button>  
     		  <!--
     		  <button class="button button-full button-assertive" ng-click='takePic("1")'>Hacer Foto</button>  		  
 			  <button class="button button-full button-assertive" ng-click='takePic("0")'>Elegir Foto</button>
 			  -->  		  
 			  <p ng-show="picData !== undefined">Foto cargada correctamente.</p>	  
-			  
-			  <br /><br />
-			  <input type="submit" ng-click='send(bar)' value="Guardar"/>
+			  <input class="button button-full button-balanced" type="submit" ng-click='send(bar)' value="Guardar"/>
 		    </form>
     		<!-- <pre>bar = {{bar | json}}</pre> -->
         </div>

@@ -1,3 +1,11 @@
+/* Fuentes */
+.add h3 {
+	padding: 0 0.8em 0 0.8em;
+}
+.title h2 {
+	margin-top: 0.5em;
+}
+
 /* Fondo */
 .view-container {
 	background: url("../img/ceramic_back.jpg") ;
@@ -7,9 +15,45 @@
 }
 
 /* Inputs */
+/*
 textarea, input[type="text"], input[type="password"], input[type="datetime"], 
 input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], 
 input[type="week"], input[type="number"], input[type="email"], input[type="url"], 
 input[type="search"], input[type="tel"], input[type="color"] {
 	border:1px solid;
+}*/
+.item {
+	margin: 0;
 }
+.button-full {
+	width: 100%;
+}
+
+/* Slider */
+.slider {
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+.slider img {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border: 0px solid #000000;
+}
+
+/* Map */
+.mapa {
+	margin-bottom: 5em;
+	height: 300px;
+}
+#content .mapa {
+	margin-bottom: 0;
+}
+
+
+

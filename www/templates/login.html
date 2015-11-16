@@ -1,29 +1,44 @@
+
+<!-- Menu -->
+<ion-header-bar class="bar-stable bar bar-header disable-user-behavior"
+	align-title="center">
+<div class="title title-center header-item"
+	style="left: 45px; right: 45px;">Login</div>
+</ion-header-bar>
+<!-- /Menu -->
+
 <ion-view style="" title="Anyadir Usuario"> <ion-content
 	class="has-header" padding="true">
+
 
 <article id="content" class="add container col-md-12">
 
 	<div id="add-user" class="add">
 
-		<h2>Login</h2>
+		<div class="title" style="margin-top: 1em;">
+			<h2>Bienvenido a TapAppn</h2>
+		</div>
 		<form name="userForm" novalidate>
-			<label for="nombre">Nombre de usuario</label> <input name="name" type="text" ng-model="user.username"
-				ng-model-options="{ updateOn: 'blur' }" required /> <span
-				class="messages"
+			<label class="item item-input">
+				<input name="name" type="text" ng-model="user.username"
+					ng-model-options="{ updateOn: 'blur' }" required placeholder="Usuario" />
+			</label>
+				<span class="messages"
 				ng-show="userForm.$submitted || userForm.nombre.$touched"> <span
 				ng-show="userForm.name.$error.required">El campo es
 					obligatorio.</span>
-			</span> <br/> 
-			<label for="password">Contraseña</label><br />
-			<input name="pass" type="password" ng-model="user.password"
-				ng-model-options="{ updateOn: 'blur' }" required />
+			</span> 
+			<label class="item item-input">
+				<input name="pass" type="password" ng-model="user.password"
+					ng-model-options="{ updateOn: 'blur' }" required placeholder="Contrase&ntilde;a"/>
+			</label>
 			<span class="messages"
 				ng-show="userForm.$submitted || userForm.password.$touched">
 				<span ng-show="userForm.descripcion.$error.required">El campo
 					es obligatorio.</span>
-			</span> <br /> <input type="submit" ng-click="guardar(user)"
+			</span><input type="submit" class="button button-full button-positive" ng-click="guardar(user)"
 				value="Guardar" />
-			<p><a href="#/registrarUsuario">Reg&iacutestrate</a></p>
+			<p><a class="button button-full button-balanced" href="#/registrarUsuario">Reg&iacutestrate</a></p>
 		</form>
 	</div>
 

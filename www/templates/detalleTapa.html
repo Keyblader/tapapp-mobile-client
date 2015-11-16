@@ -19,16 +19,18 @@
         
 
 		<!-- SLIDER -->
-		<div ng-if='fotos.length <= 0'>
-			<img ng-src="http://kaerzas.pythonanywhere.com{{tapa.imagen}}">
-		</div>
-		
-		<div ng-if='fotos.length > 0'>
-		<ion-slide-box on-slide-changed="slideHasChanged($index)">
-			<ion-slide ng-repeat="foto in fotos">
-				<img ng-src="http://kaerzas.pythonanywhere.com{{foto.imagen}}">
-			</ion-slide>
-		</ion-slide-box>
+		<div class="slider">
+			<div ng-if='fotos.length <= 0'>
+				<img ng-src="http://kaerzas.pythonanywhere.com{{tapa.imagen}}">
+			</div>
+			
+			<div ng-if='fotos.length > 0'>
+			<ion-slide-box on-slide-changed="slideHasChanged($index)">
+				<ion-slide ng-repeat="foto in fotos">
+					<img ng-src="http://kaerzas.pythonanywhere.com{{foto.imagen}}">
+				</ion-slide>
+			</ion-slide-box>
+			</div>
 		</div>
 		<!-- /SLIDER -->
 
@@ -41,12 +43,6 @@
                 <p><a href="/#/app/detalleBar/{{bar.id}}"><small>{{bar.nombre}}</small></a></p>
                 <p><small>{{ usuarioRegistro.username }}</small></p>
                 <p id="descripcion" class="descripcion-tapa">{{tapa.descripcion}}</p>
-                 
-                 
-                 
-                
-                 
-                 
             </div>
         </div>
 	        
@@ -94,17 +90,12 @@
     		</ng-map>
     		
             <!-- Desplegar mapa -->
-	        <p class="col-xs-12">
-	        <a href="#" ng-click="abrirGoogleMaps()"> Abrir en google maps</a>
-	            <a id="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+	        <div class="map-buttons col-xs-12">
+	        	<a class="button-map" href="#" ng-click="abrirGoogleMaps()"> Abrir en google maps</a>
+	            <!-- <a class="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
 	               aria-controls="collapseExample" onclick="document.getElementById('collapseExample').style.visibility = 'visible'">
 	                Localizar en el mapa
-	            </a>
-	        </p>
-	
-	        <!-- Desplegar mapa -->
-	        <div class="col-xs-12" id="collapseExample" style="height: 0; visibility: hidden; margin-top: 0">
-	            <div id="mapa"></div>
+	            </a> -->
 	        </div>
 		        
 	    </div>
@@ -112,7 +103,7 @@
 	    
 	    
 	    <!-- COMENTARIOS -->
-	    <div id="comentarios" class="container col-xs-12">
+	    <div id="comentarios" class="container col-xs-12" style="padding:0;">
 	    <div id="add-comentario" class="add">
 	    
     		<h3>Comentarios:</h3>
@@ -122,15 +113,20 @@
 	                <p class="texto-comentario">{{ comentario.descripcion }}</p>
 	            </div>
             </div>
+            
             <!-- TODO: corregir el formulario para que funcione -->
 			<form name="comentarioForm" ng-controller="detalleTapaCtrl" novalidate>
-				<label for="descripcion">Nuevo: </label><br /> 
-				<input name="descripcion" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required />
+				<div class="list">
+				  <label class="item item-input">
+				    <input name="descripcion" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required placeholder="Nuevo comentario">
+				  </label>
+				</div>
 				<span class="messages" ng-show="comentarioForm.$submitted || comentarioForm.descripcion.$touched">
 					<span ng-show="comentarioForm.descripcion.$error.required">El campo es obligatorio.</span>
 				</span>
-				<input type="submit" ng-click="guardarComentario(comentario)" value="Guardar" ng-disabled="comentarioForm.$invalid" />
+				<input type="submit"  class="button button-full button-positive" ng-click="guardarComentario(comentario)" value="Enviar comentario" ng-disabled="comentarioForm.$invalid" />
 			</form>
+			
 		</div>
         </div>
 
