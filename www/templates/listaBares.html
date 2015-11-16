@@ -1,17 +1,8 @@
 <ion-view style="" title="ListaBares">
 <ion-content class="has-header" padding="true">
   
-   
-    <button class="button button-icon icon ion-qr-scanner" ng-click="scan()"></button>
-     <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
-
-   
+  
     
-<article class="detalle container col-md-12">
-	<div class="title">
-		<h2>Lista de Bares</h2>
-	</div>
-</article>    
 
 <!-- DISEÑO ANTIGUO
 <div ng-repeat="bar in bares">
@@ -43,6 +34,7 @@
     <ion-refresher pulling-icon="ion-arrow-down-b" on-refresh="refreshItems()">
     </ion-refresher>
 
+
     <ion-list>
       <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"
       href="#/app/detalleBar/{{item.id}}" 
@@ -54,9 +46,23 @@
         <a>
     </ion-list>
 
+
     <div ng-if="items !== undefined && !items.length" class="no-results">
       <p>No Existen Resultadoss</p>
     </div>
 
 </ion-content> 
 </ion-view>
+
+
+<!-- Menu inferior -->
+<div class="tabs tabs-icon-only">
+  <a class="tab-item">
+        <button class="button button-icon icon ion-qr-scanner" ng-click="scan()"></button>
+  </a>
+  <a class="tab-item">
+         <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
+  </a>
+</div>
+<!-- /Menu inferior -->
+

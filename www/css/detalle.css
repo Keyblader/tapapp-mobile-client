@@ -1,6 +1,7 @@
 /* DETALLE TAPA */
 .detalle {
     padding: 0;
+    margin-bottom: 1em;
 }
 #fotos-tapa {
     background-position: top;

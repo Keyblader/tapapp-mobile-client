@@ -1,17 +1,19 @@
 <ion-view style="" title="Detalle Bar"> 
 <ion-content class="has-header" padding="true">
 
-<article class="detalle container col-md-12">
-	<div class="title">
-		<h2>Detalle Bar</h2>
-	</div>
+<article class="detalle container col-md-12" style="overflow:hidden;">
+
+	<img class="bar-foto" src='http://kaerzas.pythonanywhere.com{{bar.imagen}}' alt="Imagen"> 
+
+	<div id="detalle" class="container col-xs-12">
+        <div id="texto" class="">
+            <h2 style="margin-top:0.5em;">{{bar.nombre}}</h2>
+            <p id="descripcion" class="descripcion-tapa" style="margin-left:0;">{{bar.descripcion}}</p>
+        </div>
+    </div>
+
 </article>  
 
-<h1>Nombre del bar: {{bar.nombre}}</h1>
 
-<h2>Descripcion del bar: {{bar.descripcion}}</h2>
-
-<img src='http://kaerzas.pythonanywhere.com{{bar.imagen}}' alt="Imagen">   
-    
 </ion-content> 
 </ion-view>
