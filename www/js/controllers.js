@@ -186,7 +186,7 @@ angular.module('starter.controllers', ['starter.services'])
 			options.fileKey="imagen";
 			options.chunkedMode = false;
 			options.httpMethod = "POST";
-			options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")()};
+			options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")};
 			var params = {};
 			params.nombre = bar.nombre;
 			params.descripcion = bar.descripcion;
