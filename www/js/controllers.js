@@ -366,7 +366,7 @@ angular.module('starter.controllers', ['starter.services'])
 			console.log(URLmaps);
 			window.open(URLmaps, '_system');
 
-		}, 200);
+		}, 500);
 		
 
 
