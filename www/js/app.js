@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ngCordova', 'starter.controllers', 'starter.services', 'ngMap'])
+angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoListDivider', 'ngCordova', 'starter.controllers', 'starter.services', 'ngMap'])
 
 .run(function($ionicPlatform) {
 	$ionicPlatform.ready(function() {

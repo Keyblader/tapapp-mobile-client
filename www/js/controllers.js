@@ -19,7 +19,7 @@ angular.module('starter.controllers', ['starter.services'])
 		console.log(sharedToken.getProperty());
 
 		$http({method: 'GET', url: 'http://kaerzas.pythonanywhere.com/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
-		'Authorization': 'Token ' + sharedToken.getProperty()}
+		'Authorization': 'Token ' + window.localStorage.getItem("token")}
 		})
 		.success(function(data) {
 			$scope.greeting = data.serializer;
@@ -133,7 +133,7 @@ angular.module('starter.controllers', ['starter.services'])
 	// INFORMACION DE USUARIO
 	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
 		headers: {
-			'Authorization': 'Token ' + sharedToken.getProperty()
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
 	})
 	.success(function(data) {
@@ -186,7 +186,7 @@ angular.module('starter.controllers', ['starter.services'])
 			options.fileKey="imagen";
 			options.chunkedMode = false;
 			options.httpMethod = "POST";
-			options.headers = {'Authorization': 'Token ' + sharedToken.getProperty()};
+			options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")};
 			var params = {};
 			params.nombre = bar.nombre;
 			params.descripcion = bar.descripcion;
@@ -302,7 +302,7 @@ angular.module('starter.controllers', ['starter.services'])
 	
 	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
 		  headers: {
-			  'Authorization': 'Token ' + sharedToken.getProperty()
+			  'Authorization': 'Token ' + window.localStorage.getItem("token")
 		  }
 	})
 	.success(function(data) {
@@ -359,6 +359,7 @@ angular.module('starter.controllers', ['starter.services'])
 		};
 
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		
 		setTimeout(function(){ 
 			console.log($scope.posicionActual);
 			console.log($scope.centro);
@@ -412,7 +413,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirComentario/', c, {
 			  headers: {
-				  'Authorization': 'Token ' + sharedToken.getProperty()
+				  'Authorization': 'Token ' + window.localStorage.getItem("token")
 			  }
 		})	
 		.success(function(data) {
@@ -443,7 +444,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
 			  headers: {
-				  'Authorization': 'Token ' + sharedToken.getProperty()
+				  'Authorization': 'Token ' + window.localStorage.getItem("token")
 			  }
 		})	
 		.success(function(data) {
@@ -464,7 +465,7 @@ angular.module('starter.controllers', ['starter.services'])
 		
 		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirFavorito/' + v + '/', v, {
 			  headers: {
-				  'Authorization': 'Token ' + sharedToken.getProperty()
+				  'Authorization': 'Token ' + window.localStorage.getItem("token")
 			  }
 		})	
 		.success(function(data) {
@@ -479,7 +480,7 @@ angular.module('starter.controllers', ['starter.services'])
 	//LISTAR BARES
 	$http.get('http://kaerzas.pythonanywhere.com/tapas/listaBares/', {
 		  headers: {
-			  'Authorization': 'Token ' + sharedToken.getProperty()
+			  'Authorization': 'Token ' + window.localStorage.getItem("token")
 		  }
 	})
 	.success(function(data) {
@@ -546,7 +547,7 @@ angular.module('starter.controllers', ['starter.services'])
 	
 	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleBar/' + v + '/', {
 		  headers: {
-			  'Authorization': 'Token ' + sharedToken.getProperty()
+			  'Authorization': 'Token ' + window.localStorage.getItem("token")
 		  }
 	})
 	.success(function(data) {
@@ -609,7 +610,9 @@ angular.module('starter.controllers', ['starter.services'])
 		})
 	    .success(function(data) {
 	    	sharedToken.setProperty(data.token);
-	        //console.log(sharedToken.getProperty())
+	    	window.localStorage.setItem("token",data.token);
+	    	//console.log("local :" + window.localStorage.getItem("token"));
+	        //console.log("shared :" + sharedToken.getProperty());
 	    	window.location = "#/app/inicio";
 	    })
 	    .error(function(data){
