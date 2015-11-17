@@ -1,4 +1,7 @@
-angular.module('starter.controllers', ['starter.services'])
+// http://kaerzas.pythonanywhere.com/
+// http://kaerzas.pythonanywhere.com/
+
+angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -6,6 +9,8 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('inicioCtrl', function($scope, $http, sharedToken) {
 
+	//window.localStorage.setItem("puntuacion",undefined);
+	
 	var onSuccess = function(position) {
 		$scope.latitude=position.coords.latitude;
 
@@ -331,9 +336,11 @@ angular.module('starter.controllers', ['starter.services'])
 .controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state, $cordovaInAppBrowser) {
 
 
+	
 	var v = $stateParams.id;
 
 	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
+		cache: false,
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
@@ -346,20 +353,11 @@ angular.module('starter.controllers', ['starter.services'])
 		$scope.fotos = data.fotos.concat(data.tapa);
 		$scope.usuarioRegistro = data.usuarioRegistro;
 		$scope.favorito = data.favorito;
-
+		window.localStorage.setItem("puntuacion",data.puntuacion);
 		console.log($scope.bar.longitud);
-
 
 		//para cargar los parametros del mapa
 		$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
-
-
-
-
-
-
-
-
 
 	})
 
@@ -369,7 +367,6 @@ angular.module('starter.controllers', ['starter.services'])
 			$scope.latitude=position.coords.latitude;
 			$scope.longitude=position.coords.longitude;
 			//para cargar los parametros del mapa
-
 
 
 			$scope.posicionActual=[position.coords.latitude, position.coords.longitude];
@@ -402,25 +399,11 @@ angular.module('starter.controllers', ['starter.services'])
 
 		}, 200);
 
-
-
-
-
-
 		//var URLmaps='https://www.google.es/maps/dir/'+$scope.posicionActual[0]+','+$scope.posicionActual[1]+'/'+$scope.centro[0]+','+$scope.centro[1];
 		//console.log(URLmaps);
 
 		//window.open(URLmaps, '_system');
-
-
-
 	}
-
-
-
-
-
-
 
 
 	// METODOS DE COMENTARIO
@@ -455,8 +438,42 @@ angular.module('starter.controllers', ['starter.services'])
 		})
 	};
 
-	// METODO VALORACION
+	// METODO VALORACION	
+	$scope.ratingsObject = {
+			iconOn : 'ion-ios-star',
+			iconOff : 'ion-ios-star-outline',
+			iconOnColor: 'rgb(200, 200, 100)',
+			iconOffColor:  'rgb(200, 100, 100)',
+			rating:window.localStorage.getItem("puntuacion"),
+			minRating:1,
+			callback: function(rating) {
+				$scope.ratingsCallback(rating)
+			}
+	}
 
+	$scope.ratingsCallback = function(rating) {
+		var val = {				
+				"puntuacion": rating,     
+				"tapa": v,
+				"usuario": $scope.usuario
+		}
+		
+		console.log(val)
+
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
+			headers: {
+				'Authorization': 'Token ' + window.localStorage.getItem("token")
+			}
+		})	
+		.success(function(data) {
+			window.location = "#/app/inicio";
+		})
+		.error(function(error) {
+			console.log(error);
+		})
+	};
+
+	/*
 	$scope.updateValoracion = function() {
 		console.log($scope.valoracion);
 	};
@@ -484,6 +501,8 @@ angular.module('starter.controllers', ['starter.services'])
 			window.location = "#/app/inicio";
 		})
 	};
+
+	 */	
 
 	// METODO DE FAVORITO
 	$scope.cambiarEstado= function() {
