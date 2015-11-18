@@ -1,18 +1,20 @@
-// http://kaerzas.pythonanywhere.com/
-// http://kaerzas.pythonanywhere.com/
+// http://localhost:8000/
+// http://localhost:8000/
 
 angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
 	
 	// INFORMACION DE USUARIO
-	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+	$http.get('http://localhost:8000/usuarios/dameUsuario/', {
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
 	})
 	.success(function(data) {
 		$scope.usuario = data.user;
+		$scope.nombre = data.serializer.username;
+		$scope.imagen = data.serializer.imagen;
 	})
 
 })
@@ -33,7 +35,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 		console.log(sharedToken.getProperty());
 
-		$http({method: 'GET', url: 'http://kaerzas.pythonanywhere.com/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
+		$http({method: 'GET', url: 'http://localhost:8000/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")}
 		})
 		.success(function(data) {
@@ -146,7 +148,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 .controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup, $ionicActionSheet) {
 
 	// INFORMACION DE USUARIO
-	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+	$http.get('http://localhost:8000/usuarios/dameUsuario/', {
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
@@ -205,7 +207,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 					"fechaSubida": new Date(),
 					"usuarioRegistro": $scope.usuario
 			}			
-			$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirBar/', b, {
+			$http.post('http://localhost:8000/tapas/anyadirBar/', b, {
 				headers: {
 					'Authorization': 'Token ' + window.localStorage.getItem("token")
 				}
@@ -242,7 +244,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				params.usuarioRegistro = $scope.usuario;
 				options.params = params;
 				var ft = new FileTransfer();
-				ft.upload(myImg, encodeURI("http://kaerzas.pythonanywhere.com/tapas/anyadirBar/"), onUploadSuccess, onUploadFail, options);
+				ft.upload(myImg, encodeURI("http://localhost:8000/tapas/anyadirBar/"), onUploadSuccess, onUploadFail, options);
 			}
 			catch(err) {
 				// An alert dialog
@@ -329,7 +331,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				"bar": tapa.bar,
 				"usuarioRegistro": 2//Prueba
 		}
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirTapa/', t);
+		$http.post('http://localhost:8000/tapas/anyadirTapa/', t);
 	};
 })  
 
@@ -349,7 +351,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	
 	var v = $stateParams.id;
 
-	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
+	$http.get('http://localhost:8000/tapas/detalleTapa/' + v + '/', {
 		cache: false,
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
@@ -453,7 +455,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 		console.log(c)
 
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirComentario/', c, {
+		$http.post('http://localhost:8000/tapas/anyadirComentario/', c, {
 			headers: {
 				'Authorization': 'Token ' + window.localStorage.getItem("token")
 			}
@@ -486,7 +488,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		
 		console.log(val)
 
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
+		$http.post('http://localhost:8000/tapas/anyadirValoracion/', val, {
 			headers: {
 				'Authorization': 'Token ' + window.localStorage.getItem("token")
 			}
@@ -518,7 +520,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 		console.log(val)
 
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
+		$http.post('http://localhost:8000/tapas/anyadirValoracion/', val, {
 			headers: {
 				'Authorization': 'Token ' + window.localStorage.getItem("token")
 			}
@@ -541,7 +543,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		}*/
 		console.log(v)		
 
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirFavorito/' + v + '/', v, {
+		$http.post('http://localhost:8000/tapas/anyadirFavorito/' + v + '/', v, {
 			headers: {
 				'Authorization': 'Token ' + window.localStorage.getItem("token")
 			}
@@ -556,7 +558,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 .controller('listaBaresCtrl', function($scope, $http, sharedToken, $timeout, $ionicFilterBar, $window) {
 
 	//LISTAR BARES
-	$http.get('http://kaerzas.pythonanywhere.com/tapas/listaBares/', {
+	$http.get('http://localhost:8000/tapas/listaBares/', {
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
@@ -623,7 +625,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 	var v = $stateParams.id;
 
-	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleBar/' + v + '/', {
+	$http.get('http://localhost:8000/tapas/detalleBar/' + v + '/', {
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
@@ -650,7 +652,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				"username": user.username,
 				"password": user.password,
 		}
-		$http.post('http://kaerzas.pythonanywhere.com/usuarios/anyadirUsuario/', u)		
+		$http.post('http://localhost:8000/usuarios/anyadirUsuario/', u)		
 		.success(function(data) {
 			window.location = "#/app/login";
 		})
@@ -681,7 +683,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	};
 
 	$scope.guardar= function(user) {
-		$http.post('http://kaerzas.pythonanywhere.com/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
+		$http.post('http://localhost:8000/api-token-auth/', 'username=' + user.username + '&password=' + user.password, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
