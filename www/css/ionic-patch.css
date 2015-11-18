@@ -68,7 +68,7 @@ input[type="search"], input[type="tel"], input[type="color"] {
 [nav-bar-transition="android"] [nav-bar="active"] .bar, 
 [nav-bar-transition="android"] [nav-bar="entering"] .bar,
 .tabs, .bar.bar-stable  {
-	background: menu;
+	/*background: menu;*/
 }
 
 .list {
@@ -111,5 +111,9 @@ input[type="search"], input[type="tel"], input[type="color"] {
 	font-size: 3em;
 }
 
-
-
+/* Logos */
+.logo-grande {
+	height: 15em;
+	width: 15em;
+	margin-top: 1.4em;
+}
