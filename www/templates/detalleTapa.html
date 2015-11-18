@@ -52,50 +52,23 @@
 	    <div id="opciones" class="container col-xs-12">
 	    
 		    <!-- PUNTUAR -->
-
+		    <div id="puntuacion">
 				<ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
-<!--  
-	   			<form class="starRating" name="valoracionForm" >
-					<input id="rating5" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("5")'>
-					<label for="rating5">5</label>
-					<input id="rating4" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("4")'>
-					<label for="rating4">4</label>
-					<input id="rating3" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("3")'>
-					<label for="rating3">3</label>
-					<input id="rating2" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("2")'>
-					<label for="rating2">2</label>
-					<input id="rating1" type="submit" name="rating" ng-model="valoracion.puntuacion" ng-click='guardarValoracion("1")'>
-					<label for="rating1">1</label>
-				</form>
--->		    
-		    
-                <!-- <form class="starRating" action="" method="post">
-                    <input id="rating5" type="submit" name="rating" value="5">
-                    <label for="rating5">5</label>
-                    <input id="rating4" type="submit" name="rating" value="4">
-                    <label for="rating4">4</label>
-                    <input id="rating3" type="submit" name="rating" value="3">
-                    <label for="rating3">3</label>
-                    <input id="rating2" type="submit" name="rating" value="2">
-                    <label for="rating2">2</label>
-                    <input id="rating1" type="submit" name="rating" value="1">
-                    <label for="rating1">1</label>
-                </form> -->
             </div>
 		    	
 		    <!-- MAPA -->
-		    <!-- TODO: explota, manda a login �? -->
-		    <ng-map class="mapa" center="{{centro}}">
-    			<marker position="{{centro}}"></marker>
-    		</ng-map>
+		    <!-- <div id="startCard" ng-show="showstartCard"> -->
+				<ng-map class="mapa collapse" center="{{centro}}" ng-style="myStyle">
+	    			<marker position="{{centro}}"></marker>
+	    		</ng-map>
+		    <!-- </div> -->
+		    
     		
             <!-- Desplegar mapa -->
 	        <div class="map-buttons col-xs-12">
-	        	<a class="button-map" href="#" ng-click="abrirGoogleMaps()"> Abrir en google maps</a>
-	            <!-- <a class="button-map" class="btn" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-	               aria-controls="collapseExample" onclick="document.getElementById('collapseExample').style.visibility = 'visible'">
-	                Localizar en el mapa
-	            </a> -->
+	            <button ng-click="collapse()" class="button button-full button-balanced button">Mostrar en el mapa</button>
+	            <!-- <button ng-click="showCard()" class="button button-full button-balanced button">Mostrar en el mapa</button> -->	            
+	            <!-- <a class="button-map" href="#" ng-click="abrirGoogleMaps()"> Abrir en google maps</a> -->
 	        </div>
 		        
 	    </div>
@@ -114,13 +87,11 @@
 	            </div>
             </div>
             
-            <!-- TODO: corregir el formulario para que funcione -->
+
 			<form name="comentarioForm" ng-controller="detalleTapaCtrl" novalidate>
-				<div class="list">
-				  <label class="item item-input">
+				<label class="item item-input">
 				    <input name="descripcion" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required placeholder="Nuevo comentario">
-				  </label>
-				</div>
+				</label>
 				<span class="messages" ng-show="comentarioForm.$submitted || comentarioForm.descripcion.$touched">
 					<span ng-show="comentarioForm.descripcion.$error.required">El campo es obligatorio.</span>
 				</span>
@@ -140,11 +111,13 @@
 <!-- Menu inferior -->
 <div class="tabs tabs-icon-only">
   <a class="tab-item">
-    <div id="add-comment" class="floating-button btn" onclick="bottom()"></div>
+    <div class="ion-chatbox-working" onclick="bottom()">
+    	<!-- TODO: Add comment -->
+    </div>
   </a>
   <a class="tab-item">
-	<div id="add-foto" class="floating-button btn">
-		<!-- TODO: A�adir foto -->
+	<div class="ion-image">
+		<!-- TODO: Add photo -->
 	</div>
   </a>
 </div>
@@ -152,15 +125,6 @@
 
 
 
+<script type="text/javascript">
 
-    <!-- Slider de fotos -->
-    <!-- TODO: creo que no lo reconoce -->
-    <script type="text/javascript">
-        var slider = new IdealImageSlider.Slider({
-            selector: '#slider',
-            height: 400,
-            interval: 4000
-        });
-        slider.start();
-    </script>
-
+</script>

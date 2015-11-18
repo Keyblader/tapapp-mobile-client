@@ -86,9 +86,9 @@
 #opciones, #opciones * {
     padding: 0;
 }
-#opciones .col-xs-12 {
+/*#opciones .col-xs-12 {
     margin-top: 1em;
-}
+}*/
 
 /* ALTA RESOLUCIÓN */
 @media (min-width: 992px) {
@@ -162,7 +162,7 @@
 }
 
 /* PUNTUAR EN ESTRELLAS */
-#puntuacion {
+/*#puntuacion {
     margin-top: 1em;
 }
 .starRating {
@@ -202,6 +202,7 @@
 .starRating:not(:hover) > :checked ~ label:before {
     opacity: 1;
 }
+*/
 
 /* COMENTARIOS */
 #comentarios h3{

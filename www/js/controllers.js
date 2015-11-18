@@ -370,6 +370,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
 
 	})
+	
 
 	$scope.abrirGoogleMaps = function(){
 
@@ -413,6 +414,21 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		//console.log(URLmaps);
 
 		//window.open(URLmaps, '_system');
+	}
+	
+	//COLLAPSE MAP
+	
+	$scope.myStyle={visibility:'hidden', position:'absolute'}
+	var visible = 0;
+	
+	$scope.collapse = function() {
+		if (visible == 0){
+			$scope.myStyle={visibility:'visible', position:'relative'};
+			visible = 1;
+		}else{
+			$scope.myStyle={visibility:'hidden', position:'absolute'};
+			visible = 0;
+		}
 	}
 
 
