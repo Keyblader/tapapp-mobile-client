@@ -3,7 +3,17 @@
 
 angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
+	
+	// INFORMACION DE USUARIO
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		$scope.usuario = data.user;
+	})
 
 })
 

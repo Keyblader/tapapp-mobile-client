@@ -20,7 +20,7 @@
 		<form name="userForm" novalidate>
 			<label for="nombre" class="item item-input"> 
 				<input name="name" type="text" ng-model="user.username"
-				ng-model-options="{ updateOn: 'blur' }" required /> 
+				ng-model-options="{ updateOn: 'blur' }" required placeholder="Nombre de usuario"/> 
 			</label>
 				<span
 				class="messages"
@@ -30,7 +30,7 @@
 			</span>
 			<label for="password" class="item item-input">
 				<input name="pass" type="password" ng-model="user.password"
-					ng-model-options="{ updateOn: 'blur' }" required />
+					ng-model-options="{ updateOn: 'blur' }" required placeholder="Contrase&ntilde;a"/>
 			</label>
 			<span class="messages"
 				ng-show="userForm.$submitted || userForm.descripcion.$touched">
