@@ -347,7 +347,15 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 .controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state, $cordovaInAppBrowser) {
 
-
+	// INFORMACION DE USUARIO
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		$scope.nombreUsuario = data.serializer.username;
+	})
 	
 	var v = $stateParams.id;
 
@@ -450,7 +458,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				"descripcion": comentario.descripcion,     
 				"fechaSubida": new Date(),
 				"tapa": v,
-				"usuario": $scope.usuario
+				"usuario": $scope.usuario,
+				"nombre": $scope.nombreUsuario
 		}
 
 		console.log(c)
