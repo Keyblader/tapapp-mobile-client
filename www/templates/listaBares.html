@@ -1,7 +1,10 @@
 <ion-view style="" title="ListaBares">
 <ion-content class="has-header" padding="true">
   
-  
+<ion-refresher
+    pulling-text="Actualizando..."
+    on-refresh="doRefresh()">
+</ion-refresher>
     
 
 <!-- DISEÑO ANTIGUO
@@ -31,9 +34,6 @@
 		<p>{{item.user.location.city}} {{item.user.password}}</p>
 	</div>
 -->
-    <ion-refresher pulling-icon="ion-arrow-down-b" on-refresh="refreshItems()">
-    </ion-refresher>
-
 
     <ion-list>
       <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"

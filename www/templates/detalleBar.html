@@ -1,6 +1,11 @@
 <ion-view style="" title="Detalle Bar"> 
 <ion-content class="has-header" padding="true">
 
+<ion-refresher
+    pulling-text="Actualizando..."
+    on-refresh="doRefresh()">
+</ion-refresher>
+
 <article class="detalle container col-md-12" style="overflow:hidden;">
 
 	<img class="bar-foto" src='http://kaerzas.pythonanywhere.com{{bar.imagen}}' alt="Imagen"> 
@@ -14,7 +19,6 @@
     </div>
 
 </article>  
-
 
 </ion-content> 
 </ion-view>
