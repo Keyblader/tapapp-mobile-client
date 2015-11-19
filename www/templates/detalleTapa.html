@@ -43,7 +43,7 @@
 
 		<div id="detalle" class="container col-xs-12">
             <div id="texto" class="col-xs-offset-3">
-                <p class="puntuacion pull-left">{{ tapa.puntuacionMedia }}</p>
+                <p class="puntuacion pull-left">{{ tapa.puntuacionMedia | number:1 }}</p>
                 <h2>{{ tapa.nombre }}</h2>
                 <p><a href="#/app/detalleBar/{{bar.id}}"><small>{{bar.nombre}}</small></a></p>
                 <p><small>{{ usuarioRegistro.username }}</small></p>

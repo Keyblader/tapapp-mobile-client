@@ -38,7 +38,7 @@
 					es obligatorio.</span>
 			</span>
 			<input type="submit"  class="button button-full button-positive" ng-click="guardar(user)"
-				value="Guardar" />
+				value="Guardar" ng-disabled="userForm.$invalid" />
 		</form>
 	</div>
 
