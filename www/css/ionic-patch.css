@@ -48,7 +48,7 @@ input[type="search"], input[type="tel"], input[type="color"] {
     overflow: hidden;
 }
 .slider img, .bar-foto {
-	margin-left: -20%;
+	margin: 0 auto;
     height: 325px;
     border-radius: 7px 7px 7px 7px;
     -moz-border-radius: 7px 7px 7px 7px;
@@ -117,3 +117,19 @@ input[type="search"], input[type="tel"], input[type="color"] {
 	width: 15em;
 	margin-top: 1.4em;
 }
+
+/* Iconos */
+.range .icon {
+	margin: 0 0.5em;
+}
+
+/* Lista bares */
+#lista-bares .list {
+	margin-top: 0;
+	margin-bottom: 1em;
+	border-top: none;
+	padding: 0.5em 0;
+}
+
+
+

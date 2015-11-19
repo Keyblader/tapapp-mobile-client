@@ -39,7 +39,7 @@
 				<span ng-show="userForm.descripcion.$error.required">El campo
 					es obligatorio.</span>
 			</span><input type="submit" class="button button-full button-positive" ng-click="guardar(user)"
-				value="Guardar" />
+				value="Guardar" ng-disabled="userForm.$invalid" />
 			<p><a class="button button-full button-balanced" href="#/registrarUsuario">Reg&iacutestrate</a></p>
 		</form>
 	</div>

@@ -1,4 +1,4 @@
-<ion-view style="" title="ListaBares">
+<ion-view style="" title="Lista de Bares">
 <ion-content class="has-header" padding="true">
   
   
@@ -34,6 +34,7 @@
     <ion-refresher pulling-icon="ion-arrow-down-b" on-refresh="refreshItems()">
     </ion-refresher>
 
+<article id="lista-bares">
 
     <ion-list>
       <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"
@@ -46,6 +47,7 @@
         <a>
     </ion-list>
 
+</article>
 
     <div ng-if="items !== undefined && !items.length" class="no-results">
       <p>No Existen Resultadoss</p>
