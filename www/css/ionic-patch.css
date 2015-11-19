@@ -117,3 +117,10 @@ input[type="search"], input[type="tel"], input[type="color"] {
 	width: 15em;
 	margin-top: 1.4em;
 }
+
+#lista-bares .list {
+	margin-top: 0;
+	margin-bottom: 1em;
+	border-top: none;
+	padding: 0.5em 0;
+}
