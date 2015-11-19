@@ -42,6 +42,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			$scope.greeting = data.serializer;
 			$scope.usuario = data.user;
 		})
+		.error(function(error) {
+			console.log(error);
+		})		
 		.finally(function(){
 			$scope.$broadcast('scroll.refreshComplete');
 		});
@@ -353,6 +356,17 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	
 	var v = $stateParams.id;
 	
+	
+	// INFORMACION DE USUARIO
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		$scope.nombreUsuario = data.serializer.username;
+	})
+	
 	var getTapa = function() {
 
 		$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
@@ -452,7 +466,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				"descripcion": comentario.descripcion,     
 				"fechaSubida": new Date(),
 				"tapa": v,
-				"usuario": $scope.usuario
+				"usuario": $scope.usuario,
+				"nombre": $scope.nombreUsuario
 		}
 
 		console.log(c)
