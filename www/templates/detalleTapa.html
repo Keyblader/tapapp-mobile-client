@@ -1,11 +1,6 @@
 <ion-view style="" title="Detalla Tapa"> 
 <ion-content class="has-header" padding="true">
 
-<ion-refresher
-    pulling-text="Actualizando..."
-    on-refresh="doRefresh()">
-</ion-refresher>
-
 <article class="detalle container col-md-12">
 
 		
@@ -43,7 +38,7 @@
 
 		<div id="detalle" class="container col-xs-12">
             <div id="texto" class="col-xs-offset-3">
-                <p class="puntuacion pull-left">{{ tapa.puntuacionMedia | number:1 }}</p>
+                <p class="puntuacion pull-left">{{ tapa.puntuacionMedia }}</p>
                 <h2>{{ tapa.nombre }}</h2>
                 <p><a href="#/app/detalleBar/{{bar.id}}"><small>{{bar.nombre}}</small></a></p>
                 <p><small>{{ usuarioRegistro.username }}</small></p>
@@ -88,7 +83,7 @@
     		<h3>Comentarios:</h3>
         	<div ng-repeat="comentario in comentarios">
 	            <div class="comentario">
-	                <p class="autor-comentario">{{ comentario.nombre }}<small> ({{ comentario.fechaSubida }}):</small></p>
+	                <p class="autor-comentario">{{ comentario.usuario }}<small> ({{ comentario.fechaSubida }}):</small></p>
 	                <p class="texto-comentario">{{ comentario.descripcion }}</p>
 	            </div>
             </div>

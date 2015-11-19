@@ -42,14 +42,12 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			$scope.greeting = data.serializer;
 			$scope.usuario = data.user;
 		})
-		.error(function(error) {
-			console.log(error);
-		})		
 		.finally(function(){
 			$scope.$broadcast('scroll.refreshComplete');
 		});
 
 	};
+
 
 	$scope.doRefresh = function(){
 		navigator.geolocation.getCurrentPosition(onSuccess, onError)
@@ -77,7 +75,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 })
 
-/*.controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
+.controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
 	//Acción para tomar foto desde cámara
 	$scope.takePhoto = function () {
 		var options = {
@@ -145,7 +143,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			          }
 		})
 	};
-})*/
+})
 
 .controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup, $ionicActionSheet) {
 
@@ -195,22 +193,17 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	var onFail = function(e) {
 		console.log("On fail " + e);
 	}
-	$scope.reset = function(BarForm) {
-		$scope.bar = {};
-	};
-	
-	$scope.bar = [];
 
-	$scope.send = function() {
+	$scope.send = function(bar) {
 
 		var myImg = $scope.picData;
 
 		if(typeof myImg === 'undefined'){
 			var b = {
-					"nombre": $scope.bar.nombre,
+					"nombre": bar.nombre,
 					"latitud": $scope.latitude,
 					"longitud": $scope.longitude,
-					"descripcion": $scope.bar.descripcion,     
+					"descripcion": bar.descripcion,     
 					"fechaSubida": new Date(),
 					"usuarioRegistro": $scope.usuario
 			}			
@@ -221,9 +214,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			})	
 			.success(function(data) {
 				window.location = "#/app/inicio";
+				//window.reload();
 			})
 			.error(function(data){
-				console.log(data);
 				$scope.showAlert = function() {
 					var alertPopup = $ionicPopup.alert({
 						title: 'Error al añadir',
@@ -243,8 +236,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				options.httpMethod = "POST";
 				options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")};
 				var params = {};
-				params.nombre = $scope.bar.nombre;
-				params.descripcion = $scope.bar.descripcion;
+				params.nombre = bar.nombre;
+				params.descripcion = bar.descripcion;
 				params.longitud = $scope.longitude;
 				params.latitud = $scope.latitude;
 				params.fechaSubida = new Date();
@@ -254,7 +247,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				ft.upload(myImg, encodeURI("http://kaerzas.pythonanywhere.com/tapas/anyadirBar/"), onUploadSuccess, onUploadFail, options);
 			}
 			catch(err) {
-				console.log(err);
 				// An alert dialog
 				$scope.showAlert = function() {
 					var alertPopup = $ionicPopup.alert({
@@ -302,7 +294,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		window.location = "#/app/inicio";
 	};
 	var onUploadFail = function(e) {
-		console.log(e);
 		// An alert dialog
 		$scope.showAlert = function() {
 			var alertPopup = $ionicPopup.alert({
@@ -315,11 +306,10 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		};
 		$scope.showAlert();
 	}
-	
-	$scope.$on('$ionicView.afterLeave', function(){
-		$scope.reset();//Limpiar formulario
-	});
+
+
 })
+
 
 .controller('anyadirTapaCtrl', function($scope, $http) {
 
@@ -356,54 +346,41 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 
 .controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state, $cordovaInAppBrowser) {
+
+
 	
 	var v = $stateParams.id;
-	
-	
-	// INFORMACION DE USUARIO
-	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
+		cache: false,
 		headers: {
 			'Authorization': 'Token ' + window.localStorage.getItem("token")
 		}
 	})
 	.success(function(data) {
-		$scope.nombreUsuario = data.serializer.username;
+		$scope.tapa = data.tapa;
+		$scope.usuario = data.user;
+		$scope.bar = data.bar;
+		$scope.comentarios = data.comentarios;
+		$scope.fotos = data.fotos.concat(data.tapa);
+		$scope.usuarioRegistro = data.usuarioRegistro;
+		$scope.favorito = data.favorito;
+		window.localStorage.setItem("puntuacion",data.puntuacion);
+		console.log($scope.bar.longitud);
+
+		//para cargar los parametros del mapa
+		$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
+
 	})
 	
-	var getTapa = function() {
 
-		$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
-			cache: false,
-			headers: {
-				'Authorization': 'Token ' + window.localStorage.getItem("token")
-			}
-		})
-		.success(function(data) {
-			$scope.tapa = data.tapa;
-			$scope.usuario = data.user;
-			$scope.bar = data.bar;
-			$scope.comentarios = data.comentarios;
-			$scope.fotos = data.fotos.concat(data.tapa);
-			$scope.usuarioRegistro = data.usuarioRegistro;
-			$scope.favorito = data.favorito;
-			window.localStorage.setItem("puntuacion",data.puntuacion);
-			console.log($scope.bar.longitud);
-
-			//para cargar los parametros del mapa
-			$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
-		})
-		.finally(function(){
-			$scope.$broadcast('scroll.refreshComplete');
-		});
-	}
-	getTapa();
-	
 	$scope.abrirGoogleMaps = function(){
 
 		var onSuccess = function(position) {
 			$scope.latitude=position.coords.latitude;
 			$scope.longitude=position.coords.longitude;
 			//para cargar los parametros del mapa
+
 
 			$scope.posicionActual=[position.coords.latitude, position.coords.longitude];
 			console.log($scope.posicionActual[0]);
@@ -413,6 +390,10 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 			//window.open('URLmaps', '_system');
 			console.log($scope.posicionActual);
+
+
+
+
 		};
 
 		function onError(error) {
@@ -469,8 +450,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				"descripcion": comentario.descripcion,     
 				"fechaSubida": new Date(),
 				"tapa": v,
-				"usuario": $scope.usuario,
-				"nombre": $scope.nombreUsuario
+				"usuario": $scope.usuario
 		}
 
 		console.log(c)
@@ -573,34 +553,23 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			//window.reload();
 		})
 	};
-	
-	$scope.doRefresh = function(){
-		getTapa();
-	};
 
 })
 .controller('listaBaresCtrl', function($scope, $http, sharedToken, $timeout, $ionicFilterBar, $window) {
 
 	//LISTAR BARES
-	var getBares = function() {
-
-		$http.get('http://kaerzas.pythonanywhere.com/tapas/listaBares/', {
-			headers: {
-				'Authorization': 'Token ' + window.localStorage.getItem("token")
-			}
-		})
-		.success(function(data) {
-			console.log("funciona");
-			$scope.items = data;
-		})
-		.error(function(data){
-			console.log("no funciona");
-		})
-		.finally(function(){
-			$scope.$broadcast('scroll.refreshComplete');
-		});
-	}
-	getBares();
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/listaBares/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		console.log("funciona");
+		$scope.items = data;
+	})
+	.error(function(data){
+		console.log("no funciona");
+	})
 
 	//LISTAR BARES POR FILTRO
 	var filterBarInstance;
@@ -617,9 +586,17 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			filterProperties: 'nombre'
 		});
 	};
-	
-	$scope.doRefresh = function(){
-		getBares();
+
+	$scope.refreshItems = function () {
+		if (filterBarInstance) {
+			filterBarInstance();
+			filterBarInstance = null;
+		}
+
+		$timeout(function () {
+			//getItems();
+			$scope.$broadcast('scroll.refreshComplete');
+		}, 1000);
 	};
 
 	//LEER QR
@@ -647,27 +624,16 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 
 	var v = $stateParams.id;
-	
-	var getBar = function() {
 
-		$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleBar/' + v + '/', {
-			headers: {
-				'Authorization': 'Token ' + window.localStorage.getItem("token")
-			}
-		})
-		.success(function(data) {
-			$scope.tapas = data.tapas;
-			$scope.bar = data.bar;
-		})
-		.finally(function(){
-			$scope.$broadcast('scroll.refreshComplete');
-		});	
-	}
-	getBar();
-
-	$scope.doRefresh = function(){
-		getBar();
-	};
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleBar/' + v + '/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		$scope.tapas = data.tapas;
+		$scope.bar = data.bar;
+	})
 })
 
 .controller('registrarUsuarioCtrl', function($scope, $http,$ionicPopup) {

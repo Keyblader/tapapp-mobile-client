@@ -27,7 +27,7 @@
 			</div>
 		</a>
 		<div class="texto col-xs-7 col-md-8">
-			<p class="puntuacion pull-right">{{greet.puntuacionMedia | number:1}}</p>
+			<p class="puntuacion pull-right">{{greet.puntuacionMedia}}</p>
 
 			<h3>{{ greet.nombre}}</h3>
 
@@ -46,12 +46,11 @@
 <div class="tabs tabs-icon-only">
 	<!--Slider para cambiar el rango-->
     <div class="range" >
-        <i class="icon ion-map"></i>
-        
+        <i class="icon ion-ios7-sunny-outline"></i>
         <input type="range" min="400" max="{{user.max}}" value="{{user.min}}" step="200" ng-model="user.value">
         Rango: {{user.value}} m.
         
-        <i class="icon ion-beer"></i>
+        <i class="icon ion-ios7-sunny"></i>
     </div>
 </div>
 <!-- /Menu inferior -->

@@ -1,10 +1,7 @@
 <ion-view style="" title="ListaBares">
 <ion-content class="has-header" padding="true">
   
-<ion-refresher
-    pulling-text="Actualizando..."
-    on-refresh="doRefresh()">
-</ion-refresher>
+  
     
 
 <!-- DISEÑO ANTIGUO
@@ -34,19 +31,22 @@
 		<p>{{item.user.location.city}} {{item.user.password}}</p>
 	</div>
 -->
+    <ion-refresher pulling-icon="ion-arrow-down-b" on-refresh="refreshItems()">
+    </ion-refresher>
 
-	<article id="lista-bares">
-	    <ion-list>
-	      <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"
-	      href="#/app/detalleBar/{{item.id}}" 
-	      class="item item-thumbnail-left">
-	          <img ng-src='http://kaerzas.pythonanywhere.com{{item.thumbnail}}'>
-	          <h2>{{ item.nombre }}</h2>
-	          <p>{{ item.descripcion }}</p>
-	 
-	        <a>
-	    </ion-list>
-	</article>
+
+    <ion-list>
+      <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"
+      href="#/app/detalleBar/{{item.id}}" 
+      class="item item-thumbnail-left">
+          <img ng-src='http://kaerzas.pythonanywhere.com{{item.imagen}}'>
+          <h2>{{ item.nombre }}</h2>
+          <p>{{ item.descripcion }}</p>
+ 
+        <a>
+    </ion-list>
+
+
     <div ng-if="items !== undefined && !items.length" class="no-results">
       <p>No Existen Resultadoss</p>
     </div>

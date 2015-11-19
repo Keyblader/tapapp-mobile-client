@@ -22,7 +22,8 @@
 		</div>
 		<form name="userForm" novalidate>
 			<label class="item item-input">
-				<input name="name" type="text" ng-model="user.username" required placeholder="Usuario" />
+				<input name="name" type="text" ng-model="user.username"
+					ng-model-options="{ updateOn: 'blur' }" required placeholder="Usuario" />
 			</label>
 				<span class="messages"
 				ng-show="userForm.$submitted || userForm.nombre.$touched"> <span
@@ -30,14 +31,15 @@
 					obligatorio.</span>
 			</span> 
 			<label class="item item-input">
-				<input name="pass" type="password" ng-model="user.password" required placeholder="Contrase&ntilde;a"/>
+				<input name="pass" type="password" ng-model="user.password"
+					ng-model-options="{ updateOn: 'blur' }" required placeholder="Contrase&ntilde;a"/>
 			</label>
 			<span class="messages"
 				ng-show="userForm.$submitted || userForm.password.$touched">
 				<span ng-show="userForm.descripcion.$error.required">El campo
 					es obligatorio.</span>
 			</span><input type="submit" class="button button-full button-positive" ng-click="guardar(user)"
-				value="Guardar" ng-disabled="userForm.$invalid" />
+				value="Guardar" />
 			<p><a class="button button-full button-balanced" href="#/registrarUsuario">Reg&iacutestrate</a></p>
 		</form>
 	</div>
