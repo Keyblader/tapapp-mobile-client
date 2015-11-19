@@ -124,3 +124,12 @@ input[type="search"], input[type="tel"], input[type="color"] {
 	border-top: none;
 	padding: 0.5em 0;
 }
+
+/* Iconos */
+.range .icon {
+	margin: 0 0.5em;
+}
+
+
+
+
