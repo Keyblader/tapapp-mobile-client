@@ -77,7 +77,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 })
 
-.controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
+/*.controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
 	//Acción para tomar foto desde cámara
 	$scope.takePhoto = function () {
 		var options = {
@@ -145,7 +145,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			          }
 		})
 	};
-})
+})*/
 
 .controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup, $ionicActionSheet) {
 
@@ -223,6 +223,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				window.location = "#/app/inicio";
 			})
 			.error(function(data){
+				console.log(data);
 				$scope.showAlert = function() {
 					var alertPopup = $ionicPopup.alert({
 						title: 'Error al añadir',
@@ -242,8 +243,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				options.httpMethod = "POST";
 				options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")};
 				var params = {};
-				params.nombre = bar.nombre;
-				params.descripcion = bar.descripcion;
+				params.nombre = $scope.bar.nombre;
+				params.descripcion = $scope.bar.descripcion;
 				params.longitud = $scope.longitude;
 				params.latitud = $scope.latitude;
 				params.fechaSubida = new Date();
@@ -253,6 +254,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				ft.upload(myImg, encodeURI("http://kaerzas.pythonanywhere.com/tapas/anyadirBar/"), onUploadSuccess, onUploadFail, options);
 			}
 			catch(err) {
+				console.log(err);
 				// An alert dialog
 				$scope.showAlert = function() {
 					var alertPopup = $ionicPopup.alert({
@@ -300,6 +302,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		window.location = "#/app/inicio";
 	};
 	var onUploadFail = function(e) {
+		console.log(e);
 		// An alert dialog
 		$scope.showAlert = function() {
 			var alertPopup = $ionicPopup.alert({
