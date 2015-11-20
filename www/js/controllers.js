@@ -364,9 +364,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	.success(function(data) {
 		$scope.nombreUsuario = data.serializer.username;
 	})
-	.finally(function(){
-			$scope.$broadcast('scroll.refreshComplete');
-	});
 	
 	var v = $stateParams.id;
 	
@@ -393,6 +390,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
 
 		})
+		.finally(function(){
+			$scope.$broadcast('scroll.refreshComplete');
+		});
 	}
 	getTapa();
 
