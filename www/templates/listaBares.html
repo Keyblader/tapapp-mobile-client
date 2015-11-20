@@ -1,7 +1,10 @@
 <ion-view style="" title="Lista de Bares">
-<ion-content class="has-header" padding="true">
+<ion-content class="has-header" padding="true" overflow-scroll="true">
   
-  
+<ion-refresher
+    pulling-text="Actualizando..."
+    on-refresh="doRefresh()">
+</ion-refresher>  
     
 
 <!-- DISEÑO ANTIGUO
@@ -31,13 +34,11 @@
 		<p>{{item.user.location.city}} {{item.user.password}}</p>
 	</div>
 -->
-    <ion-refresher pulling-icon="ion-arrow-down-b" on-refresh="refreshItems()">
-    </ion-refresher>
 
 <article id="lista-bares">
 
     <ion-list>
-      <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"
+      <a ng-repeat="item in items" class="item item-avatar"
       href="#/app/detalleBar/{{item.id}}" 
       class="item item-thumbnail-left">
           <img ng-src='http://kaerzas.pythonanywhere.com{{item.imagen}}'>

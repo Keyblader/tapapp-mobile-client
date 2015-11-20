@@ -10,25 +10,24 @@
 			</div>
             <form name="tapaForm" novalidate>
 			  <label class="item item-input">
-			  <input name="name" type="text" ng-model="tapa.nombre" ng-model-options="{ updateOn: 'blur' }" required placeholder="Nombre"/>
+			  <input name="name" type="text" ng-model="tapa.nombre" required placeholder="Nombre"/>
 			  </label>
 			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.nombre.$touched">
 			<span ng-show="tapaForm.name.$error.required">El campo es obligatorio.</span>
 			  </span>
 			  <label class="item item-input"">
-			  <textarea name="descripcion" rows="2" cols="1" ng-model="tapa.descripcion" ng-model-options="{ updateOn: 'blur' }" required placeholder="Descripci&oacute;n" /></textarea>
+			  <textarea name="descripcion" rows="2" cols="1" ng-model="tapa.descripcion" required placeholder="Descripci&oacute;n" /></textarea>
 			  </label>
 			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.descripcion.$touched">
 			<span ng-show="tapaForm.descripcion.$error.required">El campo es obligatorio.</span>
 			  </span>
 			  <label class="item item-input">
-			  <input name="bar" type="number" ng-model="tapa.bar" ng-model-options="{ updateOn: 'blur' }" required placeholder="Bar"/>
+			  <input name="bar" type="number" ng-model="tapa.bar" required placeholder="Bar"/>
 			  </label>
 			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.bar.$touched">
 			<span ng-show="tapaForm.bar.$error.required">El campo es obligatorio.</span>
 			  </span>
 			 
-			  <!-- <input class="button button-full button-balanced" type="reset" ng-click="reset(tapaForm)" value="Limpiar" /> -->
 			  <input class="button button-full button-balanced" type="submit" ng-click="guardar(tapa)" value="Guardar" ng-disabled="tapaForm.$invalid" />
 		    </form>
     		<!-- <pre>tapa = {{tapa | json}}</pre> -->
