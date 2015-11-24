@@ -81,8 +81,9 @@
 	    <!-- /OPCIONES -->
 	    
 	    
+	    
 	    <!-- COMENTARIOS -->
-	    <div id="comentarios" class="container col-xs-12" style="padding:0;">
+	    <div id="comentarios" class="container col-xs-12" style="padding:0;" ng-hide="showComments">
 	    <div id="add-comentario" class="add">
 	    
     		<h3>Comentarios:</h3>
@@ -96,39 +97,35 @@
 
 			<form name="comentarioForm" ng-controller="detalleTapaCtrl" novalidate>
 				<label class="item item-input">
-				    <input name="descripcion" type="text" ng-model="comentario.descripcion" ng-model-options="{ updateOn: 'blur' }" required placeholder="Nuevo comentario">
+				    <input name="descripcion" type="text" ng-model="comentario.descripcion" required placeholder="Nuevo comentario">
 				</label>
-				<span class="messages" ng-show="comentarioForm.$submitted || comentarioForm.descripcion.$touched">
-					<span ng-show="comentarioForm.descripcion.$error.required">El campo es obligatorio.</span>
-				</span>
+				
 				<input type="submit"  class="button button-full button-positive" ng-click="guardarComentario(comentario)" value="Enviar comentario" ng-disabled="comentarioForm.$invalid" />
 			</form>
 			
 		</div>
         </div>
-
-
-
+       
 </article>
     
 </ion-content> 
 </ion-view>
 
 <!-- Menu inferior -->
+
 <div class="tabs tabs-icon-only">
   <a class="tab-item">
-    <div class="ion-chatbox-working" onclick="bottom()">
+    <div class="ion-chatbox-working" ng-click="showComments = !showComments">
     	<!-- TODO: Add comment -->
     </div>
   </a>
   <a class="tab-item">
-	<div class="ion-image">
+	<div class="ion-image" ng-click='addFoto()'>
 		<!-- TODO: Add photo -->
 	</div>
   </a>
 </div>
 <!-- /Menu inferior -->
-
 
 
 <script type="text/javascript">

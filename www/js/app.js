@@ -30,7 +30,6 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.inicio', {
 		url: '/inicio',
-		cache: false,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/inicio.html',
@@ -49,7 +48,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 		}
 	})  
 	.state('app.anyadirTapa', {
-		url: '/anyadirTapa',
+		url: '/anyadirTapa/:id',
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/anyadirTapa.html',

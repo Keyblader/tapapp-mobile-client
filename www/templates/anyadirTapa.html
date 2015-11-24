@@ -2,35 +2,30 @@
     <ion-content class="has-header" padding="true">
 
     <article id="content" class="add container col-md-12">
+    
+    <p></p>
 
-        <div id="add-tapa" class="add">
+        <div id="add-tapa" class="add"> 
 
             <div class="title" style="margin-top: 1em;">
 			<h2></h2>
 			</div>
             <form name="tapaForm" novalidate>
+             
 			  <label class="item item-input">
 			  <input name="name" type="text" ng-model="tapa.nombre" required placeholder="Nombre"/>
 			  </label>
-			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.nombre.$touched">
-			<span ng-show="tapaForm.name.$error.required">El campo es obligatorio.</span>
-			  </span>
-			  <label class="item item-input"">
-			  <textarea name="descripcion" rows="2" cols="1" ng-model="tapa.descripcion" required placeholder="Descripci&oacute;n" /></textarea>
-			  </label>
-			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.descripcion.$touched">
-			<span ng-show="tapaForm.descripcion.$error.required">El campo es obligatorio.</span>
-			  </span>
+			  
 			  <label class="item item-input">
-			  <input name="bar" type="number" ng-model="tapa.bar" required placeholder="Bar"/>
+			  <textarea name="descripcion" rows="2" cols="1" ng-model="tapa.descripcion" required placeholder="Descripci&oacute;n"/></textarea>
 			  </label>
-			  <span class="messages" ng-show="tapaForm.$submitted || tapaForm.bar.$touched">
-			<span ng-show="tapaForm.bar.$error.required">El campo es obligatorio.</span>
-			  </span>
-			 
-			  <input class="button button-full button-balanced" type="submit" ng-click="guardar(tapa)" value="Guardar" ng-disabled="tapaForm.$invalid" />
+			  
+    		  <button class="button button-full button-assertive" ng-click='addMedia()'>A&ntilde;adir imagen</button>  
+    		 		  
+			  <!--<p ng-show="picData !== undefined">Foto cargada correctamente.</p>-->  
+			  <input class="button button-full button-balanced" type="submit" ng-click='send(tapaForm)' value="Guardar"/>
 		    </form>
-    		<!-- <pre>tapa = {{tapa | json}}</pre> -->
+   
         </div>
 
     </article>

@@ -1,5 +1,5 @@
 <ion-view style="" title="Lista de Bares">
-<ion-content class="has-header" padding="true" overflow-scroll="true">
+<ion-content class="has-header" overflow-scroll="true" padding="true">
   
 <ion-refresher
     pulling-text="Actualizando..."
@@ -38,7 +38,7 @@
 <article id="lista-bares">
 
     <ion-list>
-      <a ng-repeat="item in items" class="item item-avatar"
+      <a ng-repeat="item in items" auto-list-divider auto-list-divider-value="{{item.nombre}}" class="item item-avatar"
       href="#/app/detalleBar/{{item.id}}" 
       class="item item-thumbnail-left">
           <img ng-src='http://kaerzas.pythonanywhere.com{{item.imagen}}'>
@@ -51,7 +51,7 @@
 </article>
 
     <div ng-if="items !== undefined && !items.length" class="no-results">
-      <p>No Existen Resultadoss</p>
+      <p>No Existen Resultados</p>
     </div>
 
 </ion-content> 

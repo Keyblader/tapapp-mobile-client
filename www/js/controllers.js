@@ -8,7 +8,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	// INFORMACION DE USUARIO
 	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
 		headers: {
-			'Authorization': 'Token ' + window.localStorage.getItem("token")
+			'Authorization': 'Token ' + window.localStorage.getItem("token"),
+			'Access-Control-Allow-Origin':'*',
 		}
 	})
 	.success(function(data) {
@@ -76,104 +77,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 })
 
 .controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
-	//Acción para tomar foto desde cámara
-	$scope.takePhoto = function () {
-		var options = {
-				quality: 75,
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.CAMERA,
-				allowEdit: false,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false,
-				correctOrientation: true //Corregir que salga la foto con rotación
-		};
-
-		$cordovaCamera.getPicture(options).then(function (imageData) {
-			$scope.imgURI = "data:image/jpeg;base64," + imageData;
-		}, function (err) {
-			// An error occured. Show a message to the user
-		});
-	}
-	//Acción para tomar foto desde galeria
-	$scope.choosePhoto = function () {
-		var options = {
-				quality: 75,
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-				allowEdit: false,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false
-		};
-		$cordovaCamera.getPicture(options).then(function (imageData) {
-			$scope.imgURI = "data:image/jpeg;base64," + imageData;
-			//alert($scope.imgURI);
-		}, function (err) {
-			// An error occured. Show a message to the user
-		});
-	}
-	// Barra de Acciones
-	$scope.addMedia = function() {
-		// Mostrar contenido de acciones
-		var hideSheet = $ionicActionSheet.show({
-			buttons: [
-			          { text: 'Cámara' },
-			          { text: 'Galería' }
-			          ],
-			          titleText: 'Añadir desde...',
-			          cancelText: 'Cancelar',
-			          cancel: function() {
-			        	  // add cancel code..
-			        	  console.log('CANCELADO');
-			          },
-			          buttonClicked: function(index) {
-			        	  switch (index) {
-			        	  case 0:
-			        		  $scope.takePhoto();
-			        		  return true;
-			        	  case 1:
-			        		  $scope.choosePhoto();
-			        		  return true;
-			        	  }
-			          }
-		})
-	};
-})
-
-.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup, $ionicActionSheet) {
-
-	// INFORMACION DE USUARIO
-	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
-		headers: {
-			'Authorization': 'Token ' + window.localStorage.getItem("token")
-		}
-	})
-	.success(function(data) {
-		$scope.usuario = data.user;
-	})
-
-	// POSICION
-	var onSuccess = function(position) {
-		$scope.latitude=position.coords.latitude;
-		$scope.longitude=position.coords.longitude;
-		//para cargar los parametros del mapa
-
-
-
-		$scope.centro=[position.coords.latitude, position.coords.longitude];
-
-	};
-	function onError(error) {
-		alert('code: '    + error.code    + '\n' +
-				'message: ' + error.message + '\n');
-	};
-	navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
 
 	// CAMARA
 	$scope.takePic = function(medio) {
@@ -194,16 +97,74 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		console.log("On fail " + e);
 	}
 	
+	//LISTA DE OPCIONES
+	$scope.addMedia = function() {
+		// Mostrar contenido de acciones
+		var hideSheet = $ionicActionSheet.show({
+			buttons: [
+	          { text: 'Cámara' },
+	          { text: 'Galería' }
+	          ],
+	          titleText: 'Añadir desde...',
+	          cancelText: 'Cancelar',
+	          cancel: function() {
+	        	  // add cancel code..
+	        	  console.log('CANCELADO');
+	          },
+	          buttonClicked: function(index) {
+	        	  switch (index) {
+	        	  case 0:
+	        		  $scope.takePic("1");//Tomar desde Cámara
+	        		  return true;
+	        	  case 1:
+	        		  $scope.takePic("0");//Tomar desde Galería
+	        		  return true;
+	        	  }
+	          }
+		})
+	};
+	
+})
+
+.controller('anyadirBarCtrl', function($scope, $http, $controller, sharedToken, $ionicPopup) {
+
+	$controller('PhotoController', {$scope: $scope});//Usar un controlador desde otro controlador
+	
+	// INFORMACION DE USUARIO
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		$scope.usuario = data.user;
+	})
+
+	// POSICION
+	var onSuccess = function(position) {
+		$scope.latitude=position.coords.latitude;
+		$scope.longitude=position.coords.longitude;
+		//para cargar los parametros del mapa
+
+		$scope.centro=[position.coords.latitude, position.coords.longitude];
+	};
+	function onError(error) {
+		alert('code: '    + error.code    + '\n' +
+				'message: ' + error.message + '\n');
+	};
+	navigator.geolocation.getCurrentPosition(onSuccess, onError);
+	
+	
 	$scope.reset = function(BarForm) {
 		$scope.bar = {};
 	};
 	
 	$scope.bar = [];
-
 	$scope.send = function() {
 
 		var myImg = $scope.picData;
 
+		//AÑADIR BAR SIN FOTO
 		if(typeof myImg === 'undefined'){
 			var b = {
 					"nombre": $scope.bar.nombre,
@@ -220,7 +181,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			})	
 			.success(function(data) {
 				window.location = "#/app/inicio";
-				//window.reload();
 			})
 			.error(function(data){
 				$scope.showAlert = function() {
@@ -234,6 +194,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				};
 				$scope.showAlert();
 			})
+		//AÑADIR BAR CON FOTO
 		} else {
 			try {
 				var options = new FileUploadOptions();
@@ -269,33 +230,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 	}
 
-	//LISTA DE OPCIONES
-	$scope.addMedia = function() {
-		// Mostrar contenido de acciones
-		var hideSheet = $ionicActionSheet.show({
-			buttons: [
-			          { text: 'Cámara' },
-			          { text: 'Galería' }
-			          ],
-			          titleText: 'Añadir desde...',
-			          cancelText: 'Cancelar',
-			          cancel: function() {
-			        	  // add cancel code..
-			        	  console.log('CANCELADO');
-			          },
-			          buttonClicked: function(index) {
-			        	  switch (index) {
-			        	  case 0:
-			        		  $scope.takePic("1");//Tomar desde Cámara
-			        		  return true;
-			        	  case 1:
-			        		  $scope.takePic("0");//Tomar desde Galería
-			        		  return true;
-			        	  }
-			          }
-		})
-	};
-
 	var onUploadSuccess = function(FILE_URI) {
 		window.location = "#/app/inicio";
 	};
@@ -315,33 +249,108 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	
 	$scope.$on('$ionicView.afterLeave', function(){
 		$scope.reset();//Limpiar formulario
+		if ($scope.picData) {
+			delete $scope.picData;//Borrar foto
+		}
 	});
 })
 
+.controller('anyadirTapaCtrl', function($scope, $http, $stateParams, $controller, sharedToken, $ionicPopup) {
 
-.controller('anyadirTapaCtrl', function($scope, $http) {
-
-	$scope.update = function() {
-		console.log($scope.tapa);
-	};
-
+	var id_bar = $stateParams.id;
+	$controller('PhotoController', {$scope: $scope});//Usar un controlador desde otro controlador
+	
+	// INFORMACION DE USUARIO
+	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		$scope.usuario = data.user;
+	})
+	
 	$scope.reset = function(TapaForm) {
 		$scope.tapa = {};
 	};
+	
+	$scope.tapa = [];
+	$scope.send = function() {
 
-	$scope.guardar= function(tapa) {
+		var myImg = $scope.picData;
 
-		var t = {
-				"nombre": tapa.nombre,
-				"imagen": null,
-				"descripcion": tapa.descripcion,
-				"fechaSubida": new Date(),//Fecha actual
-				"bar": tapa.bar,
-				"usuarioRegistro": 2//Prueba
+		if(typeof myImg === 'undefined'){
+			//AÑADIR TAPA SIN FOTO -> ERROR
+			$scope.showAlert = function() {
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error al añadir',
+					template: 'Revise los campos y asegúrese de añadir una imagen.'
+				});
+				alertPopup.then(function(res) {
+					console.log('Login incorrecto');
+				});
+			};
+			$scope.showAlert();
+		} else {
+			//AÑADIR TAPA CON FOTO
+			try {
+				var options = new FileUploadOptions();
+				options.fileKey="imagen";
+				options.chunkedMode = false;
+				options.httpMethod = "POST";
+				options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")};
+				var params = {};
+				params.nombre = $scope.tapa.nombre;
+				params.descripcion = $scope.tapa.descripcion;
+				params.bar = id_bar;
+				params.fechaSubida = new Date();
+				params.usuarioRegistro = $scope.usuario;
+				options.params = params;
+				var ft = new FileTransfer();
+				ft.upload(myImg, encodeURI("http://kaerzas.pythonanywhere.com/tapas/anyadirTapa/"), onUploadSuccess, onUploadFail, options);
+			}
+			catch(err) {
+				// An alert dialog
+				$scope.showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Error al añadir',
+						template: 'Revise los campos y asegúrese de añadir una imagen.'
+					});
+					alertPopup.then(function(res) {
+						console.log('Login incorrecto');
+					});
+				};
+				$scope.showAlert();
+			}	
 		}
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirTapa/', t);
+
+	}
+
+	var onUploadSuccess = function(FILE_URI) {
+		window.location = "#/app/inicio";
 	};
-})  
+	var onUploadFail = function(e) {
+		// An alert dialog
+		console.log(e);
+		$scope.showAlert = function() {
+			var alertPopup = $ionicPopup.alert({
+				title: 'Error al añadir',
+				template: 'Revise los campos y asegúrese de añadir una imagen.'
+			});
+			alertPopup.then(function(res) {
+				console.log('Login incorrecto');
+			});
+		};
+		$scope.showAlert();
+	}
+
+	$scope.$on('$ionicView.afterLeave', function(){
+		$scope.reset();//Limpiar formulario
+		if ($scope.picData) {
+			delete $scope.picData;//Borrar foto
+		}
+	});
+})
 
 .controller('seleccionarBarCtrl', function($scope) {
 
@@ -353,8 +362,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 
 
-.controller('detalleTapaCtrl', function($scope, $http, $stateParams, sharedToken, $state, $cordovaInAppBrowser) {
-
+.controller('detalleTapaCtrl', function($scope, $http, $stateParams, $ionicPopup, $controller, sharedToken, $state, $cordovaInAppBrowser, $ionicActionSheet) {
+	
 	// INFORMACION DE USUARIO
 	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
 		headers: {
@@ -484,8 +493,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			}
 		})	
 		.success(function(data) {
-			window.location = "#/app/inicio";
-			//window.reload();
+			$scope.resetComentario();
+			$scope.doRefresh();
 		})
 	};
 
@@ -517,7 +526,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			}
 		})	
 		.success(function(data) {
-			window.location = "#/app/inicio";
+			//window.location = "#/app/inicio";
+			$scope.doRefresh();
 		})
 		.error(function(error) {
 			console.log(error);
@@ -572,18 +582,140 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			}
 		})	
 		.success(function(data) {
-			window.location = "#/app/inicio";
+			//window.location = "#/app/inicio";
 			//window.reload();
+			$scope.doRefresh();
 		})
 	};
+	
+	// METODO DE AÑADIR OTRA FOTO
+	// CAMARA
+	$scope.takePic = function(medio) {
+		var options =   {
+				quality: 50,
+				destinationType: Camera.DestinationType.FILE_URI,
+				sourceType: medio,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+				encodingType: 0     // 0=JPG 1=PNG
+		}
+		navigator.camera.getPicture(onSuccess,onFail,options);
+	}
+	var onSuccess = function(FILE_URI) {
+		console.log(FILE_URI);
+		$scope.picData = FILE_URI;
+		$scope.$apply();
+		send();
+	};
+	var onFail = function(e) {
+		console.log("On fail " + e);
+	}
+
+	//LISTA DE OPCIONES
+	$scope.addFoto = function() {
+		// Mostrar contenido de acciones
+		var hideSheet = $ionicActionSheet.show({
+			buttons: [
+			          { text: 'Cámara' },
+			          { text: 'Galería' }
+			          ],
+			          titleText: 'Añadir desde...',
+			          cancelText: 'Cancelar',
+			          cancel: function() {
+			        	  // add cancel code..
+			        	  console.log('CANCELADO');
+			          },
+			          buttonClicked: function(index) {
+			        	  switch (index) {
+			        	  case 0:
+			        		  $scope.takePic("1");//Tomar desde Cámara
+			        		  return true;
+			        	  case 1:
+			        		  $scope.takePic("0");//Tomar desde Galería
+			        		  return true;
+			        	  }
+			          }
+		})
+	};
+
+
+	function send() {
+
+		var myImg = $scope.picData;
+
+		if(typeof myImg === 'undefined'){
+			//NO AÑADIR FOTO -> ERROR
+			$scope.showAlert = function() {
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error al añadir',
+					template: 'Revise los campos y asegúrese de añadir una imagen.'
+				});
+				alertPopup.then(function(res) {
+					console.log('Login incorrecto');
+				});
+			};
+			$scope.showAlert();
+		} else {
+			//AÑADIR FOTO
+			try {
+				var options = new FileUploadOptions();
+				options.fileKey="imagen";
+				options.chunkedMode = false;
+				options.httpMethod = "POST";
+				options.headers = {'Authorization': 'Token ' + window.localStorage.getItem("token")};
+				var params = {};
+				params.tapa = v;
+				params.fechaSubida = new Date();
+				params.usuario = $scope.usuario;
+				options.params = params;
+				var ft = new FileTransfer();
+				ft.upload(myImg, encodeURI("http://kaerzas.pythonanywhere.com/tapas/anyadirFoto/"), onUploadSuccess, onUploadFail, options);
+			}
+			catch(err) {
+				// An alert dialog
+				$scope.showAlert = function() {
+					var alertPopup = $ionicPopup.alert({
+						title: 'Error al añadir',
+						template: 'Revise los campos y asegúrese de añadir una imagen.'
+					});
+					alertPopup.then(function(res) {
+						console.log('Login incorrecto');
+					});
+				};
+				$scope.showAlert();
+			}	
+		}
+	}
+	var onUploadSuccess = function(FILE_URI) {
+		delete $scope.picData;//Borrar foto
+		$scope.doRefresh();	
+	};
+	var onUploadFail = function(e) {
+		// An alert dialog
+		console.log(e);
+		$scope.showAlert = function() {
+			var alertPopup = $ionicPopup.alert({
+				title: 'Error al añadir',
+				template: 'Revise los campos y asegúrese de añadir una imagen.'
+			});
+			alertPopup.then(function(res) {
+				console.log('Login incorrecto');
+			});
+		};
+		$scope.showAlert();
+	}
 
 	$scope.doRefresh = function(){
 		getTapa();
 	};
+	
+	$scope.showComments = function() {
+        $scope.comments = !$scope.comments;
+    };
 
 })
 .controller('listaBaresCtrl', function($scope, $http, sharedToken, $timeout, $ionicFilterBar, $window) {
 
+	var filterBarInstance;
+	
 	var getBares = function() {
 
 		//LISTAR BARES
@@ -595,10 +727,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		.success(function(data) {
 			console.log("funciona");
 			$scope.items = data;
+			filterBarInstance = null;
 			
 			//LISTAR BARES POR FILTRO
-			var filterBarInstance;
-
 			$scope.showFilterBar = function () {
 				filterBarInstance = $ionicFilterBar.show({
 					items: $scope.items,
