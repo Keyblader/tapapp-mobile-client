@@ -362,7 +362,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 
 
-.controller('detalleTapaCtrl', function($scope, $http, $stateParams, $ionicPopup, $controller, sharedToken, $state, $cordovaInAppBrowser, $ionicActionSheet) {
+.controller('detalleTapaCtrl', function($scope, $http, $stateParams, $ionicPopup, $controller, sharedToken, $state, $cordovaInAppBrowser, $ionicActionSheet, $ionicSlideBoxDelegate) {
 	
 	// INFORMACION DE USUARIO
 	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
@@ -394,6 +394,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			$scope.favorito = data.favorito;
 			window.localStorage.setItem("puntuacion",data.puntuacion);
 			console.log($scope.bar.longitud);
+			
+			//para recargar el slider
+			$ionicSlideBoxDelegate.update();
 
 			//para cargar los parametros del mapa
 			$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];

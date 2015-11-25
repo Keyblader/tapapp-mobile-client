@@ -48,12 +48,22 @@ input[type="search"], input[type="tel"], input[type="color"] {
     overflow: hidden;
 }
 .slider img, .bar-foto {
-	margin: 0 auto;
-    height: 325px;
     border-radius: 7px 7px 7px 7px;
     -moz-border-radius: 7px 7px 7px 7px;
     -webkit-border-radius: 7px 7px 7px 7px;
     border: 0px solid #000000;
+}
+.slider img {
+	margin: 0 auto;
+	height: auto;
+	width: auto;
+    max-height: 325px;
+    background-size: cover;	
+}
+.bar-foto {
+	margin: 0 auto;
+    min-height: 325px;
+    background-size: cover;
 }
 
 /* Map */
@@ -99,6 +109,16 @@ input[type="search"], input[type="tel"], input[type="color"] {
 }
 #puntuacion {
 	margin: 0.5em 0;
+}
+.ion-ios-star {
+    content: url("../img/star.png");
+}
+.ion-ios-star-outline {
+    content: url("../img/star-void.png");	
+}
+.ionic_rating_icon_on, .ionic_rating_icon_off {
+	height: 0.8em;
+	width: 0.8em;
 }
 
 /* Comentarios */

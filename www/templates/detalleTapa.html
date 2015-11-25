@@ -30,7 +30,7 @@
 			</div>
 			
 			<div ng-if='fotos.length > 0'>
-			<ion-slide-box on-slide-changed="slideHasChanged($index)">
+			<ion-slide-box show-pager="false" on-slide-changed="onSlideChanged(index)" active-slide="currentIndex">
 				<ion-slide ng-repeat="foto in fotos">
 					<img ng-src="http://kaerzas.pythonanywhere.com{{foto.imagen}}">
 				</ion-slide>
@@ -116,12 +116,10 @@
 <div class="tabs tabs-icon-only">
   <a class="tab-item">
     <div class="ion-chatbox-working" ng-click="showComments = !showComments">
-    	<!-- TODO: Add comment -->
     </div>
   </a>
   <a class="tab-item">
 	<div class="ion-image" ng-click='addFoto()'>
-		<!-- TODO: Add photo -->
 	</div>
   </a>
 </div>

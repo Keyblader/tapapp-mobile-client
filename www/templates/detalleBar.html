@@ -8,9 +8,7 @@
 
 <article class="detalle container col-md-12" style="overflow:hidden;">
 
-	 <a href="#/app/anyadirTapa/{{bar.id}}">AÃ±adir Tapa</a> 
-
-	<img class="bar-foto" src='http://kaerzas.pythonanywhere.com{{bar.imagen}}' alt="Imagen"> 
+	<div class="bar-foto" style="background-image: url('http://kaerzas.pythonanywhere.com{{bar.imagen}}');" alt="Imagen"></div> 
 
 	<div id="detalle" class="container col-xs-12">
         <div id="texto" class="">
@@ -20,8 +18,45 @@
         </div>
     </div>
 
-</article>  
+</article> 
+
+<!-- Tapas de éste bar -->
+<div ng-repeat="tapa in tapas">
+
+	<article class="resumen container col-md-12">
+		<a href="#/app/detalleTapa/{{greet.id}}">
+			<div class="img col-xs-5 col-md-4"
+				style="background-image: url('http://kaerzas.pythonanywhere.com{{tapa.imagen}}');">
+				<p class="favorito pull-right"></p>
+
+			</div>
+		</a>
+		<div class="texto col-xs-7 col-md-8">
+			<p class="puntuacion pull-right">{{tapa.puntuacionMedia | number:1 }}</p>
+
+			<h3>{{ tapa.nombre}}</h3>
+
+			<small><a>{{ tapa.bar.nombre}}</a></small>
+			<div class="descripcion">
+				<p>{{ tapa.descripcion}}</p>
+			</div>
+		</div>
+	</article>
+
+</div>
+
 
 
 </ion-content> 
 </ion-view>
+
+
+<!-- Menu inferior -->
+
+<div class="tabs tabs-icon-only">
+  <a class="tab-item" href="#/app/anyadirTapa/{{bar.id}}">
+    <div class="ion-fork">
+    </div>
+  </a>
+</div>
+<!-- /Menu inferior -->
