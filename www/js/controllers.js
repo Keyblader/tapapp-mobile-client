@@ -180,7 +180,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				}
 			})	
 			.success(function(data) {
-				window.location = "#/app/inicio";
+				console.log("#/app/detalleBar/" + data.id)
+				window.location = "#/app/detalleBar/" + data.id;
 			})
 			.error(function(data){
 				$scope.showAlert = function() {
@@ -230,8 +231,10 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 	}
 
-	var onUploadSuccess = function(FILE_URI) {
-		window.location = "#/app/inicio";
+	var onUploadSuccess = function(data) {
+		var bar = JSON.parse(data.response);
+		console.log("#/app/detalleBar/" + bar.id)
+		window.location = "#/app/detalleBar/" + bar.id;
 	};
 	var onUploadFail = function(e) {
 		// An alert dialog
@@ -326,8 +329,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 	}
 
-	var onUploadSuccess = function(FILE_URI) {
-		window.location = "#/app/inicio";
+	var onUploadSuccess = function(data) {
+		var tapa = JSON.parse(data.response);
+		window.location = "#/app/detalleTapa/" + tapa.id;
 	};
 	var onUploadFail = function(e) {
 		// An alert dialog
@@ -379,7 +383,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	var getTapa = function() {
 
 		$http.get('http://kaerzas.pythonanywhere.com/tapas/detalleTapa/' + v + '/', {
-			cache: false,
+			//cache: false,
 			headers: {
 				'Authorization': 'Token ' + window.localStorage.getItem("token")
 			}

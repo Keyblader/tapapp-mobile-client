@@ -78,7 +78,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.detalleTapa', {
 		url: '/detalleTapa/:id',
-		cache: false,
+		//cache: false,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/detalleTapa.html',
@@ -89,7 +89,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	
 	.state('app.detalleBar', {
 		url: '/detalleBar/:id',
-		cache: false,
+		//cache: false,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/detalleBar.html',
@@ -100,7 +100,6 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	
 	.state('app.listaBares', {
 		url: '/listaBares',
-		cache: false,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/listaBares.html',
