@@ -23,6 +23,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app', {
 		url: '/app',
+		cache : false,
 		abstract: true,
 		templateUrl: 'templates/menu.html',
 		controller: 'AppCtrl'
@@ -30,6 +31,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.inicio', {
 		url: '/inicio',
+		cache : true,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/inicio.html',
@@ -40,6 +42,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.anyadirBar', {
 		url: '/anyadirBar',
+		cache : true,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/anyadirBar.html',
@@ -49,6 +52,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	})  
 	.state('app.anyadirTapa', {
 		url: '/anyadirTapa/:id',
+		cache : true,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/anyadirTapa.html',
@@ -58,6 +62,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	})  
 	.state('app.seleccionarBar', {
 		url: '/seleccionarBar',
+		cache : true,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/seleccionarBar.html',
@@ -68,6 +73,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.anyadirBarPorTapa', {
 		url: '/anyadirBarPorTapa',
+		cache : true,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/anyadirBarPorTapa.html',
@@ -78,6 +84,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.detalleTapa', {
 		url: '/detalleTapa/:id',
+		cache : true,
 		//cache: false,
 		views: {
 			'menuContent': {
@@ -89,6 +96,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	
 	.state('app.detalleBar', {
 		url: '/detalleBar/:id',
+		cache : true,
 		//cache: false,
 		views: {
 			'menuContent': {
@@ -100,6 +108,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	
 	.state('app.listaBares', {
 		url: '/listaBares',
+		cache : true,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/listaBares.html',
@@ -110,12 +119,14 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 	
 	.state('registrarUsuario', {
 		url: '/registrarUsuario',
+		cache : false,
 		templateUrl: 'templates/registrarUsuario.html',
 		controller: 'registrarUsuarioCtrl'
 	}) 
 	
 	.state('login', {
 		url: '/login',
+		cache : false,
 		templateUrl: 'templates/login.html',
 		controller: 'loginCtrl'
 	}) 
