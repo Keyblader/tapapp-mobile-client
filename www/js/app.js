@@ -84,8 +84,7 @@ angular.module('starter', ['ionic', 'jett.ionic.filter.bar', 'ionic.ion.autoList
 
 	.state('app.detalleTapa', {
 		url: '/detalleTapa/:id',
-		cache : true,
-		//cache: false,
+		cache : false,
 		views: {
 			'menuContent': {
 				templateUrl: 'templates/detalleTapa.html',

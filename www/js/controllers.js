@@ -143,21 +143,22 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		};
 		$scope.showAlert();
 	}
-
-	/*$scope.doRefresh = function(){
-		getTapa();
-	};*/
-
-
-
-
-
-
 })
 
 .controller('inicioCtrl', function($scope, $http, sharedToken) {
 
-	//window.localStorage.setItem("puntuacion",undefined);
+	var getTapas = function() {
+		$http({method: 'GET', url: 'http://kaerzas.pythonanywhere.com/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")}
+		})
+		.success(function(data) {
+			$scope.greeting = data.serializer;
+			$scope.usuario = data.user;
+		})
+		.finally(function(){
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+	}
 
 	var onSuccess = function(position) {
 		$scope.latitude=position.coords.latitude;
@@ -170,29 +171,10 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		}
 
 		console.log(sharedToken.getProperty());
-
-		$http({method: 'GET', url: 'http://kaerzas.pythonanywhere.com/tapas/listaTapas/', params: {latitud:$scope.latitude, longitud:$scope.longitude, rango:$scope.user.value},headers: {
-			'Authorization': 'Token ' + window.localStorage.getItem("token")}
-		})
-		.success(function(data) {
-			$scope.greeting = data.serializer;
-			$scope.usuario = data.user;
-		})
-		.finally(function(){
-			$scope.$broadcast('scroll.refreshComplete');
-		});
-
+		getTapas();
 	};
 
-
-	$scope.doRefresh = function(){
-		navigator.geolocation.getCurrentPosition(onSuccess, onError)
-
-
-	}
-
-//	onError Callback receives a PositionError object
-
+	//	onError Callback receives a PositionError object
 	function onError(error) {
 		alert('code: '    + error.code    + '\n' +
 				'message: ' + error.message + '\n');
@@ -208,7 +190,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);	
 	console.log(sharedToken.getProperty());
 
-
+	$scope.doRefresh = function(){
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+	}
 })
 
 .controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
@@ -539,6 +523,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 			//para cargar los parametros del mapa
 			$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
+			
+			//para mostrar puntuacion del usuario en una tapa
+			document.getElementById("rating"+window.localStorage['puntuacion']).checked = true;
 
 		})
 		.finally(function(){
@@ -546,6 +533,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		});
 	}
 	getTapa();
+	
 
 	$scope.abrirGoogleMaps = function(){
 
@@ -563,10 +551,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 			//window.open('URLmaps', '_system');
 			console.log($scope.posicionActual);
-
-
-
-
 		};
 
 		function onError(error) {
@@ -605,7 +589,27 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			visible = 0;
 		}
 	}
+	
+	//	METODO VALORACION
+	
+	$scope.sendPuntuacion = function (value) {
 
+		var val = {				
+				"puntuacion": value,     
+				"tapa": v,
+				"usuario": $scope.usuario
+		}
+
+		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
+			headers: {
+				'Authorization': 'Token ' + window.localStorage.getItem("token")
+			}
+		})	
+		.success(function(data) {
+			//console.log("La puntuacion es: "+value);
+			$scope.doRefresh();
+		})
+	}
 
 	// METODOS DE COMENTARIO
 
@@ -639,73 +643,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			$scope.doRefresh();
 		})
 	};
-
-	// METODO VALORACION	
-	$scope.ratingsObject = {
-			iconOn : 'ion-ios-star',
-			iconOff : 'ion-ios-star-outline',
-			iconOnColor: 'rgb(200, 200, 100)',
-			iconOffColor:  'rgb(200, 100, 100)',
-			rating:window.localStorage.getItem("puntuacion"),
-			minRating:1,
-			callback: function(rating) {
-				$scope.ratingsCallback(rating)
-			}
-	}
-
-	$scope.ratingsCallback = function(rating) {
-		var val = {				
-				"puntuacion": rating,     
-				"tapa": v,
-				"usuario": $scope.usuario
-		}
-
-		console.log(val)
-
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
-			headers: {
-				'Authorization': 'Token ' + window.localStorage.getItem("token")
-			}
-		})	
-		.success(function(data) {
-			//window.location = "#/app/inicio";
-			$scope.doRefresh();
-		})
-		.error(function(error) {
-			console.log(error);
-		})
-	};
-
-	/*
-	$scope.updateValoracion = function() {
-		console.log($scope.valoracion);
-	};
-
-	$scope.resetValoracion = function(valoracionForm) {
-		$scope.valoracion = {};
-	};
-
-	$scope.guardarValoracion= function(valoracion) {
-
-		var val = {				
-				"puntuacion": valoracion,     
-				"tapa": v,
-				"usuario": $scope.usuario
-		}
-
-		console.log(val)
-
-		$http.post('http://kaerzas.pythonanywhere.com/tapas/anyadirValoracion/', val, {
-			headers: {
-				'Authorization': 'Token ' + window.localStorage.getItem("token")
-			}
-		})	
-		.success(function(data) {
-			window.location = "#/app/inicio";
-		})
-	};
-
-	 */	
 
 	// METODO DE FAVORITO
 	$scope.cambiarEstado= function() {
