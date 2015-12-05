@@ -24,6 +24,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	$scope.takePic = function(medio) {
 		var options =   {
 				quality: 50,
+				allowEdit: true,
+				correctOrientation: true,
 				destinationType: Camera.DestinationType.FILE_URI,
 				sourceType: medio,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
 				encodingType: 0     // 0=JPG 1=PNG
@@ -193,6 +195,10 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	$scope.doRefresh = function(){
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 	}
+	
+	$scope.$on('$ionicView.enter', function(){
+		getTapas();
+	});
 })
 
 .controller('PhotoController', function($scope, $cordovaCamera, $ionicActionSheet) {
@@ -202,6 +208,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 		var options =   {
 				quality: 50,
 				destinationType: Camera.DestinationType.FILE_URI,
+				correctOrientation: true,
 				sourceType: medio,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
 				encodingType: 0     // 0=JPG 1=PNG
 		}
@@ -789,7 +796,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	$scope.showComments = function() {
 		$scope.comments = !$scope.comments;
 	};
-
 })
 .controller('listaBaresCtrl', function($scope, $http, sharedToken, $timeout, $ionicFilterBar, $window) {
 
@@ -837,7 +843,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 
 	//LEER QR
 	$scope.scan = function() {
-		console.log("escaneando...")
+		console.log("escaneando...");
 		cordova.plugins.barcodeScanner.scan(
 				function (result) {
 					/*alert(result.text + "\n" +
@@ -851,8 +857,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				}
 		);
 	}
-
-
+	$scope.$on('$ionicView.enter', function(){
+		getTapas();
+	});
 })
 
 
