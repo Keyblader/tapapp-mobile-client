@@ -389,6 +389,16 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 	var id_bar = $stateParams.id;
 	$controller('PhotoController', {$scope: $scope});//Usar un controlador desde otro controlador
 
+	$http.get('http://kaerzas.pythonanywhere.com/tapas/dameBar/' + id_bar + '/', {
+		headers: {
+			'Authorization': 'Token ' + window.localStorage.getItem("token")
+		}
+	})
+	.success(function(data) {
+		console.log(data.nombreBar);
+		$scope.nombreBar = data.nombreBar;
+	})
+	
 	// INFORMACION DE USUARIO
 	$http.get('http://kaerzas.pythonanywhere.com/usuarios/dameUsuario/', {
 		headers: {
@@ -431,7 +441,8 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				var params = {};
 				params.nombre = $scope.tapa.nombre;
 				params.descripcion = $scope.tapa.descripcion;
-				params.bar = id_bar;
+				params.bar = id_bar;				
+				params.nombreBar = $scope.nombreBar;
 				params.fechaSubida = new Date();
 				params.usuarioRegistro = $scope.usuario;
 				options.params = params;
