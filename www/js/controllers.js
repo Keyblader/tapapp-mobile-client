@@ -655,7 +655,7 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			}
 		})
 		.success(function(data) {
-			
+
 
 
 	
@@ -666,12 +666,14 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			}
 
 			var authEncripted= btoa('1a4821acc8b40099b865f4da36fb8d1d3c554ff67590a1ea:');
+			var notif = $scope.nombreUsuario + ": " + comentario.descripcion;
+			 
 					
 			var notificacionPush = {
 				"user_ids": tokens,
 				"notification": {
 					"title": "TappApp",
-					"alert": "Tienes nuevos comentarios en tapas."
+					"alert": notif,
 				}
 			}
 
