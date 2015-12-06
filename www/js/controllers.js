@@ -857,9 +857,6 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				}
 		);
 	}
-	$scope.$on('$ionicView.enter', function(){
-		getTapas();
-	});
 })
 
 
