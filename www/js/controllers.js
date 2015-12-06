@@ -644,11 +644,61 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			headers: {
 				'Authorization': 'Token ' + window.localStorage.getItem("token")
 			}
-		})	
-		.success(function(data) {
-			$scope.resetComentario();
-			$scope.doRefresh();
 		})
+		
+
+
+		//alert(v);
+		$http.get('http://kaerzas.pythonanywhere.com/tapas/dameToken/' + v + '/', {
+			headers: {
+				'Authorization': 'Token ' + window.localStorage.getItem("token")
+			}
+		})
+		.success(function(data) {
+			
+
+
+	
+			var tokens = [];
+	
+			for (i = 0; i < data.tokens.length; i++) {
+				tokens.push(data.tokens[i].key)
+			}
+
+			var authEncripted= btoa('1a4821acc8b40099b865f4da36fb8d1d3c554ff67590a1ea:');
+					
+			var notificacionPush = {
+				"user_ids": tokens,
+				"notification": {
+					"title": "TappApp",
+					"alert": "Tienes nuevos comentarios en tapas."
+				}
+			}
+
+
+			$http.post('https://push.ionic.io/api/v1/push', notificacionPush, {
+				headers: {
+					'Authorization': 'basic ' + authEncripted,
+					'Content-Type': 'application/json', 
+					'X-Ionic-Application-Id': '2aec3c19'
+				}
+			})		
+			.error(function(error) {
+				alert('code: '    + error.code    + '\n' +
+				'message: ' + error.message + '\n');
+			})
+
+			window.location = "#/app/inicio";
+
+	
+		})
+		.error(function(error) {
+			alert('codigo: '    + error.code    + '\n' +
+			'message: ' + error.message + '\n');
+		})
+		
+		//window.reload();
+		
 	};
 
 	// METODO DE FAVORITO
@@ -940,13 +990,51 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
+
 		})
-		.success(function(data) {
+		.success(function(data, user) {
+			
+			
+
 			sharedToken.setProperty(data.token);
 			window.localStorage.setItem("token",data.token);
-			//console.log("local :" + window.localStorage.getItem("token"));
-			//console.log("shared :" + sharedToken.getProperty());
-			window.location = "#/app/inicio";
+			
+				var io = Ionic.io();
+    				var push = new Ionic.Push({
+      					"onNotification": function(notification) {
+        					var alerta = notification.message;
+    						alert("alerta del onNotification");
+      					},
+      					"pluginConfig": {
+        					"android": {
+          						"icon": "ic_stat_logo",
+          						"forceShow": true
+        					}
+      					}
+    				});
+    			var user = Ionic.User.current();
+    			
+    
+    			if (!user.id) {
+      				user.id = data.token;
+
+   				}
+    
+    // Just add some dummy data..
+    			
+    			
+    			user.save();
+   
+    			var callback = function(data) {
+      				push.addTokenToUser(user);
+      				
+      				user.save();
+
+    			};
+    			push.register(callback);
+
+
+    		window.location = "#/app/inicio";
 		})
 		.error(function(data){
 			// An alert dialog
