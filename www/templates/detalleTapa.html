@@ -32,7 +32,8 @@
 			<div ng-if='fotos.length > 0'>
 			<ion-slide-box show-pager="false" on-slide-changed="onSlideChanged(index)" active-slide="currentIndex">
 				<ion-slide ng-repeat="foto in fotos">
-					<img ng-src="http://kaerzas.pythonanywhere.com{{foto.imagen}}">
+					<!-- <img ng-src="http://kaerzas.pythonanywhere.com{{foto.imagen}}"> -->
+					<div class="detalle-foto" style="background-image: url('http://kaerzas.pythonanywhere.com{{foto.imagen}}');" alt="Imagen"></div> 
 				</ion-slide>
 			</ion-slide-box>
 			</div>

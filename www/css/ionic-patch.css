@@ -18,7 +18,10 @@
 	background: none ;
 }
 .padding {
-	padding: 0.7em 0.2em 3em 0.2em;
+	padding: 0.7em 0.2em 3.5em 0.2em;
+}
+.full-list {
+	margin: 0 0 4.5em 0;
 }
 
 /* Inputs */
@@ -53,17 +56,22 @@ input[type="search"], input[type="tel"], input[type="color"] {
     -webkit-border-radius: 7px 7px 7px 7px;
     border: 0px solid #000000;
 }
-.slider img {
+/*.slider img {
 	margin: 0 auto;
 	height: auto;
 	width: auto;
     max-height: 325px;
-    background-size: cover;	
+    background-size: cover;
+    object-fit: cover;	
+}*/
+.slider {
+    height: 325px;
 }
-.bar-foto {
+.detalle-foto {
 	margin: 0 auto;
     min-height: 325px;
     background-size: cover;
+    background-position: center;
 }
 
 /* Map */
