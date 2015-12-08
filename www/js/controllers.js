@@ -1025,18 +1025,12 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
         					}
       					}
     				});
-    			var user = Ionic.User.current();
+    			var user = Ionic.User.current();   
     			
-    
-    			if (!user.id) {
-      				user.id = data.token;
+    			
+      			user.id = data.token;
 
-   				}
-    
-    // Just add some dummy data..
-    			
-    			
-    			user.save();
+      			user.save();
    
     			var callback = function(data) {
       				push.addTokenToUser(user);
