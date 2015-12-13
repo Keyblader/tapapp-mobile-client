@@ -543,8 +543,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 			$scope.centro=[$scope.bar.latitud, $scope.bar.longitud];
 			
 			//para mostrar puntuacion del usuario en una tapa
-			document.getElementById("rating"+window.localStorage['puntuacion']).checked = true;
-
+			if(window.localStorage['puntuacion']!= 0){
+				document.getElementById("rating"+window.localStorage['puntuacion']).checked = true;
+			}
 		})
 		.finally(function(){
 			$scope.$broadcast('scroll.refreshComplete');
@@ -701,8 +702,9 @@ angular.module('starter.controllers', ['starter.services', 'ionic-ratings'])
 				'message: ' + error.message + '\n');
 			})
 
-			window.location = "#/app/inicio";
-
+			//window.location = "#/app/inicio";
+			$scope.resetComentario();
+			$scope.doRefresh();
 	
 		})
 		.error(function(error) {
